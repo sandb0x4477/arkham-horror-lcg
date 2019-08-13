@@ -1,0 +1,43 @@
+@import '../../../../variables';
+
+.home-container {
+  margin-left: calc((1920px - 740px) / 2);
+  background-color: hsla(0, 0%, 94%, 0.822);
+  padding: 1.4em;
+  margin-top: 68px;
+  width: 740px;
+  height: 540px;
+  border: 4px solid #333333;
+  text-align: center;
+}
+
+.btn {
+  background-color: #3a3a39;
+  border: none;
+  color: white;
+  padding: 4px 20px;
+  text-decoration: none;
+  margin: 4px 8px;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-family: 'Teko', sans-serif;
+
+  &:hover {
+    background-color: #754319;
+  }
+}
+
+.nav-field-title {
+  text-align: center;
+  color: #000000;
+  font-size: 1.8em;
+  font-family: 'Teko', sans-serif;
+  margin-top: 20px;
+}
+
+.text-description {
+  font-family: 'Courgette', cursive;
+  font-size: 0.9em;
+  padding: 14px 28px;
+  text-align: center;
+}

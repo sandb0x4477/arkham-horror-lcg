@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Teko&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
+@import './variables';
+
+@font-face {
+  font-family: ArkhamLogo;
+  src: url(assets/fonts/AH_LCG_v3.ttf) format("truetype");
+}
+
+/* html {
+  background: url('#{$assetsPath}others/Arkham-Cover2.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */
+
+body {
+  margin: 0;
+}

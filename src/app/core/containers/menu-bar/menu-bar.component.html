@@ -1,0 +1,27 @@
+<div class="menu-bar-wrapper">
+  <div class="arkham-logo" [routerLink]="['/']">
+    <img src="assets/others/ArkhamHorrorlogo.png" alt="" />
+  </div>
+
+  <div>
+    <div class="current-campaign">{{ campaignName$ | async }}:&nbsp;</div>
+    <div class="current-scenario">
+      {{ scenarioName$ | async }}
+    </div>
+  </div>
+
+  <div class="menu-nav">
+    <ng-container *ngIf="isGameInProgress$ | async">
+      <div class="menu-nav-item" [routerLink]="['/new']" routerLinkActive="active">
+        New Game
+      </div>
+      <div class="menu-nav-item" [routerLink]="['/play']" routerLinkActive="active">
+        Play
+      </div>
+    </ng-container>
+
+    <div class="menu-nav-item">
+      Reference
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+.menu-bar-wrapper {
+  display: grid;
+  grid-template-columns: 240px auto auto;
+  grid-template-rows: 34px;
+  justify-items: start;
+  align-items: center;
+  background-color: #3d392f;
+}
+
+.arkham-logo {
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 36px;
+  img {
+    height: 34px;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.current-campaign {
+  display: inline;
+  line-height: 32px;
+  font-size: 1.8em;
+  font-family: 'Teko', sans-serif;
+  color: #a3917b;
+}
+
+.current-scenario {
+  display: inline;
+  line-height: 32px;
+  font-size: 1.6em;
+  font-family: 'Teko', sans-serif;
+  color: #a3917b;
+}
+
+.menu-nav {
+  justify-self: end;
+  padding-right: 36px;
+}
+
+.menu-nav-item {
+  display: inline-block;
+  justify-self: center;
+  line-height: 32px;
+  text-align: center;
+  font-size: 1.4em;
+  cursor: pointer;
+  font-family: 'Teko', sans-serif;
+  color: #a3917b;
+  width: 120px;
+
+  &:hover {
+    color: #d3bc9f;
+  }
+
+  &.active {
+    background-color: #948471;
+    color: #423c34;
+  }
+
+  &:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+  }
+}
