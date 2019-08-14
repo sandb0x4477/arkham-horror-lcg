@@ -1,0 +1,16 @@
+<!-- ----------------------------------------------------------------------- -->
+<!-- ? FORM -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label [for]="id">ArkhamDB Decklist ID</label>
+      <input
+        class="form-control"
+        type="number"
+        formControlName="deckNo"
+        [id]="id"
+        placeholder="e.g. 9476"
+      />
+      <button type="submit" [disabled]="!form.valid" class="btn">Submit</button>
+    </form>
+  </div>

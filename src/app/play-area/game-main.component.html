@@ -1,0 +1,140 @@
+<div class="game-main-container">
+
+  <!-- --------------------------------------------------------------------- -->
+  <!-- ? DIFFICULTY-CARDS -->
+  <!-- --------------------------------------------------------------------- -->
+  <ng-container *ngIf="(selScenario$ | async) as selScenario">
+    <app-difficulty-cards [scenario]="selScenario"></app-difficulty-cards>
+  </ng-container>
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!-- PORTRAITS -->
+  <!-- ----------------------------------------------------------------------- -->
+  <app-portraits
+    [investigators]="investigators$ | async"
+    [currentLocation]="currentLocation$ | async"
+    [locations]="locations$ | async"
+    (command)="onCommand($event)"
+  ></app-portraits>
+  <div cdkDropListGroup>
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ? CHAOS BAGS -->
+    <!-- ----------------------------------------------------------------------- -->
+    <app-chaos-bags [scenario]="selScenario$ | async"></app-chaos-bags>
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ? AGENDA_ACT -->
+    <!-- ----------------------------------------------------------------------- -->
+    <app-agenda-act
+      [agendaDeck]="agendaDeck$ | async"
+      [actDeck]="actDeck$ | async"
+      (command)="onCommand($event)"
+    ></app-agenda-act>
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ? INVESTIGATORS -->
+    <!-- ----------------------------------------------------------------------- -->
+    <app-investigators
+      [investigators]="investigators$ | async"
+      (command)="onCommand($event)"
+    ></app-investigators>
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ? LOCATIONS -->
+    <!-- ----------------------------------------------------------------------- -->
+    <app-nav-locations
+      [locationThreat]="locationThreat$ | async"
+      [locations]="locations$ | async"
+      [currentLocation]="currentLocation$ | async"
+      [investigators]="investigators$ | async"
+      (command)="onCommand($event)"
+    ></app-nav-locations>
+
+    <app-location-threat
+      [locationThreat]="locationThreat$ | async"
+      [currentLocation]="currentLocation$ | async"
+      (command)="onCommand($event)"
+    ></app-location-threat>
+    <!-- --------------------------------------------------------------------- -->
+    <!-- ? TOKENS -->
+    <!-- --------------------------------------------------------------------- -->
+    <app-tokens></app-tokens>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- ? NAVBARS -->
+    <!-- --------------------------------------------------------------------- -->
+    <app-nav-bars
+      [navBarsStatus]="navBarsStatus$ | async"
+      [countedDecks]="countedDecks$ | async"
+      (command)="onCommand($event)"
+    ></app-nav-bars>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- ? ENCOUNTER -->
+    <!-- --------------------------------------------------------------------- -->
+    <app-encounter
+      [navBarsStatus]="navBarsStatus$ | async"
+      [encounter0Deck]="encounter0Deck$ | async"
+      [encounter0Discard]="encounter0Discard$ | async"
+      (command)="onCommand($event)"
+    ></app-encounter>
+
+    <!-- --------------------------------------------------------------------- -->
+    <!-- ? THREATS -->
+    <!-- --------------------------------------------------------------------- -->
+    <app-threats
+      [navBarsStatus]="navBarsStatus$ | async"
+      [threat0Threats]="threat0Threats$ | async"
+      [threat0Outofplay]="threat0Outofplay$ | async"
+      [threat1Threats]="threat1Threats$ | async"
+      [threat1Outofplay]="threat1Outofplay$ | async"
+      (command)="onCommand($event)"
+    ></app-threats>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ? HAND0 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <app-hand0
+      [navBarsStatus]="navBarsStatus$ | async"
+      [hand0Deck]="hand0Deck$ | async"
+      [hand0Hand]="hand0Hand$ | async"
+      [hand0Discard]="hand0Discard$ | async"
+      [hand0Spare]="hand0Spare$ | async"
+      (command)="onCommand($event)"
+    ></app-hand0>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ? HAND1 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <app-hand1
+      [navBarsStatus]="navBarsStatus$ | async"
+      [hand1Deck]="hand1Deck$ | async"
+      [hand1Hand]="hand1Hand$ | async"
+      [hand1Discard]="hand1Discard$ | async"
+      [hand1Spare]="hand1Spare$ | async"
+      (command)="onCommand($event)"
+    ></app-hand1>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ? PLAY0 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <app-play0
+      [navBarsStatus]="navBarsStatus$ | async"
+      [play0Inplay]="play0Inplay$ | async"
+      [play0Discard]="play0Discard$ | async"
+      [play0Victory]="play0Victory$ | async"
+      [play0Spare]="play0Spare$ | async"
+      (command)="onCommand($event)"
+    ></app-play0>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ? PLAY1 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <app-play1
+      [navBarsStatus]="navBarsStatus$ | async"
+      [play1Inplay]="play1Inplay$ | async"
+      [play1Discard]="play1Discard$ | async"
+      [play1Victory]="play1Victory$ | async"
+      [play1Spare]="play1Spare$ | async"
+      (command)="onCommand($event)"
+    ></app-play1>
+  </div>
+</div>
+

@@ -1,0 +1,25 @@
+@import '../../../../variables';
+
+.agenda-area-wrapper {
+  position: absolute;
+  top: 4px;
+  left: (1920/2) - 293 - 32px;
+  width: 293px;
+  height: 210px;
+  overflow: hidden;
+  &:last-child {
+    border: none;
+  }
+}
+
+.act-area-wrapper {
+  position: absolute;
+  top: 4px;
+  left: (1920/2) - 32px;
+  width: 293px;
+  height: 210px;
+  overflow: hidden;
+  &:last-child {
+    border: none;
+  }
+}

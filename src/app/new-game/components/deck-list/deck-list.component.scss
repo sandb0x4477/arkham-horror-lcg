@@ -1,0 +1,160 @@
+.card-list-wrapper {
+  display: grid;
+  grid-template-columns: 420px 210px;
+  grid-column-gap: 20px;
+  justify-content: center;
+  align-items: center;
+  grid-auto-flow: column;
+  margin-top: 8px;
+  min-height: 400px;
+}
+
+.cards-table {
+  display: grid;
+  grid-template-columns: 190px 190px;
+  grid-template-rows: repeat(17, auto);
+  grid-column-gap: 14px;
+  justify-content: left;
+  align-items: center;
+  grid-auto-flow: column;
+  margin-right: 20px;
+}
+
+.card-list-item {
+  display: grid;
+  grid-template-columns: 30px auto 20px;
+  cursor: pointer;
+  padding-left: 5px;
+  font-size: 1em;
+  font-family: 'Teko', sans-serif;
+
+  &:hover {
+    color: #974501;
+  }
+
+  &.active {
+    background-color: #a5a5a5;
+  }
+
+  i {
+    text-align: center;
+  }
+
+  .card-list-item-quantity {
+    text-align: center;
+  }
+}
+
+.card-display {
+  transition: all .3s ease-in-out;
+  transition-delay: 0.2s;
+
+  &:hover {
+    transform: scale(1.4);
+  }
+
+  img {
+    border-radius: 12px;
+    // transform: scale(0.9);
+    width: 210px;
+    height: 293px;
+  }
+}
+
+.faa {
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  font-family: ArkhamLogo, sans-serif;
+  font-size: 1.2em;
+
+  &.fa-cultist:before {
+    content: "b"
+  }
+
+  &.fa-willpower:before {
+    content: "a"
+  }
+
+  &.fa-elderthing:before {
+    content: "c"
+  }
+
+  &.fa-combat:before {
+    content: "d"
+  }
+
+  &.fa-seeker:before {
+    content: "e"
+  }
+
+  &.fa-intellect:before {
+    content: "f"
+  }
+
+  &.fa-question:before {
+    content: "g"
+  }
+
+  &.fa-investigator:before {
+    content: "h"
+  }
+
+  &.fa-action:before {
+    content: "i"
+  }
+
+  &.fa-weakness:before {
+    content: "j"
+  }
+
+  &.fa-neutral:before {
+    content: "k"
+  }
+
+  &.fa-skull:before {
+    content: "n"
+  }
+
+  &.fa-guardian:before {
+    content:"q"
+  }
+
+  &.fa-survivor:before {
+    content: "r"
+  }
+
+  &.fa-agility:before {
+    content: "s"
+  }
+
+  &.fa-rogue:before {
+    content: "t"
+  }
+
+  &.fa-free:before {
+    content: "u"
+  }
+
+  &.fa-tablet:before {
+    content: "v"
+  }
+
+  &.fa-mystic:before {
+    content: "w"
+  }
+
+  &.fa-eldersign:before {
+    content: "x"
+  }
+
+  &.fa-reaction:before {
+    content: "y"
+  }
+
+  &.fa-tentacle:before {
+    content: "z"
+  }
+}

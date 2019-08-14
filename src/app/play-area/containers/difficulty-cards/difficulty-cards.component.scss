@@ -1,0 +1,32 @@
+.difficulty-card0-wrapper {
+  position: absolute;
+  top: 104px;
+  left: 506px;
+}
+
+.difficulty-card1-wrapper {
+  position: absolute;
+  top: 104px;
+  left: 1272px;
+}
+
+.difficulty-card {
+  position: relative;
+
+  // transform: scale(0.4);
+  transition: transform .3s ease;
+  transform-origin: center top;
+  transition-delay: 0.4s;
+  z-index: 5;
+  // cursor: zoom-in;
+
+  img {
+    width: 78px;
+    height: auto;
+    border-radius: 5px;
+  }
+
+  &:hover {
+    transform: scale(2.8);
+  }
+}

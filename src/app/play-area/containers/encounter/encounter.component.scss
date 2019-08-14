@@ -1,0 +1,10 @@
+@import '../../../../variables';
+
+.encounter-card-wrapper {
+  position: absolute;
+  top: 270px;
+  left: $thirdColumnLeft;
+  width: 210px;
+  height: 293px;
+  overflow: hidden;
+}

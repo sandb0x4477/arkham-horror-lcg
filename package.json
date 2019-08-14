@@ -45,6 +45,7 @@
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash.difference": "^4.5.6",
+    "@types/lodash.orderby": "^4.6.6",
     "@types/lodash.random": "^3.2.6",
     "@types/lodash.samplesize": "^4.2.6",
     "@types/lodash.shuffle": "^4.2.6",

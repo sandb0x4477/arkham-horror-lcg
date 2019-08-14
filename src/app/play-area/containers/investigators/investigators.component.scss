@@ -1,0 +1,25 @@
+@import '../../../../variables';
+
+.investigator0-area-wrapper {
+  position: absolute;
+  top: 4px;
+  left: 0px;
+  width: 293px;
+  height: 210px;
+  overflow: hidden;
+  &:last-child {
+    border: none;
+  }
+}
+
+.investigator1-area-wrapper {
+  position: absolute;
+  top: 4px;
+  left: 1920 - 364px;
+  width: 293px;
+  height: 210px;
+  overflow: hidden;
+  &:last-child {
+    border: none;
+  }
+}

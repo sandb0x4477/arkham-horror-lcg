@@ -1,0 +1,20 @@
+@import '../../../../variables';
+
+.location-threat {
+  position: absolute;
+  top: $SecondNavRow + 40px;
+  left: $forthColumnLeft;
+  width: 318px;
+  min-height: 293px;
+
+  &:last-child {
+    border: none;
+  }
+
+  &.multiple {
+    display: flex;
+    min-height: 293px;
+    min-width: 318px;
+    flex-direction: row;
+  }
+}

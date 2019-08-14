@@ -1,0 +1,18 @@
+.tokens0-area-wrapper {
+  position: absolute;
+  left: 377 - 64px;
+  top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, 65px);
+  grid-template-rows: repeat(3, 65px);
+  padding: 0;
+}
+.tokens1-area-wrapper {
+  position: absolute;
+  left: 1416px;
+  top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, 65px);
+  grid-template-rows: repeat(3, 65px);
+  padding: 0;
+}

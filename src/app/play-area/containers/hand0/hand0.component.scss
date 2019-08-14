@@ -1,0 +1,37 @@
+@import '../../../../variables';
+
+.hand0-card-wrapper {
+  position: absolute;
+  top: $SecondNavRow + 40px;
+  left: $firstColumnLeft;
+  width: 210px;
+  min-height: 293px;
+  overflow: hidden;
+
+  &:last-child {
+    border: none;
+  }
+
+  &.single {
+    position: absolute;
+    left: $firstColumnLeft + 115px;
+    width: 210px;
+    height: 293px;
+    overflow: hidden;
+  }
+
+  &.multiple {
+    display: flex;
+    min-height: 293px;
+    min-width: 440px;
+    flex-direction: row;
+  }
+}
+
+// #hand0-deck {
+//   left: 115 + 64px;
+// }
+
+// #hand0-discard {
+//   left: 115 + 64px;
+// }

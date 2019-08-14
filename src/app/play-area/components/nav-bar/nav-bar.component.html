@@ -1,0 +1,15 @@
+<div class="nav-bar" [ngStyle]="navBarConfig[0].navBarStyle">
+  <ng-container *ngFor="let navItem of navBarConfig; let i = index">
+    <div
+      class="menu-item-nav"
+      [id]="navItem.id"
+      [class.active]="activeItem === navItem.id"
+      (click)="onNavItemClick(navItem.id, navBarConfig[0].activeItem)"
+      cdkDropListOrientation="horizontal"
+      cdkDropList
+      (cdkDropListDropped)="onCdkDrop($event)"
+    >
+      {{ navItem.displayName }} ({{ getCount(navItem.id) }})
+    </div>
+  </ng-container>
+</div>

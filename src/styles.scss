@@ -7,6 +7,10 @@
   src: url(assets/fonts/AH_LCG_v3.ttf) format("truetype");
 }
 
+body {
+  margin: 0;
+}
+
 /* html {
   background: url('#{$assetsPath}others/Arkham-Cover2.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -15,6 +19,86 @@
   background-size: cover;
 } */
 
-body {
-  margin: 0;
+.empty-deck {
+  // position: inherit;
+  position: absolute;
+  height: 293px;
+  width: 210px;
+  border-radius: 12px;
+  background-color: #85806a;
+  overflow-y: hidden;
+  cursor: auto;
 }
+
+.empty-deck-horizontal {
+  // position: absolute;
+  width: 293px;
+  height: 210px;
+  border-radius: 12px;
+  background-color: #85806a;
+  overflow: hidden;
+}
+
+.cdk-drag-preview {
+  background-size: 100%;
+  opacity: 0.6;
+}
+
+.cdk-drop-list-dragging {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  .card-arkham:hover {
+    z-index: 0;
+  }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
+
+  &.portrait {
+    display: flex;
+  }
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.multiple.cdk-drop-list-dragging .card-arkham:not(.cdk-drag-placeholder) {
+  transition: transform 500ms ease;
+}
+
+.token {
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  width: 60px;
+  height: 60px;
+  background-size: 100%;
+  display: inline-block;
+  background-repeat: no-repeat;
+
+  &.resource {
+    background-image: url('#{$assetsPath}tokens/resource.png');
+  }
+
+  &.sanity {
+    background-image: url('#{$assetsPath}tokens/sanity.png');
+  }
+
+  &.health {
+    background-image: url('#{$assetsPath}tokens/health.png');
+  }
+
+  &.clue {
+    background-image: url('#{$assetsPath}tokens/clue.png');
+  }
+
+  &.doom {
+    background-image: url('#{$assetsPath}tokens/doom.png');
+  }
+
+  &.action {
+    background-image: url('#{$assetsPath}tokens/action.png');
+  }
+}
+

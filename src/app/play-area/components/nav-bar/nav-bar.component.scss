@@ -1,0 +1,41 @@
+.nav-bar {
+  height: 34px;
+  display: grid;
+  grid-template-rows: 34px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 7px;
+
+}
+
+.menu-item-nav {
+  background-color: #85806a;
+  height: 34px;
+  line-height: 36px;
+  font-size: 1.3em;
+  font-family: 'Teko', sans-serif;
+  cursor: pointer;
+  text-align: center;
+
+  &.active {
+    background-color: #b1ab8f;
+  }
+
+/*   &:hover {
+    color: whitesmoke;
+    z-index: 2;
+  } */
+
+  &.cdk-drop-list-dragging {
+    background-color: #c56211;
+    // text-decoration: underline;
+
+    .cdk-drag-placeholder {
+      display: none;
+    }
+  }
+
+  // &.cdk-drop-list-receiving {
+  //   text-decoration: underline;
+  // }
+}

@@ -1,0 +1,104 @@
+<div [ngClass]="cardProps.className">
+  <!-- --------------------------------------------------------------------- -->
+  <!-- CARD -->
+  <!-- --------------------------------------------------------------------- -->
+  <img
+    [class.exhausted]="card.exhausted"
+    [id]="card.id"
+    [src]="card.faceUp ? card.imagesrc : card.backimagesrc"
+    [alt]="cardProps.className"
+    [dndDropzone]="['token']"
+    dndDragoverClass="drag-over"
+    dndEffectAllowed="move"
+    (dndDrop)="onTokenDrop($event)"
+    (click)="onCommand('flipCard', card.id)"
+  />
+  <!-- ----------------------------------------------------------------------- -->
+  <!-- TOKENS -->
+  <!-- ----------------------------------------------------------------------- -->
+  <ng-container *ngIf="card.faceUp">
+    <div class="card-tokens">
+      <ng-container *ngFor="let token of card.tokens; let i = index">
+        <div
+          [ngClass]="getTokenClass(token)"
+          [style.left.px]="token.x"
+          [style.top.px]="token.y"
+          *ngIf="token.qty > 0"
+          cdkDrag
+          [cdkDragBoundary]="getCardClassName(cardProps.className)"
+          [cdkDragData]="token"
+          (cdkDragEnded)="onTokenMove($event, card.id)"
+          (click)="onTokenRemove(token.tokenId, card.id)"
+        >
+          {{ token.qty }}
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+  <!-- --------------------------------------------------------------------- -->
+  <!-- BUTTONS -->
+  <!-- --------------------------------------------------------------------- -->
+  <div class="card-buttons" [style.top.px]="cardProps.top" [style.right.px]="cardProps.right">
+    <button
+      *ngIf="!cardProps.exhaust"
+      class="btn btn-secondary btn-sm icon-btn exhaust-btn"
+      title="Exhaust Card"
+      (click)="onCommand('exhaustCard', card.id)"
+    >
+      <i class="fas fa-tag fa-fw"></i>
+    </button>
+
+    <!-- <button
+      class="btn btn-secondary btn-sm icon-btn flip-btn"
+      title="Flip Card"
+      (click)="onCommand('flipCard', card.id)"
+    >
+      <i class="fas fa-sync fa-fw"></i>
+    </button> -->
+
+    <button
+      *ngIf="!cardProps.flipDeck"
+      class="btn btn-secondary btn-sm icon-btn flipdeck-btn"
+      title="Flip Deck"
+      (click)="onCommand('flipDeck', card.id)"
+    >
+      <i class="fas fa-exchange-alt fa-fw"></i>
+    </button>
+
+    <button
+      *ngIf="!cardProps.shuffleDeck"
+      class="btn btn-secondary btn-sm icon-btn shuffle-btn"
+      title="Shuffle deck"
+      (click)="onCommand('shuffleDeck', card.id)"
+    >
+      <i class="fas fa-random fa-fw"></i>
+    </button>
+
+    <button
+      *ngIf="!cardProps.chevrons"
+      class="btn btn-secondary btn-sm icon-btn previous-btn"
+      title="Previous Card"
+      (click)="onCommand('previousCard', card.id)"
+    >
+      <i class="fas fa-chevron-left fa-fw"></i>
+    </button>
+
+    <button
+      *ngIf="!cardProps.chevrons"
+      class="btn btn-secondary btn-sm icon-btn next-btn"
+      title="Next Card"
+      (click)="onCommand('nextCard', card.id)"
+    >
+    <i class="fas fa-chevron-right fa-fw"></i>
+    </button>
+
+    <button
+      *ngIf="cardProps.remove"
+      class="btn btn-secondary btn-sm icon-btn remove-btn"
+      title="Remove Location"
+      (click)="onCommand('removeCard', card.id)"
+    >
+    <i class="fas fa-trash-alt fa-fw"></i>
+    </button>
+  </div>
+</div>

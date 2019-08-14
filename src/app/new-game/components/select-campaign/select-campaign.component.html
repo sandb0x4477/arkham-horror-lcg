@@ -1,0 +1,29 @@
+<div class="newgame-nav-menu">
+  <div></div>
+  <div class="newgame-nav-field-title">Select Campaign</div>
+  <button class="btn-newgame" (click)="onCommand('switchPage', nextPage)">Next</button>
+</div>
+
+<hr class="hr-newgame" />
+
+<div class="container-nav-field">
+    <div *ngFor="let campaign of campaigns">
+      <div
+        class="nav-field"
+        [id]="campaign.id"
+        [class.active]="selCampaign === campaign.id"
+        (click)="onCommand('switchCampaign', campaign.id)"
+        >
+        {{ campaign.name }}
+      </div>
+    </div>
+  </div>
+  <hr  class="hr-newgame" />
+
+  <div class="text-description-title">{{ campaigns[selCampaign].title }}</div>
+  <div class="text-description">{{ campaigns[selCampaign].description }}</div>
+
+  <div class="newgame-image">
+    <img src="assets/others/campaign1.png" alt="" />
+  </div>
+

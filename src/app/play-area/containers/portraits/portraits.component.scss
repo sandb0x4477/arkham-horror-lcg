@@ -1,0 +1,38 @@
+.portraits-area-wrapper {
+  position: absolute;
+  top: 622px;
+  left: 710px;
+  display: grid;
+  // grid-template-columns: 210px;
+  grid-gap: 4px;
+  overflow: hidden;
+}
+
+.portrait {
+  position: relative;
+  cursor: pointer;
+  cursor: -moz-pointer;
+  cursor: -webkit-pointer;
+  width: 90px;
+  border-radius: 7px;
+  overflow: hidden;
+
+  &.exhausted {
+    filter: grayscale(100%);
+  }
+}
+
+.exhaust-btn {
+  position: absolute;
+  top: 5px;
+  right: 3px;
+  opacity: 0.1;
+  display: block;
+  cursor: pointer;
+  padding: 2px;
+  // z-index: 2;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,1 +1,87 @@
-<p>New game Component</p>
+<div class="container">
+  <ng-container *ngIf="currentPage$ | async as currentPage; else loading">
+    <ng-container [ngSwitch]="currentPage">
+      <!-- ------------------------------------------------------------------- -->
+      <!-- ? SELECT CAMPAIGN -->
+      <!-- ------------------------------------------------------------------- -->
+      <app-select-campaign
+        *ngSwitchCase="'selCampaign'"
+        [selCampaign]="selCampaign$ | async"
+        (command)="onCommand($event)"
+      ></app-select-campaign>
+
+      <!-- ------------------------------------------------------------------- -->
+      <!-- ? SELECT SCENARIO -->
+      <!-- ------------------------------------------------------------------- -->
+      <app-select-scenario
+        *ngSwitchCase="'selScenario'"
+        [selCampaign]="selCampaign$ | async"
+        [selScenario]="selScenario$ | async"
+        (command)="onCommand($event)"
+      ></app-select-scenario>
+
+      <!-- ------------------------------------------------------------------- -->
+      <!-- ? SELECT INV0 -->
+      <!-- ------------------------------------------------------------------- -->
+      <ng-container *ngSwitchCase="'selInv0'">
+        <app-select-inv [selInvs]="selInvs$ | async" [id]="0" (command)="onCommand($event)"></app-select-inv>
+
+        <ng-container *ngIf="!(loading$ | async); else loading">
+          <ng-container *ngIf="!(errors$ | async) as errors; else error">
+            <app-deck-list
+              [selectedInvs]="selInvs$ | async"
+              [deckList]="deckLists$ | async"
+              [id]="0"
+              (command)="onCommand($event)"
+            ></app-deck-list>
+          </ng-container>
+        </ng-container>
+
+        <app-public-form [id]="0" (command)="onCommand($event)"></app-public-form>
+      </ng-container>
+
+      <!-- ------------------------------------------------------------------- -->
+      <!-- ? SELECT INV1 -->
+      <!-- ------------------------------------------------------------------- -->
+      <ng-container *ngSwitchCase="'selInv1'">
+        <app-select-inv [selInvs]="selInvs$ | async" [id]="1" (command)="onCommand($event)"></app-select-inv>
+
+        <ng-container *ngIf="!(loading$ | async); else loading">
+          <ng-container *ngIf="!(errors$ | async) as errors; else error">
+            <app-deck-list
+              [selectedInvs]="selInvs$ | async"
+              [deckList]="deckLists$ | async"
+              [id]="1"
+              (command)="onCommand($event)"
+            ></app-deck-list>
+          </ng-container>
+        </ng-container>
+
+        <app-public-form [id]="1" (command)="onCommand($event)"></app-public-form>
+      </ng-container>
+      <app-intro *ngSwitchCase="'start'" [selScenario]="selScenario$ | async" (command)="onCommand($event)"></app-intro>
+    </ng-container>
+  </ng-container>
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!-- ? LOADING -->
+  <!-- ----------------------------------------------------------------------- -->
+  <ng-template #loading>
+    <div class="loading-container">
+      <div class="lds-hourglass"></div>
+    </div>
+  </ng-template>
+  <ng-template #error>
+    <div class="error-container" *ngIf="errors$ | async as isError">
+      <div></div>
+      <div></div>
+      <!--suppress TypeScriptUnresolvedVariable -->
+      <div>Error!!!&nbsp;&nbsp;&nbsp; Name => {{ isError.name }}</div>
+      <!--suppress TypeScriptUnresolvedVariable -->
+      <div>Status => {{ isError.status }}</div>
+      <!--suppress TypeScriptUnresolvedVariable -->
+      <div>Status text => {{ isError.statusText }}</div>
+      <div></div>
+    </div>
+  </ng-template>
+</div>

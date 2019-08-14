@@ -1,0 +1,103 @@
+<ng-container [ngSwitch]="navBarsStatus.activeNavItemThreat0">
+  <div
+    *ngSwitchCase="'threat0-threats-nav'"
+    id="threat0-threats"
+    class="threat0-area-wrapper multiple"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="threat0Threats.length > 0; else emptyDeck">
+      <ng-container *ngFor="let card of threat0Threats">
+        <app-card-arkham
+          cdkDrag
+          [style.width.px]="threat0Threats.length < 2 ? 210 : 110 / (threat0Threats.length - 1)"
+          [cdkDragData]="card.id"
+          [cardProps]="spreadDeckConfig"
+          [card]="card"
+          (command)="onCommand($event)"
+        >
+        </app-card-arkham>
+      </ng-container>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+
+  <div
+    *ngSwitchCase="'threat0-outofplay-nav'"
+    id="threat0-outofplay"
+    class="threat0-area-wrapper single"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="threat0Outofplay.length > 0; else emptyDeck">
+      <app-card-arkham
+        cdkDrag
+        [cdkDragData]="threat0Outofplay[0].id"
+        [cardProps]="singleDeckConfig"
+        [card]="threat0Outofplay[0]"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+</ng-container>
+<!-- ----------------------------------------------------------------------- -->
+<!-- THREATS1 -->
+<!-- ----------------------------------------------------------------------- -->
+<ng-container [ngSwitch]="navBarsStatus.activeNavItemThreat1">
+  <div
+    *ngSwitchCase="'threat1-threats-nav'"
+    id="threat1-threats"
+    class="threat1-area-wrapper multiple"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="threat1Threats.length > 0; else emptyDeck">
+      <ng-container *ngFor="let card of threat1Threats">
+        <app-card-arkham
+          cdkDrag
+          [style.width.px]="threat1Threats.length < 2 ? 210 : 110 / (threat1Threats.length - 1)"
+          [cdkDragData]="card.id"
+          [cardProps]="spreadDeckConfig"
+          [card]="card"
+          (command)="onCommand($event)"
+        >
+        </app-card-arkham>
+      </ng-container>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+
+  <div
+    *ngSwitchCase="'threat1-outofplay-nav'"
+    id="threat1-outofplay"
+    class="threat1-area-wrapper single"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="threat1Outofplay.length > 0; else emptyDeck">
+      <app-card-arkham
+        cdkDrag
+        [cdkDragData]="threat1Outofplay[0].id"
+        [cardProps]="singleDeckConfig"
+        [card]="threat1Outofplay[0]"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+</ng-container>

@@ -1,0 +1,43 @@
+@import '../../../../variables';
+
+#hand0-navbar {
+  position: absolute;
+  top: $SecondNavRow;
+  left: 0px;
+}
+
+#hand1-navbar {
+  position: absolute;
+  top: $SecondNavRow;
+  left: $fifthColumnLeft;
+}
+
+#play0-navbar {
+  position: absolute;
+  top: $FirstNavRow;
+  left: 0px;
+}
+
+#play1-navbar {
+  position: absolute;
+  top: $FirstNavRow;
+  left: $fifthColumnLeft;
+}
+
+#threat0-navbar {
+  position: absolute;
+  top: $FirstNavRow;
+  left: $secondColumnLeft;
+}
+
+#threat1-navbar {
+  position: absolute;
+  top: $FirstNavRow;
+  left: $forthColumnLeft;
+}
+
+#encounter0-navbar {
+  position: absolute;
+  top: $FirstNavRow;
+  left: $thirdColumnLeft;
+}

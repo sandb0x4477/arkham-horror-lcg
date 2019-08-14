@@ -1,5 +1,5 @@
 export class SwitchCampaign {
-  static readonly type = '[Scenario] Select Scenario';
+  static readonly type = '[Campaign] Switch Campaign';
   constructor(public payload: any) {}
 }
 

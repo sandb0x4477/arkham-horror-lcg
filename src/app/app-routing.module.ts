@@ -8,6 +8,10 @@ export const routes: Routes = [
     path: 'newgame',
     loadChildren: () => import('./new-game/new-game.module').then(mod => mod.NewGameModule),
   },
+  {
+    path: 'play',
+    loadChildren: () => import('./play-area/play-area.module').then(mod => mod.PlayAreaModule),
+  },
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: '**', component: HomeComponent },
 ];

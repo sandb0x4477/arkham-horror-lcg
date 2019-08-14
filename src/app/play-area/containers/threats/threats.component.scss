@@ -1,0 +1,60 @@
+@import '../../../../variables';
+
+.threat0-area-wrapper {
+  position: absolute;
+  top: 270px;
+  left: $secondColumnLeft;
+  width: 318px;
+  min-height: 293px;
+  overflow: hidden;
+  &:last-child {
+    border: none;
+  }
+
+  &.single {
+    position: absolute;
+    left: $secondColumnLeft + 54px;
+    width: 210px;
+    height: 293px;
+    overflow: hidden;
+  }
+
+  &.multiple {
+    display: flex;
+    min-height: 293px;
+    min-width: 318px;
+    flex-direction: row;
+    // cursor: grab;
+  }
+}
+
+.threat1-area-wrapper {
+  position: absolute;
+  top: 270px;
+  left: $forthColumnLeft;
+  width: 318px;
+  min-height: 293px;
+  overflow: hidden;
+  &:last-child {
+    border: none;
+  }
+
+  &.single {
+    position: absolute;
+    left: $forthColumnLeft + 54px;
+    width: 210px;
+    height: 293px;
+    overflow: hidden;
+  }
+
+  &.multiple {
+    display: flex;
+    min-height: 293px;
+    min-width: 318px;
+    flex-direction: row;
+  }
+}
+
+// #threat0-outofplay {
+//   overflow-y: hidden;
+// }

@@ -1,0 +1,23 @@
+<div class="tokens0-area-wrapper" id="tokens">
+  <ng-container *ngFor="let token of tokens">
+    <div
+      [ngClass]="getTokenClass(token)"
+      [id]="token"
+      [dndDraggable]="token"
+      dndType="token"
+      dndEffectAllowed="move"
+    ></div>
+  </ng-container>
+</div>
+
+<div class="tokens1-area-wrapper" id="tokens">
+  <ng-container *ngFor="let token of tokens">
+    <div
+      [ngClass]="getTokenClass(token)"
+      [id]="token"
+      [dndDraggable]="token"
+      dndType="token"
+      dndEffectAllowed="move"
+    ></div>
+  </ng-container>
+</div>

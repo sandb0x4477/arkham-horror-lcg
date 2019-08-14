@@ -1,0 +1,68 @@
+.inv-portrait-wrapper {
+  display: grid;
+  grid-template-columns: auto 400px auto;
+  justify-items: center;
+  align-items: center;
+  grid-gap: 18px;
+}
+
+.portrait-wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+}
+
+.portrait {
+  cursor: pointer;
+  margin: 10px 6px;
+  img {
+    box-sizing: border-box;
+    height: 100px;
+    border-radius: 6px;
+  }
+
+  &.active {
+    img {
+      border: 3px solid #a00116;
+    }
+  }
+}
+
+.arrow {
+  // align-self: center;
+  // text-align: left;
+  cursor: pointer;
+  // min-width: 50px;
+
+  &.left {
+    justify-self: end;
+  }
+
+  &.right {
+    justify-self: start;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* // ? INVS CARDS */
+/* -------------------------------------------------------------------------- */
+.invs-card {
+  display: grid;
+  width: 90%;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 18px;
+  margin-left: 5%;
+  // background-color: hsla(241, 66%, 32%, 0.445);
+
+  img {
+    transition: all .3s ease-in-out;
+    transition-delay: 0.3s;
+    border-radius: 12px;
+    width: 293px;
+    height: 210px;
+    &:hover {
+      transform: scale(1.4);
+    }
+  }
+}

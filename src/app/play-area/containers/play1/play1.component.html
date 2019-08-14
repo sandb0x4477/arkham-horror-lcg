@@ -1,0 +1,108 @@
+<ng-container [ngSwitch]="navBarsStatus.activeNavItemPlay1">
+  <div
+    *ngSwitchCase="'play1-inplay-nav'"
+    id="play1-inplay"
+    class="play1-card-wrapper multiple"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="play1Inplay.length > 0; else emptyDeck">
+      <ng-container *ngFor="let card of play1Inplay">
+        <app-card-arkham
+          cdkDrag
+          [style.width.px]="play1Inplay.length < 3 ? 210 : 230 / (play1Inplay.length - 1)"
+          [cdkDragData]="card.id"
+          [cardProps]="spreadDeckConfig"
+          [card]="card"
+          (command)="onCommand($event)"
+        >
+        </app-card-arkham>
+      </ng-container>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+
+  <div
+    *ngSwitchCase="'play1-discard-nav'"
+    id="play1-discard"
+    class="play1-card-wrapper single"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="play1Discard.length > 0; else emptyDeck">
+      <app-card-arkham
+        cdkDrag
+        [cdkDragData]="play1Discard[0].id"
+        [cardProps]="singleDeckConfig"
+        [card]="play1Discard[0]"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+
+  <!-- --------------------------------------------------------------------- -->
+  <!-- VICTORY -->
+  <!-- --------------------------------------------------------------------- -->
+  <div
+  *ngSwitchCase="'play1-victory-nav'"
+  id="play1-victory"
+  class="play1-card-wrapper multiple"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="onCdkDrop($event)"
+>
+  <ng-container *ngIf="play1Victory.length > 0; else emptyDeck">
+    <ng-container *ngFor="let card of play1Victory">
+      <app-card-arkham
+        cdkDrag
+        [style.width.px]="play1Victory.length < 2 ? 210 : 230 / (play1Victory.length - 1)"
+        [cdkDragData]="card.id"
+        [cardProps]="spreadDeckConfig"
+        [card]="card"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyDeck>
+    <div class="empty-deck"></div>
+  </ng-template>
+</div>
+
+  <!-- --------------------------------------------------------------------- -->
+  <!-- SPARE -->
+  <!-- --------------------------------------------------------------------- -->
+  <div
+  *ngSwitchCase="'play1-spare-nav'"
+  id="play1-spare"
+  class="play1-card-wrapper multiple"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="onCdkDrop($event)"
+>
+  <ng-container *ngIf="play1Spare.length > 0; else emptyDeck">
+    <ng-container *ngFor="let card of play1Spare">
+      <app-card-arkham
+        cdkDrag
+        [style.width.px]="play1Spare.length < 2 ? 210 : 230 / (play1Spare.length - 1)"
+        [cdkDragData]="card.id"
+        [cardProps]="spreadDeckConfig"
+        [card]="card"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyDeck>
+    <div class="empty-deck"></div>
+  </ng-template>
+</div>
+</ng-container>

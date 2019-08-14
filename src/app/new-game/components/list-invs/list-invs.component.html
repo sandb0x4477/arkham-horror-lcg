@@ -1,0 +1,39 @@
+<!-- ----------------------------------------------------------------------- -->
+<!-- PORTRAITS -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="inv-portrait-wrapper">
+  <div class="arrow left" (click)="onCommand('scrollLeft', '')">
+    <i
+      class="fas fa-caret-left fa-3x"
+      [style.display]="invsListSet[0] === '01001' ? 'none' : 'block'"
+    ></i>
+  </div>
+
+  <div class="portrait-wrapper">
+    <ng-container *ngFor="let code of invsListSet">
+      <div
+        class="portrait"
+        (click)="onCommand('selectInv', code)"
+        [class.active]="selectedInv === code"
+      >
+        <img src="assets/portraits/{{ code }}.jpg" alt="" />
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="arrow right" (click)="onCommand('scrollRight', '')">
+    <i
+      class="fas fa-caret-right fa-3x"
+      [style.display]="invsListSet[0] === '05005' ? 'none' : 'block'"
+    ></i>
+  </div>
+</div>
+
+<!-- ----------------------------------------------------------------------- -->
+<!-- INVS CARDS -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="invs-card">
+  <img src="assets/cards/{{ selectedInv }}.jpg" alt="" />
+  <img src="assets/cards/{{ selectedInv }}b.jpg" alt="" />
+</div>

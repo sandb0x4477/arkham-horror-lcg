@@ -13,8 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { States } from './core/store';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [ ],
   imports: [
     CommonModule,
     BrowserModule,

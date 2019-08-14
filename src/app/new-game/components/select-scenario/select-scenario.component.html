@@ -1,0 +1,51 @@
+<div class="newgame-nav-menu">
+  <button class="btn-newgame" (click)="onCommand('switchPage', previousPage)">Back</button>
+  <div class="newgame-nav-field-title">Select Scenario</div>
+  <button class="btn-newgame" (click)="onCommand('switchPage', nextPage)">Next</button>
+</div>
+
+<hr class="hr-newgame" />
+
+<div class="container-nav-field">
+  <div *ngFor="let scenario of scenarios">
+    <div
+      class="nav-field"
+      [class.active]="selScenario.id === scenario.id"
+      (click)="onCommand('switchScenario', scenario.id)"
+    >
+      {{ scenario.scenarioNumber }}. {{ scenario.title }}
+    </div>
+  </div>
+</div>
+
+<hr class="hr-newgame" />
+
+<div class="newgame-nav-field-title">Scenario Setup</div>
+
+<div class="form-container">
+  <form [formGroup]="form">
+    <ng-container *ngFor="let question of selScenario.questions; let j = index">
+      <div [id]="question.id" class="question-text">{{ question.label }}</div>
+
+      <div class="radio-group">
+        <ng-container *ngFor="let item of question.options; let i = index">
+          <input
+            type="radio"
+            [id]="item.id"
+            [name]="question.controlName"
+            [formControlName]="question.controlName"
+            [value]="item.value"
+          />
+          <label [for]="item.id">{{ item.name }}</label>
+        </ng-container>
+      </div>
+      <br />
+      <br />
+    </ng-container>
+  </form>
+  {{ form.value | json }}
+</div>
+
+<div class="newgame-image">
+  <img src="assets/others/campaign2.png" alt="" />
+</div>

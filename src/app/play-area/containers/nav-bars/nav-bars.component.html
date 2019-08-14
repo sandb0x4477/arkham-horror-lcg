@@ -1,0 +1,73 @@
+<div id="hand0-navbar" >
+  <app-nav-bar
+    [navBarConfig]="hand0NavConfig"
+    [countedDecks]="countedDecks"
+    [activeItem]="navBarsStatus.activeNavItemHand0"
+    (command)="onCommand($event)"
+  >
+  </app-nav-bar>
+</div>
+
+<div id="hand1-navbar" >
+  <app-nav-bar
+    [navBarConfig]="hand1NavConfig"
+    [countedDecks]="countedDecks"
+    [activeItem]="navBarsStatus.activeNavItemHand1"
+    (command)="onCommand($event)"
+  >
+  </app-nav-bar>
+</div>
+
+<div id="play0-navbar" >
+  <app-nav-bar
+    [navBarConfig]="play0NavConfig"
+    [countedDecks]="countedDecks"
+    [activeItem]="navBarsStatus.activeNavItemPlay0"
+    (command)="onCommand($event)"
+  >
+  </app-nav-bar>
+</div>
+
+<div id="play1-navbar" >
+  <app-nav-bar
+    [navBarConfig]="play1NavConfig"
+    [countedDecks]="countedDecks"
+    [activeItem]="navBarsStatus.activeNavItemPlay1"
+    (command)="onCommand($event)"
+  >
+  </app-nav-bar>
+</div>
+
+<div id="threat0-navbar" >
+  <app-nav-bar
+    [navBarConfig]="threat0NavConfig"
+    [countedDecks]="countedDecks"
+    [activeItem]="navBarsStatus.activeNavItemThreat0"
+    (command)="onCommand($event)"
+  >
+  </app-nav-bar>
+</div>
+
+<div id="threat1-navbar" >
+  <app-nav-bar
+    [navBarConfig]="threat1NavConfig"
+    [countedDecks]="countedDecks"
+    [activeItem]="navBarsStatus.activeNavItemThreat1"
+    (command)="onCommand($event)"
+  >
+  </app-nav-bar>
+</div>
+
+<div id="encounter0-navbar" >
+  <app-nav-bar
+    [navBarConfig]="encounter0NavConfig"
+    [countedDecks]="countedDecks"
+    [activeItem]="navBarsStatus.activeNavItemEncounter0"
+    (command)="onCommand($event)"
+  >
+  </app-nav-bar>
+</div>
+
+<!-- (cdkDropListDropped)="onCdkDrop($event)"
+(cdkDropListEntered)="dragEntered($event)" -->
+<!-- ({{handStateCount[i] || '-'}}) -->

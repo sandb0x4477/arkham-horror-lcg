@@ -1,0 +1,29 @@
+@import '../../../../variables';
+
+.play0-card-wrapper {
+  position: absolute;
+  top: $FirstNavRow + 40px;
+  left: $firstColumnLeft;
+  width: 440px;
+  min-height: 293px;
+  overflow: hidden;
+
+  &:last-child {
+    border: none;
+  }
+
+  &.single {
+    position: absolute;
+    left: $firstColumnLeft + 115px;
+    width: 210px;
+    height: 293px;
+    overflow: hidden;
+  }
+
+  &.multiple {
+    display: flex;
+    min-height: 293px;
+    min-width: 440px;
+    flex-direction: row;
+  }
+}

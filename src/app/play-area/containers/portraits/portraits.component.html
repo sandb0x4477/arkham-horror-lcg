@@ -1,0 +1,45 @@
+<div
+  id="portraits"
+  class="portraits-area-wrapper"
+  cdkDropList
+  cdkDropListOrientation="vertical"
+  [cdkDropListConnectedTo]="getLocationsIds()"
+>
+  <ng-container *ngIf="investigators.length > 0">
+    <ng-container *ngFor="let inv of getInvsAtLocation(); let i = index">
+      <img
+        [class.exhausted]="inv.exhausted"
+        class="portrait"
+        [src]="getPortraitImage(inv.id)"
+        [id]="inv.id"
+        alt=""
+        cdkDrag
+        [cdkDragData]="inv.id"
+        (click)="onCommand('exhaustCard', inv.id)"
+      />
+    </ng-container>
+  </ng-container>
+</div>
+
+<!-- (cdkDropListDropped)="onCdkDrop($event)" -->
+<!--   [dndDraggable]="inv.id"
+  dndType="portrait"
+  dndEffectAllowed="move" -->
+<!--   <div class="portrait" *ngIf="investigators.length > 0">
+    <img
+      [src]="getPortraitImage(0)"
+      alt=""
+      [id]="investigators[0].id"
+      cdkDrag
+      [cdkDragData]="investigators[0].id"
+    />
+  </div>
+  <div class="portrait" *ngIf="investigators.length > 1">
+    <img
+      [src]="getPortraitImage(1)"
+      alt=""
+      [id]="investigators[1].id"
+      cdkDrag
+      [cdkDragData]="investigators[1].id"
+    />
+  </div> -->

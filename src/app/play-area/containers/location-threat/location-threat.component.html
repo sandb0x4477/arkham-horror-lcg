@@ -1,0 +1,29 @@
+<div
+  id="location-threat"
+  class="location-threat multiple"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="onCdkDrop($event)"
+>
+  <ng-container *ngIf="locationThreat.length > 0; else emptyDeck">
+    <ng-container *ngFor="let card of locationThreat">
+      <app-card-arkham
+        cdkDrag
+        [hidden]="card.current_location !== currentLocation"
+        [style.width.px]="getThreats().length < 2 ? 210 : 110 / (getThreats().length - 1)"
+        [cdkDragData]="card.id"
+        [cardProps]="spreadDeckConfig"
+        [card]="card"
+        (command)="onCommand($event)"
+        >
+      </app-card-arkham>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyDeck>
+    <div class="empty-deck"></div>
+  </ng-template>
+</div>
+
+<!-- *ngIf="card.current_location === currentLocation" -->
+<!-- <ng-container *ngIf="card.current_location === currentLocation"> -->
+<!-- </ng-container> -->

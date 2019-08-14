@@ -1,0 +1,110 @@
+<ng-container [ngSwitch]="navBarsStatus.activeNavItemHand0">
+  <!-- --------------------------------------------------------------------- -->
+  <!-- DECK -->
+  <!-- --------------------------------------------------------------------- -->
+  <div
+    *ngSwitchCase="'hand0-deck-nav'"
+    id="hand0-deck"
+    class="hand0-card-wrapper single"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="hand0Deck.length > 0; else emptyDeck">
+      <app-card-arkham
+        cdkDrag
+        [cdkDragData]="hand0Deck[0].id"
+        [cardProps]="singleDeckConfig"
+        [card]="hand0Deck[0]"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+
+  <!-- --------------------------------------------------------------------- -->
+  <!-- HAND -->
+  <!-- --------------------------------------------------------------------- -->
+  <div
+  *ngSwitchCase="'hand0-hand-nav'"
+  id="hand0-hand"
+  class="hand0-card-wrapper multiple"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="onCdkDrop($event)"
+>
+  <ng-container *ngIf="hand0Hand.length > 0; else emptyDeck">
+    <ng-container *ngFor="let card of hand0Hand">
+      <app-card-arkham
+        cdkDrag
+        [style.width.px]="hand0Hand.length < 3 ? 210 : 230 / (hand0Hand.length - 1)"
+        [cdkDragData]="card.id"
+        [cardProps]="spreadDeckConfig"
+        [card]="card"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyDeck>
+    <div class="empty-deck"></div>
+  </ng-template>
+</div>
+  <!-- ----------------------------------------------------------------------- -->
+  <!-- DISCARD -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div
+    *ngSwitchCase="'hand0-discard-nav'"
+    id="hand0-discard"
+    class="hand0-card-wrapper single"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="hand0Discard.length > 0; else emptyDeck">
+      <app-card-arkham
+        cdkDrag
+        [cdkDragData]="hand0Discard[0].id"
+        [cardProps]="singleDeckConfig"
+        [card]="hand0Discard[0]"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+
+  <!-- --------------------------------------------------------------------- -->
+  <!-- SPARE -->
+  <!-- --------------------------------------------------------------------- -->
+  <div
+  *ngSwitchCase="'hand0-spare-nav'"
+  id="hand0-spare"
+  class="hand0-card-wrapper multiple"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="onCdkDrop($event)"
+>
+  <ng-container *ngIf="hand0Spare.length > 0; else emptyDeck">
+    <ng-container *ngFor="let card of hand0Spare">
+      <app-card-arkham
+        cdkDrag
+        [style.width.px]="hand0Spare.length < 2 ? 210 : 230 / (hand0Spare.length - 1)"
+        [cdkDragData]="card.id"
+        [cardProps]="spreadDeckConfig"
+        [card]="card"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyDeck>
+    <div class="empty-deck"></div>
+  </ng-template>
+</div>
+</ng-container>

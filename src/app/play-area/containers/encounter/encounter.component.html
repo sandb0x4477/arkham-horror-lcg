@@ -1,0 +1,47 @@
+<ng-container [ngSwitch]="navBarsStatus.activeNavItemEncounter0">
+  <div
+    *ngSwitchDefault
+    id="encounter0-encounter"
+    class="encounter-card-wrapper"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="encounter0Deck.length > 0; else emptyDeck">
+      <app-card-arkham
+        cdkDrag
+        [cdkDragData]="encounter0Deck[0].id"
+        [cardProps]="singleDeckConfig"
+        [card]="encounter0Deck[0]"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+
+  <div
+    *ngSwitchCase="'encounter0-discard-nav'"
+    id="encounter0-discard"
+    class="encounter-card-wrapper"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="onCdkDrop($event)"
+  >
+    <ng-container *ngIf="encounter0Discard.length > 0; else emptyDeck">
+      <app-card-arkham
+        cdkDrag
+        [cdkDragData]="encounter0Discard[0].id"
+        [cardProps]="singleDeckConfig"
+        [card]="encounter0Discard[0]"
+        (command)="onCommand($event)"
+      >
+      </app-card-arkham>
+    </ng-container>
+    <ng-template #emptyDeck>
+      <div class="empty-deck"></div>
+    </ng-template>
+  </div>
+</ng-container>

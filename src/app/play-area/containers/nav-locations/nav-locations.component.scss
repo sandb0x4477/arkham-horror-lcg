@@ -1,0 +1,115 @@
+@import '../../../../variables';
+
+#nav-location-navbar {
+  position: absolute;
+  top: $SecondNavRow;
+  left: $secondColumnLeft;
+  width: 210px;
+  display: grid;
+  grid-template-columns: 210px;
+  grid-template-rows: 34px;
+  background-color: #85806a;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.nav-location-item {
+  background-color: #85806a;
+  max-height: 34px;
+  min-width: 210px;
+  line-height: 36px;
+  font-size: 1.3em;
+  font-family: 'Teko', sans-serif;
+  cursor: pointer;
+  text-align: justify;
+  padding-left: 6px;
+  overflow: hidden;
+
+  &.active {
+    background-color: #b1ab8f;
+
+  }
+
+  &.cdk-drop-list-dragging {
+    background-color: #c56211;
+  }
+
+}
+
+.location-symbol {
+  width: 21px;
+  height: 21px;
+  background-size: 100%;
+  display: inline-block;
+  background-repeat: no-repeat;
+  vertical-align: sub;
+  // margin-top: 10px;
+
+  &.circle {
+    background-image: url('#{$assetsPath}locations/circle.png');
+  }
+
+  &.cross {
+    background-image: url('#{$assetsPath}locations/cross.png');
+  }
+
+  &.diamond {
+    background-image: url('#{$assetsPath}locations/diamond.png');
+  }
+
+  &.equal {
+    background-image: url('#{$assetsPath}locations/equal.png');
+  }
+
+  &.hourglass {
+    background-image: url('#{$assetsPath}locations/hourglass.png');
+  }
+
+  &.moon {
+    background-image: url('#{$assetsPath}locations/moon.png');
+  }
+
+  &.path {
+    background-image: url('#{$assetsPath}locations/path.png');
+  }
+
+  &.square {
+    background-image: url('#{$assetsPath}locations/square.png');
+  }
+
+  &.t {
+    background-image: url('#{$assetsPath}locations/t.png');
+  }
+
+  &.triangle {
+    background-image: url('#{$assetsPath}locations/triangle.png');
+  }
+}
+
+.portrait-icon {
+  height: 30px;
+  float: right;
+  margin-right: 10px;
+  padding-top: 2px;
+}
+
+.location-card {
+  position: absolute;
+  top: $SecondNavRow + 40px;
+  left: 884 - 64px;
+}
+
+.current-location {
+  position: absolute;
+  top: $SecondNavRow + 0px;
+  left: $secondColumnLeft + 238px;
+  height: 34px;
+  width: 666px;
+  background-color: #b1ab8f;
+  border-radius: 7px;
+  line-height: 36px;
+  font-size: 1.3em;
+  font-family: 'Teko', sans-serif;
+  text-align: center;
+  overflow: hidden;
+}

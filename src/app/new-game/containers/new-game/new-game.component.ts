@@ -1,4 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import orderBy from 'lodash.orderby';
+
+import {
+  SwitchCampaign,
+  SwitchScenario,
+  SwitchPage,
+  SelectInvestigator,
+  ClearError,
+  SetLoading,
+  PopulateDeckList,
+  SetError,
+} from '../../store/settings.actions';
+import { CardsDbService } from '../../services/cards-db.service';
+import { SettingsState } from '../../store/settings.state';
+import { ScenarioData } from '../../../shared/models/scenario.data.model';
+import { Card } from '../../../shared/models/card.model';
+import { StarterDecks } from '../../../shared/data/starter-decks.data';
+import { tap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-game',
@@ -6,7 +26,124 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-game.component.scss'],
 })
 export class NewGameComponent implements OnInit {
-  constructor() {}
+
+  constructor(private store: Store, private cardsDbService: CardsDbService) {}
+
+  @Select(SettingsState.loading) loading$: Observable<boolean>;
+  @Select(SettingsState.currentPage) currentPage$: Observable<string>;
+  @Select(SettingsState.selCampaign) selCampaign$: Observable<number>;
+  @Select(SettingsState.selScenario) selScenario$: Observable<ScenarioData>;
+  @Select(SettingsState.selInvs) selInvs$: Observable<Array<string>>;
+  @Select(SettingsState.deckLists) deckLists$: Observable<Array<Card[]>>;
+  @Select(SettingsState.errors) errors$: Observable<Array<any>>;
 
   ngOnInit() {}
+
+  fetchStarterDeck(code: string, id: number) {
+    let deckList = [];
+    this.store.dispatch([new ClearError({ id })]);
+    const deck = StarterDecks.find((d: any) => d.investigator_code === code);
+    const slots = deck.slots;
+    this.cardsDbService.getCardsFromDb(this.extractSlots(deck)).subscribe(
+      (cards: Card[]) => {
+        deckList = this.orderList(cards, slots);
+        const payload = {
+          deckList,
+          id,
+        };
+        this.store.dispatch([new PopulateDeckList(payload)]);
+      },
+      error => {
+        const payload = {
+          id,
+          error,
+        };
+        this.store.dispatch([new SetError(payload)]);
+      },
+    );
+  }
+
+  fetchPublicDeck(code: string, id: number) {
+    let deckList = [];
+    let slots = {};
+    this.store.dispatch([new ClearError({ id }), new SetLoading(true)]);
+    let investigator = '';
+    this.cardsDbService
+      .getPublicDeck(code)
+      .pipe(
+        tap(res => {
+          slots = res.slots;
+          investigator = res.investigator_code;
+        }),
+        switchMap(response =>
+          this.cardsDbService.getCardsFromDb(this.extractSlots(response)),
+        ),
+      )
+      .subscribe(
+        (cards: Card[]) => {
+          deckList = this.orderList(cards, slots);
+          const payload = {
+            deckList,
+            id,
+          };
+          this.store.dispatch([
+            new SetLoading(false),
+            new SelectInvestigator({ code: investigator, id }),
+            new PopulateDeckList(payload),
+          ]);
+        },
+        error => {
+          const payload = {
+            id,
+            error,
+          };
+          this.store.dispatch([new SetLoading(false), new SetError(payload)]);
+        },
+      );
+  }
+
+  onCommand(payload: any) {
+    console.log('onCommand payload => ', payload);
+    switch (payload.commandId) {
+      case 'switchCampaign':
+        this.store.dispatch(new SwitchCampaign(payload));
+        break;
+
+      case 'switchScenario':
+        this.store.dispatch(new SwitchScenario(payload));
+        break;
+
+      case 'switchPage':
+        if (payload.id === 'start') {
+          // this.scenarioService.setUpGame();
+          this.store.dispatch(new SwitchPage(payload));
+        } else {
+          this.store.dispatch(new SwitchPage(payload));
+        }
+        break;
+
+      case 'selectInv':
+        this.fetchStarterDeck(payload.code, payload.id);
+        this.store.dispatch(new SelectInvestigator(payload));
+        break;
+    }
+  }
+
+  orderList(arr: Card[], slots: any): Card[] {
+    let tempArr = [];
+    for (const [key, value] of Object.entries(slots)) {
+      const card: Card = arr.find(c => c.code === key);
+      tempArr.push({ ...card, qtyInDeck: value });
+    }
+    tempArr = orderBy(tempArr, ['faction_code', 'name'], ['asc', 'asc']);
+    return tempArr;
+  }
+
+  extractSlots(response: any) {
+    const query = [];
+    for (const [key] of Object.entries(response.slots)) {
+      query.push(key);
+    }
+    return query;
+  }
 }

@@ -1,0 +1,98 @@
+@import '../../../../variables';
+
+.chaosbag0-area-wrapper {
+  position: absolute;
+  left: 506px;
+  top: 18px;
+  padding: 0;
+}
+
+.chaosbag1-area-wrapper {
+  position: absolute;
+  left: 1270px;
+  top: 18px;
+  padding: 0;
+}
+
+.chaos-bag {
+  cursor: pointer;
+
+  &.rolling {
+    filter: blur(4px);
+  }
+}
+
+.chaos-token {
+  width: 80px;
+  height: 80px;
+  background-size: 100%;
+}
+
+.chaos-plus1 {
+  background-image: url("#{$assetsPath}chaosbag/ct_+1.png");
+}
+
+.chaos-zero {
+  background-image: url("#{$assetsPath}chaosbag/ct_0.png");
+}
+
+.chaos-minus1 {
+  background-image: url("#{$assetsPath}chaosbag/ct_-1.png");
+}
+
+.chaos-minus2 {
+  background-image: url("#{$assetsPath}chaosbag/ct_-2.png");
+}
+
+.chaos-minus3 {
+  background-image: url("#{$assetsPath}chaosbag/ct_-3.png");
+}
+
+.chaos-minus4 {
+  background-image: url("#{$assetsPath}chaosbag/ct_-4.png");
+}
+
+.chaos-minus5 {
+  background-image: url("#{$assetsPath}chaosbag/ct_-5.png");
+}
+
+.chaos-minus6 {
+  background-image: url("#{$assetsPath}chaosbag/ct_-6.png");
+}
+
+.chaos-minus7 {
+  background-image: url("#{$assetsPath}chaosbag/ct_-7.png");
+}
+
+.chaos-minus8 {
+  background-image: url("#{$assetsPath}chaosbag/ct_-8.png");
+}
+
+.chaos-skull {
+  background-image: url("#{$assetsPath}chaosbag/ct_skull.png");
+}
+
+.chaos-cultist {
+  background-image: url("#{$assetsPath}chaosbag/ct_cultist.png");
+}
+
+.chaos-tablet {
+  background-image: url("#{$assetsPath}chaosbag/ct_tablet.png");
+}
+
+.chaos-elderthing {
+  background-image: url("#{$assetsPath}chaosbag/ct_elderthing.png");
+}
+
+.chaos-autofail {
+  background-image: url("#{$assetsPath}chaosbag/ct_autofail.png");
+}
+
+.chaos-eldersign {
+  background-image: url("#{$assetsPath}chaosbag/ct_eldersign.png");
+}
+
+.chaos-heart {
+  background-image: url("#{$assetsPath}chaosbag/ct_heart.png");
+}
+

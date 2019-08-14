@@ -1,0 +1,27 @@
+<div class="investigator0-area-wrapper">
+  <ng-container *ngIf="investigators.length > 0; else emptyDeck">
+    <app-card-arkham
+      [cardProps]="cardProps"
+      [card]="investigators[0]"
+      (command)="onCommand($event)"
+    >
+    </app-card-arkham>
+  </ng-container>
+  <ng-template #emptyDeck>
+    <div class="empty-deck-horizontal"></div>
+  </ng-template>
+</div>
+
+<div class="investigator1-area-wrapper">
+    <ng-container *ngIf="investigators.length > 1; else emptyDeck">
+        <app-card-arkham
+          [cardProps]="cardProps"
+          [card]="investigators[1]"
+          (command)="onCommand($event)"
+        >
+        </app-card-arkham>
+      </ng-container>
+      <ng-template #emptyDeck>
+        <div class="empty-deck-horizontal"></div>
+      </ng-template>
+</div>

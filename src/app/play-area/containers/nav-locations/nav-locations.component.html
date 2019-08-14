@@ -1,0 +1,47 @@
+<!-- [class.exit]="isExit(loc)" -->
+<div id="nav-location-navbar">
+  <ng-container *ngFor="let loc of locations">
+    <div
+      [class.active]="currentLocation === loc.id"
+      class="nav-location-item"
+      [id]="loc.id"
+      cdkDropListOrientation="vertical"
+      cdkDropList
+      (cdkDropListDropped)="onCdkDrop($event, loc.id)"
+      (click)="onLocationNavClick(loc.id)"
+    >
+      <i [ngClass]="getCss(loc.location_marker, loc)"> </i>
+      {{ loc.name | truncate }}&nbsp;({{ getThreats(loc.id) || '-' }})
+      <i class="fas fa-shoe-prints" *ngIf="isExit(loc)"></i>
+
+      <ng-container *ngFor="let inv of getNumberOfInvs(loc.id).reverse()">
+        <img [src]="getPortraitImage(inv.id)" alt="" class="portrait-icon" />
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<div class="location-card" *ngIf="locations.length > 0">
+  <app-card-arkham
+    [cardProps]="locationCardConfig"
+    [card]="getLocationCard()"
+    (command)="onCommand($event)"
+  >
+  </app-card-arkham>
+</div>
+
+<div class="current-location" *ngIf="locations.length > 0">
+  <i [ngClass]="getCss(getCurrentLocation().location_marker, getCurrentLocation())"> </i>&nbsp;
+  {{ getCurrentLocation().name | truncate }} &nbsp;&nbsp;&nbsp;
+  <i class="fas fa-shoe-prints"></i>&nbsp;&nbsp;&nbsp;
+  <ng-container *ngFor="let exit of getExits()">
+    <i [ngClass]="getCssForLocationExits(exit)"> </i>&nbsp;
+  </ng-container>
+</div>
+
+<!-- <i [ngClass]="getCss(currentLocation)"> </i> -->
+<!-- id="location-threat-nav" -->
+<!-- [dndDropzone]="['portrait']"
+  dndDragoverClass="drag-over"
+dndEffectAllowed="move"
+(dndDrop)="onPortraitDrop($event)" -->

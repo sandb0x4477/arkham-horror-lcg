@@ -1,0 +1,107 @@
+.card-arkham-vertical {
+  // overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  cursor: -moz-pointer;
+  cursor: -webkit-pointer;
+  width: 210px;
+  height: 293px;
+  overflow: hidden;
+
+  .exhausted {
+    filter: grayscale(100%);
+  }
+
+  &:hover {
+    z-index: 2;
+    // transition-delay: 0.3s;
+    .card-buttons {
+      display: grid;
+    }
+
+    // img {
+    //   transform: scale(1.1);
+    // }
+  }
+
+  img {
+    width: 210px;
+    height: 293px;
+    border-radius: 12px;
+    // transition: transform .5s ease;
+  }
+}
+
+.card-arkham-horizontal {
+  // overflow: hidden;
+  position: relative;
+  width: auto;
+  width: 293px;
+  height: 210px;
+  cursor: pointer;
+  cursor: -moz-pointer;
+  cursor: -webkit-pointer;
+  // transition: transform 0.3s ease;
+  // transform-origin: center top;
+  // transition-delay: 0.7s;
+
+  &:hover {
+
+    // transform: scale(1.4);
+    // z-index: 10;
+
+    .card-buttons {
+      display: grid;
+    }
+  }
+
+  img {
+    width: 293px;
+    height: auto;
+    border-radius: 12px;
+  }
+}
+
+.card-tokens {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .token {
+    position: absolute;
+    font-size: 2.1em;
+    font-family: 'Teko', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    line-height: 66px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    cursor: pointer;
+  }
+}
+
+.drag-over {
+  filter: grayscale(65%);
+}
+
+.card-buttons {
+  position: absolute;
+  top: 14px;
+  right: 4px;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: 1fr;
+  display: none;
+  // grid-template-rows: 12px 12px 12px;
+
+  button {
+    cursor: pointer;
+    opacity: 0.35;
+    padding: 2px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}

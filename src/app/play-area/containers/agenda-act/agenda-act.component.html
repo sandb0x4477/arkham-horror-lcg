@@ -1,0 +1,26 @@
+<div class="agenda-area-wrapper">
+  <ng-container *ngIf="agendaDeck.length > 0; else emptyDeck">
+    <app-card-arkham
+      [cardProps]="agendaCardConfig"
+      [card]="agendaDeck[0]"
+      (command)="onCommand($event)"
+    >
+    </app-card-arkham>
+  </ng-container>
+  <ng-template #emptyDeck>
+    <div class="empty-deck-horizontal"></div>
+  </ng-template>
+</div>
+<div class="act-area-wrapper">
+    <ng-container *ngIf="actDeck.length > 0; else emptyDeck">
+        <app-card-arkham
+          [cardProps]="actCardConfig"
+          [card]="actDeck[0]"
+          (command)="onCommand($event)"
+        >
+        </app-card-arkham>
+      </ng-container>
+      <ng-template #emptyDeck>
+        <div class="empty-deck-horizontal"></div>
+      </ng-template>
+</div>
