@@ -12,6 +12,7 @@ export interface SettingsStateModel {
   currentPage: string;
   selCampaign: number;
   selScenario: ScenarioData;
+  introText: string;
   selInvs: Array<string>;
   deckLists: Array<Card[]>;
   errors: Array<any>;
@@ -19,9 +20,10 @@ export interface SettingsStateModel {
 
 const settingsStateDefaults: SettingsStateModel = {
   loading: false,
-  currentPage: 'selInv0',
+  currentPage: 'selCampaign',
   selCampaign: 0,
   selScenario: Scenarios[0],
+  introText: null,
   selInvs: ['01001', '01005'],
   deckLists: [[], []],
   errors: null,
@@ -33,7 +35,7 @@ const settingsStateDefaults: SettingsStateModel = {
 })
 export class SettingsState {
   constructor() {}
-
+// #region SELECTORS
   @Selector()
   public static getState(state: SettingsStateModel): SettingsStateModel {
     return state;
@@ -65,6 +67,11 @@ export class SettingsState {
   }
 
   @Selector()
+  public static introText(state: SettingsStateModel): string {
+    return state.introText;
+  }
+
+  @Selector()
   public static deckLists(state: SettingsStateModel): Array<Card[]> {
     return state.deckLists;
   }
@@ -73,10 +80,17 @@ export class SettingsState {
   public static errors(state: SettingsStateModel): Array<any> {
     return state.errors;
   }
-
+// #endregion
   // ---------------------------------------------------------------------------
   // ! ACTIONS
   // ---------------------------------------------------------------------------
+  @Action(actions.SetIntroText)
+  public setIntroText({ patchState }: StateContext<SettingsStateModel>, { payload }: actions.SetIntroText) {
+    patchState({
+      introText: payload,
+    });
+  }
+
   @Action(actions.SwitchCampaign)
   public switchCampaign({ patchState }: StateContext<SettingsStateModel>, { payload }: actions.SwitchCampaign) {
     const campaignCode = CampaignsData[payload.id].code;

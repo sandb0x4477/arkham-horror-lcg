@@ -3,9 +3,9 @@
   <!-- --------------------------------------------------------------------- -->
   <!-- ? DIFFICULTY-CARDS -->
   <!-- --------------------------------------------------------------------- -->
-  <ng-container *ngIf="(selScenario$ | async) as selScenario">
-    <app-difficulty-cards [scenario]="selScenario"></app-difficulty-cards>
-  </ng-container>
+  <!-- <ng-container *ngIf="(selScenario$ | async) as selScenario"> -->
+    <app-difficulty-cards [scenario]="selScenario$ | async"></app-difficulty-cards>
+  <!-- </ng-container> -->
 
   <!-- ----------------------------------------------------------------------- -->
   <!-- PORTRAITS -->

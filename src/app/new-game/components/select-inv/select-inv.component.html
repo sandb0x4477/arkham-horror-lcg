@@ -1,14 +1,13 @@
 <div class="newgame-nav-menu">
   <button class="btn-newgame" (click)="onBack('switchPage', previousPage)">Back</button>
   <div class="newgame-nav-field-title">Select {{ title }} Investigator</div>
-  <button class="btn-newgame" (click)="onNext('switchPage', nextPage)">Next</button>
+  <button class="btn-newgame" (click)="onNext('switchPage', nextPage)">{{ buttontext }}</button>
 </div>
 <hr class="hr-newgame" />
 
-  <app-list-invs
-    [selectedInv]="selInvs[id]"
-    [invsListSet]="invsListSet"
-    [id]="id"
-    (command)="onCommand($event)"
-  ></app-list-invs>
-
+<app-list-invs
+  [selectedInv]="selInvs[id]"
+  [invsListSet]="invsListSet"
+  [id]="id"
+  (command)="onCommand($event)"
+></app-list-invs>

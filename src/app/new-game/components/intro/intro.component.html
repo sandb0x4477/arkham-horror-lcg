@@ -1,13 +1,13 @@
 <div class="newgame-nav-menu">
-  <button class="btn-newgame" (click)="onCommand('switchPage', previousPage)">Back</button>
+ <div></div>
   <div class="newgame-nav-field-title">{{ selScenario.campaign }}</div>
-  <button class="btn-newgame" (click)="onCommand('switchPage', nextPage)">Start</button>
+  <button class="btn-newgame" [routerLink]="[ '/play']">Enter Arkham</button>
 </div>
 
 <hr class="hr-newgame" />
 
 <div class="text-description-title">{{ selScenario.title }}</div>
-<div class="text-description">{{ selScenario.description[0] }}</div>
+<div class="text-description">{{ introText }}</div>
 
 <div class="newgame-image">
   <img src="assets/others/campaign1.png" alt="" />

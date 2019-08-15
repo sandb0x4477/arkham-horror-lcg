@@ -59,7 +59,15 @@
 
         <app-public-form [id]="1" (command)="onCommand($event)"></app-public-form>
       </ng-container>
-      <app-intro *ngSwitchCase="'start'" [selScenario]="selScenario$ | async" (command)="onCommand($event)"></app-intro>
+      <!-- ----------------------------------------------------------------- -->
+      <!-- ? INTRO -->
+      <!-- ----------------------------------------------------------------- -->
+        <ng-container *ngSwitchCase="'start'">
+        <ng-container *ngIf="(introText$ | async) as introText; else loading">
+          <app-intro [introText]="introText" [selScenario]="selScenario$ | async" (command)="onCommand($event)"></app-intro>
+        </ng-container>
+      </ng-container>
+
     </ng-container>
   </ng-container>
 

@@ -19,6 +19,8 @@ import { ScenarioData } from '../../../shared/models/scenario.data.model';
 import { Card } from '../../../shared/models/card.model';
 import { StarterDecks } from '../../../shared/data/starter-decks.data';
 import { tap, switchMap } from 'rxjs/operators';
+import { ScenarioService } from '../../services/scenario.service';
+import { SetPlayStatus } from '../../../core/store/app.actions';
 
 @Component({
   selector: 'app-new-game',
@@ -26,8 +28,7 @@ import { tap, switchMap } from 'rxjs/operators';
   styleUrls: ['./new-game.component.scss'],
 })
 export class NewGameComponent implements OnInit {
-
-  constructor(private store: Store, private cardsDbService: CardsDbService) {}
+  constructor(private store: Store, private cardsDbService: CardsDbService, private scenarioService: ScenarioService) {}
 
   @Select(SettingsState.loading) loading$: Observable<boolean>;
   @Select(SettingsState.currentPage) currentPage$: Observable<string>;
@@ -36,6 +37,7 @@ export class NewGameComponent implements OnInit {
   @Select(SettingsState.selInvs) selInvs$: Observable<Array<string>>;
   @Select(SettingsState.deckLists) deckLists$: Observable<Array<Card[]>>;
   @Select(SettingsState.errors) errors$: Observable<Array<any>>;
+  @Select(SettingsState.introText) introText$: Observable<string>;
 
   ngOnInit() {}
 
@@ -75,9 +77,7 @@ export class NewGameComponent implements OnInit {
           slots = res.slots;
           investigator = res.investigator_code;
         }),
-        switchMap(response =>
-          this.cardsDbService.getCardsFromDb(this.extractSlots(response)),
-        ),
+        switchMap(response => this.cardsDbService.getCardsFromDb(this.extractSlots(response))),
       )
       .subscribe(
         (cards: Card[]) => {
@@ -115,8 +115,11 @@ export class NewGameComponent implements OnInit {
 
       case 'switchPage':
         if (payload.id === 'start') {
-          // this.scenarioService.setUpGame();
-          this.store.dispatch(new SwitchPage(payload));
+          this.store.dispatch([new SwitchPage(payload)]);
+          this.scenarioService.setUpGame();
+        } else if (payload.id === 'play') {
+          // this.router
+          // this.store.dispatch(new SwitchPage(payload));
         } else {
           this.store.dispatch(new SwitchPage(payload));
         }

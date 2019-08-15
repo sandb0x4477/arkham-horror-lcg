@@ -20,7 +20,7 @@ export class DifficultyCardsComponent implements OnInit {
       return '';
     } else {
       const code = this.scenario.difficultyCards[this.scenario.answers.difficulty];
-      return `/bundles/cards/${code}.jpg`;
+      return `/assets/cards/${code}.jpg`;
     }
   }
 

@@ -1,4 +1,6 @@
-import { State, Selector } from '@ngxs/store';
+import { State, Selector, Action, StateContext } from '@ngxs/store';
+
+import { SetPlayStatus } from './app.actions';
 
 export interface AppStateModel {
   loading: boolean;
@@ -44,5 +46,15 @@ export class AppState {
   @Selector()
   static scenarioName(state: AppStateModel) {
     return state.scenarioName;
+  }
+
+  // ---------------------------------------------------------------------------
+  // ! ACTIONS
+  // ---------------------------------------------------------------------------
+  @Action(SetPlayStatus)
+  public setPlayStatus({ patchState }: StateContext<AppStateModel>, { payload }: SetPlayStatus) {
+    patchState({
+      isGameInProgress: payload,
+    });
   }
 }

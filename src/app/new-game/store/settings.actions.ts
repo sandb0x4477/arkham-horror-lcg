@@ -46,6 +46,11 @@ export class ClearError {
   constructor(public payload: any) {}
 }
 
+export class SetIntroText {
+  static readonly type = '[Scenario] Set Intro Text';
+  constructor(public payload: string) {}
+}
+
 export type SettingsActions =
   | SwitchCampaign
   | SwitchScenario
@@ -56,5 +61,5 @@ export type SettingsActions =
   | ClearError
   | NextPage
   | PreviousPage
-  | SetError;
-
+  | SetError
+  | SetIntroText;

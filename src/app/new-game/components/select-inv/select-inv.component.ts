@@ -73,6 +73,10 @@ export class SelectInvComponent implements OnInit, OnChanges {
     }
   }
 
+  get buttontext() {
+    return this.id === 0 ? 'Next' : 'Start';
+  }
+
   get nextPage() {
     return this.id === 0 ? 'selInv1' : 'start';
   }

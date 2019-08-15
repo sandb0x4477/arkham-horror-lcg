@@ -7,9 +7,10 @@ import { ScenarioData } from '../../../shared/models/scenario.data.model';
   styleUrls: ['./intro.component.scss']
 })
 export class IntroComponent implements OnInit {
-  nextPage = 'play';
+  nextPage = 'selCampaign';
   previousPage = 'selInv1';
   @Input() selScenario: ScenarioData;
+  @Input() introText: string;
   @Output() command = new EventEmitter<any>();
 
   constructor() { }
