@@ -1,1 +1,6 @@
-<p>tools works!</p>
+<!-- <ng-container *ngIf="(chaosBag$ | async) as chaosBag"> -->
+  <app-tools-chaos-bag [chaosBag]="chaosBag$ | async"></app-tools-chaos-bag>
+<!-- </ng-container> -->
+
+<!-- {{chaosBag$ | async | json}}
+{{activeTab$ | async | json}} -->

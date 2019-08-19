@@ -5,19 +5,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgxsModule } from '@ngxs/store';
-import {States} from './store';
+import { States } from './store';
 
 import { ToolsComponent } from './containers/tools.component';
 import { CardsDbService } from './services/cards-db.service';
+import { ToolsChaosBagComponent } from './containers/tools-chaos-bag/tools-chaos-bag.component';
 
 const routes: Routes = [
   {
-    path: '', component: ToolsComponent,
+    path: '',
+    component: ToolsComponent,
   },
 ];
 
 @NgModule({
-  declarations: [ToolsComponent],
+  declarations: [ToolsComponent, ToolsChaosBagComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -27,4 +29,4 @@ const routes: Routes = [
   ],
   providers: [CardsDbService],
 })
-export class ToolsModule { }
+export class ToolsModule {}

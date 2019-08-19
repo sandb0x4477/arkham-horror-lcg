@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import random from 'lodash.random';
 
 import { ChaosTokens } from '../../../shared/data/settings';
-import { ScenarioData } from '../../../shared/models/scenario.data.model';
 
 @Component({
   selector: 'app-chaos-bags',

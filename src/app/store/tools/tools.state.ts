@@ -4,14 +4,12 @@ import { SetActiveTab } from './tools.actions';
 import { SetLoading } from '../../new-game/store/settings.actions';
 
 export interface ToolsStateModel {
-  loading: boolean;
   activeTab: string;
 }
 
 @State<ToolsStateModel>({
   name: 'tools',
   defaults: {
-    loading: false,
     activeTab: 'chaosBag',
   },
 })
@@ -24,10 +22,10 @@ export class ToolsState {
     return state;
   }
 
-  @Selector()
-  public static loading(state: ToolsStateModel) {
-    return state.loading;
-  }
+  // @Selector()
+  // public static loading(state: ToolsStateModel) {
+  //   return state.loading;
+  // }
 
   @Selector()
   public static activeTab(state: ToolsStateModel) {
@@ -42,12 +40,6 @@ export class ToolsState {
   // ---------------------------------------------------------------------------
   // ! ACTIONS
   // ---------------------------------------------------------------------------
-  @Action(SetLoading)
-  public setLoading({ patchState }: StateContext<ToolsStateModel>, { payload }: SetLoading) {
-    patchState({
-      loading: payload,
-    });
-  }
 
   @Action(SetActiveTab)
   public setActiveTab({ patchState }: StateContext<ToolsStateModel>, { payload }: SetActiveTab) {

@@ -16,7 +16,7 @@ export class CardArkhamComponent {
   constructor() {
   }
 
-  onCommand(commandId: string, cardId: string) {
+  onCommand(commandId: string, cardId: any) {
     const payload = {
       commandId,
       cardId,

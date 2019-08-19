@@ -13,7 +13,6 @@ import {
   NavBarSwitch,
   MoveItemInArray,
   LocationSwitch,
-  ChangeDifficulty,
   ExhaustCard,
   FlipCard,
   FlipDeck,
@@ -23,8 +22,6 @@ import {
   DropOnLocNav,
   RemoveCard,
 } from './store/arkham.actions';
-import { ScenarioData } from '../shared/models/scenario.data.model';
-import { SettingsState } from '../new-game/store/settings.state';
 
 @Component({
   selector: 'app-game-main',
@@ -89,13 +86,11 @@ export class GameMainComponent implements OnInit {
     console.log('card => ', card);
     const image = card.faceUp ? card.imagesrc : card.backimagesrc;
 
-    // open lightbox
     const tempCard = [{ thumb: image, src: image }];
     this.lightbox.open(tempCard);
   }
 
   close(): void {
-    // close lightbox programmatically
     this.lightbox.close();
   }
 
@@ -139,14 +134,12 @@ export class GameMainComponent implements OnInit {
             currentIndex: event.currentIndex,
             extraData,
           };
-          // console.log('cdkPayload => ', payload);
           this.store.dispatch(new TransferArrayItem(payload));
         }
         break;
 
       case 'cdkDropOnLocNav':
         console.log('Executing Drop On Loc Nav');
-        // console.log(JSON.stringify(payload, null, 2));
         this.store.dispatch(new DropOnLocNav(payload));
         break;
 
@@ -200,8 +193,6 @@ export class GameMainComponent implements OnInit {
         break;
 
       case 'zoomCard':
-        // console.log('onCommand payload => ', payload);
-
         this.openLightbox(payload.cardId);
         break;
     }

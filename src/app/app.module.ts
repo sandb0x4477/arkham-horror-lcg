@@ -23,7 +23,7 @@ import { States } from './core/store';
     NgxsModule.forRoot(States, {
       developmentMode: !environment.production,
     }),
-    // NgxsStoragePluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot({
       name: 'Arkham Horror',
       disabled: environment.production
