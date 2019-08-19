@@ -17,12 +17,18 @@ import {
   NavBarSwitch,
   MoveToken,
   LocationSwitch,
-  SetScenario,
   AddTokenOnAgenda,
   DropOnLocNav,
   RemoveCard,
+  SetDifficultyCard,
+  SetChaosBag,
+  SpawnAcolteOnSouthSide,
+  ResetArkhamState,
+  AddTokensToAgenda
 } from './arkham.actions';
 import { Card } from '../../shared/models/card.model';
+import { ArkhamStateIntial } from './initial-state';
+import { SettingsState } from '../../new-game/store/settings.state';
 
 enum Container {
   'hand0-deck' = 'hand0Deck',
@@ -161,6 +167,8 @@ const singleDecks = [
 
 export interface ArkhamStateModel {
   navBarsStatus: any;
+  difficultyCard: string;
+  chaosBag: number[];
   currentLocation: string;
   agendaDeck: Card[];
   actDeck: Card[];
@@ -194,46 +202,7 @@ export interface ArkhamStateModel {
 
 @State<ArkhamStateModel>({
   name: 'arkham',
-  defaults: {
-    navBarsStatus: {
-      activeNavItemHand0: 'hand0-hand-nav',
-      activeNavItemHand1: 'hand1-hand-nav',
-      activeNavItemPlay0: 'play0-inplay-nav',
-      activeNavItemPlay1: 'play1-inplay-nav',
-      activeNavItemThreat0: 'threat0-threats-nav',
-      activeNavItemThreat1: 'threat1-threats-nav',
-      activeNavItemEncounter0: 'encounter0-encounter-nav',
-    },
-    currentLocation: '',
-    agendaDeck: [],
-    actDeck: [],
-    investigators: [],
-    hand0Deck: [],
-    hand0Hand: [],
-    hand0Discard: [],
-    hand0Spare: [],
-    hand1Deck: [],
-    hand1Hand: [],
-    hand1Discard: [],
-    hand1Spare: [],
-    play0Inplay: [],
-    play0Discard: [],
-    play0Victory: [],
-    play0Spare: [],
-    play1Inplay: [],
-    play1Discard: [],
-    play1Victory: [],
-    play1Spare: [],
-    threat0Threats: [],
-    threat0Outofplay: [],
-    threat1Threats: [],
-    threat1Outofplay: [],
-    encounter0Deck: [],
-    encounter0Discard: [],
-    locationThreat: [],
-    locations: [],
-    hiddenDeck: [],
-  },
+  defaults: ArkhamStateIntial,
 })
 export class ArkhamState {
   constructor(private store: Store) {}
@@ -271,11 +240,68 @@ export class ArkhamState {
     return result;
   }
 
+  @Action(ResetArkhamState)
+  public resetArkhamState({getState, setState}: StateContext<ArkhamStateModel>) {
+    const state = getState();
+    setState({
+      ...state,
+      ...ArkhamStateIntial
+    });
+  }
+
+  @Action(AddTokensToAgenda)
+  public addTokensToAgenda({getState, setState}: StateContext<ArkhamStateModel>, { payload }: AddTokensToAgenda) {
+    const stateAgenda = getState().agendaDeck;
+    const firstAgenda = stateAgenda[0];
+    for (let i = 0; i < payload; i++) {
+      const payloadToken = { cardId: firstAgenda.id, tokenId: 'doom', posXRelative: 40, posYRelative: 140 };
+      this.store.dispatch(new AddToken(payloadToken));
+    }
+  }
+
+  //   cardId: "67ce477a-d36b-4dcf-a13f-917df0416569"
+  // currentIndex: 0
+  // deckSourceId: "encounter0-encounter"
+  // deckTargetId: "location-threat"
+  // extraData: "c1b8cd9c-ffbc-45cd-bc1f-8e081d20fa87"
+  // previousIndex: 0
+
+  @Action(SpawnAcolteOnSouthSide)
+  public SpawnAcolteOnSouthSide({ getState, patchState }: StateContext<ArkhamStateModel>, ) {
+    const locationState = getState().locations;
+    const hiddenDeckState = getState().hiddenDeck;
+    const southSideCard = locationState.find(c => c.name === 'Southside');
+    const acolyteCard = hiddenDeckState.find(c => c.code === '01169');
+
+    const payload = {
+      cardId: acolyteCard.id,
+      currentIndex: 0,
+      deckSourceId: 'hidden-deck',
+      deckTargetId: 'location-threat',
+      extraData: southSideCard.id,
+      previousIndex: 2,
+    };
+    this.store.dispatch(new TransferArrayItem(payload));
+    const payloadToken = { cardId: acolyteCard.id, tokenId: 'doom', posXRelative: 40, posYRelative: 140 };
+    this.store.dispatch(new AddToken(payloadToken));
+  }
+
+  @Action(SetChaosBag)
+  public setChaosBag({ patchState }: StateContext<ArkhamStateModel>, { payload }: SetChaosBag) {
+    patchState({
+      chaosBag: payload,
+    });
+  }
+
+  @Action(SetDifficultyCard)
+  public setDifficultyCards({ patchState }: StateContext<ArkhamStateModel>, { payload }: SetDifficultyCard) {
+    patchState({
+      difficultyCard: payload,
+    });
+  }
+
   @Action(RemoveCard)
-  public RemoveCard(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: DropOnLocNav,
-  ) {
+  public RemoveCard({ getState, patchState }: StateContext<ArkhamStateModel>, { payload }: DropOnLocNav) {
     const { cardId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
     const card = getState().locations[cardIndex];
@@ -300,10 +326,7 @@ export class ArkhamState {
   }
 
   @Action(DropOnLocNav)
-  public dropOnLocNav(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: DropOnLocNav,
-  ) {
+  public dropOnLocNav({ getState, patchState }: StateContext<ArkhamStateModel>, { payload }: DropOnLocNav) {
     const { commandId, locationId, cardId, sourceId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
     // console.log('cardIndex => ', cardIndex);
@@ -330,12 +353,9 @@ export class ArkhamState {
         [Container[sourceId]]: produce(stateSource, (draft: any) => {
           draft.splice(cardIndex, 1);
         }),
-        [Container['locations-nav']]: produce(
-          getState()[Container['locations-nav']],
-          (draft: any) => {
-            draft.push(card);
-          },
-        ),
+        [Container['locations-nav']]: produce(getState()[Container['locations-nav']], (draft: any) => {
+          draft.push(card);
+        }),
       });
     } else {
       // console.log('Moving card to location');
@@ -353,36 +373,8 @@ export class ArkhamState {
     }
   }
 
-/*   @Action(SetScenario)
-  public setScenario(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: SetScenario,
-  ) {
-    // const state = getState();
-    patchState({
-      scenario: payload,
-    });
-  } */
-
-  // @Action(ChangeDifficulty)
-  // public changeDifficulty(
-  //   { getState, patchState }: StateContext<ArkhamStateModel>,
-  //   { payload }: ChangeDifficulty,
-  // ) {
-  //   const state = getState();
-  //   const currentSettingsState: SettingsStateModel = this.store.selectSnapshot(SettingsState.getState);
-  //   // console.log('currentSettingsState => ', currentSettingsState);
-
-  //   patchState({
-  //     scenario: { ...state.scenario, difficulty: currentSettingsState.currentScenario.answers.difficulty},
-  //   });
-  // }
-
   @Action(LocationSwitch)
-  public locationSwitch(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: LocationSwitch,
-  ) {
+  public locationSwitch({ getState, patchState }: StateContext<ArkhamStateModel>, { payload }: LocationSwitch) {
     // const state = getState();
     patchState({
       currentLocation: payload,
@@ -390,10 +382,7 @@ export class ArkhamState {
   }
 
   @Action(NavBarSwitch)
-  public navBarSwitch(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: NavBarSwitch,
-  ) {
+  public navBarSwitch({ getState, patchState }: StateContext<ArkhamStateModel>, { payload }: NavBarSwitch) {
     const { navItemId, navBarId } = payload;
     const state = getState();
     patchState({
@@ -418,10 +407,7 @@ export class ArkhamState {
   }
 
   @Action(PreviousCard)
-  public previousCard(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: PreviousCard,
-  ) {
+  public previousCard({ getState, patchState }: StateContext<ArkhamStateModel>, { payload }: PreviousCard) {
     const { cardId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
     const deckState = getState()[Container[deckId]];
@@ -437,10 +423,7 @@ export class ArkhamState {
   }
 
   @Action(ShuffleDeck)
-  public shuffleDeck(
-    { getState, patchState, setState }: StateContext<ArkhamStateModel>,
-    { payload }: ShuffleDeck,
-  ) {
+  public shuffleDeck({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: ShuffleDeck) {
     const { cardId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
 
@@ -458,10 +441,7 @@ export class ArkhamState {
   }
 
   @Action(FlipDeck)
-  public flipDeck(
-    { getState, patchState, setState }: StateContext<ArkhamStateModel>,
-    { payload }: FlipDeck,
-  ) {
+  public flipDeck({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: FlipDeck) {
     const { cardId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
 
@@ -478,17 +458,14 @@ export class ArkhamState {
   }
 
   @Action(FlipCard)
-  public flipCard(
-    { getState, patchState, setState }: StateContext<ArkhamStateModel>,
-    { payload }: FlipCard,
-  ) {
+  public flipCard({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: FlipCard) {
     const { cardId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
 
     const deckState = getState()[Container[deckId]];
 
     if (deckState[cardIndex].code === '01121' && deckState[cardIndex].faceUp) {
-      // console.log('Masked Hunter');
+      console.log('Masked Hunter');
       const cardIdx = getState().hiddenDeck.findIndex(c => c.code === '01121b');
       const card = getState().hiddenDeck.find(c => c.code === '01121b');
       if (cardIdx !== -1) {
@@ -512,10 +489,7 @@ export class ArkhamState {
   }
 
   @Action(ExhaustCard)
-  public exhaustCard(
-    { getState, patchState, setState }: StateContext<ArkhamStateModel>,
-    { payload }: ExhaustCard,
-  ) {
+  public exhaustCard({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: ExhaustCard) {
     const { cardId } = payload;
     // console.log('payload => ', payload);
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
@@ -531,10 +505,7 @@ export class ArkhamState {
   }
 
   @Action(RemoveToken)
-  public removeToken(
-    { getState, patchState, setState }: StateContext<ArkhamStateModel>,
-    { payload }: RemoveToken,
-  ) {
+  public removeToken({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: RemoveToken) {
     const { cardId, tokenId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
 
@@ -549,10 +520,7 @@ export class ArkhamState {
   }
 
   @Action(MoveToken)
-  public moveToken(
-    { getState, patchState, setState }: StateContext<ArkhamStateModel>,
-    { payload }: AddToken,
-  ) {
+  public moveToken({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: AddToken) {
     const { cardId, tokenId, distanceX, distanceY } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
     // console.log('deckId => ', deckId);
@@ -612,10 +580,7 @@ export class ArkhamState {
   }
 
   @Action(AddToken)
-  public addToken(
-    { getState, patchState, setState }: StateContext<ArkhamStateModel>,
-    { payload }: AddToken,
-  ) {
+  public addToken({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: AddToken) {
     const { cardId, tokenId, posXRelative, posYRelative } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
 
@@ -634,25 +599,19 @@ export class ArkhamState {
   }
 
   @Action(PopulateDeck)
-  public populateDeck(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: PopulateDeck,
-  ) {
+  public populateDeck({ getState, patchState }: StateContext<ArkhamStateModel>, { payload }: PopulateDeck) {
     // console.log(payload);
     const state = getState()[payload.deckId];
 
     patchState({
       [payload.deckId]: produce(state, (draft: any) => {
-         draft.splice(0, draft.length, ...payload.deck);
+        draft.splice(0, draft.length, ...payload.deck);
       }),
     });
   }
 
   @Action(MoveItemInArray)
-  public moveItemInArray(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: any,
-  ) {
+  public moveItemInArray({ getState, patchState }: StateContext<ArkhamStateModel>, { payload }: any) {
     const { deckTargetId, currentIndex, previousIndex, cardId, extraData } = payload;
     if (deckTargetId === 'encounter-deck' || deckTargetId === 'encounter-discard') {
       return;
@@ -668,12 +627,9 @@ export class ArkhamState {
   }
 
   @Action(TransferArrayItem)
-  public transferArrayItem(
-    { getState, patchState }: StateContext<ArkhamStateModel>,
-    { payload }: any,
-  ) {
+  public transferArrayItem({ getState, patchState }: StateContext<ArkhamStateModel>, { payload }: any) {
     const { cardId, deckTargetId, deckSourceId, currentIndex, previousIndex, extraData } = payload;
-    // console.log('payload:', payload);
+    console.log('payload:', payload);
     const isFromNavItem = deckTargetId.slice(-3) === 'nav';
     // console.log('isFromNavItem: ', isFromNavItem);
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);

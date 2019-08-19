@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import random from 'lodash.random';
 
-import { ChaosTokens} from '../../../shared/data/settings';
+import { ChaosTokens } from '../../../shared/data/settings';
 import { ScenarioData } from '../../../shared/models/scenario.data.model';
 
 @Component({
@@ -10,7 +10,7 @@ import { ScenarioData } from '../../../shared/models/scenario.data.model';
   styleUrls: ['./chaos-bags.component.scss'],
 })
 export class ChaosBagsComponent implements OnInit {
-  @Input() scenario: ScenarioData;
+  @Input() chaosBag: number[];
 
   currentChaosToken = [0, 0];
   chaosTokenClass = [`chaos-bag chaos-token chaos-${ChaosTokens[0]}`, `chaos-bag chaos-token chaos-${ChaosTokens[0]}`];
@@ -27,14 +27,19 @@ export class ChaosBagsComponent implements OnInit {
     let times = 10;
     do {
       times--;
-      this.currentChaosToken[id] = random(0, this.scenario.chaosBagTokens[this.scenario.answers.difficulty].length - 1);
+      this.currentChaosToken[id] = random(
+        0,
+        this.chaosBag.length - 1,
+      );
       this.chaosTokenClass[id] = this.getCss(this.currentChaosToken[id], times > 0);
       await this.sleep(70);
     } while (times > 0);
   }
 
   getCss(chaosToken: number, rolling: boolean = false): string {
-    let css = `chaos-bag chaos-token chaos-${ChaosTokens[this.scenario.chaosBagTokens[this.scenario.answers.difficulty][chaosToken]]}`;
+    let css = `chaos-bag chaos-token chaos-${
+      ChaosTokens[this.chaosBag[chaosToken]]
+    }`;
 
     if (rolling) {
       css += ' rolling';

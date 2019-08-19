@@ -13,7 +13,8 @@ export class CardArkhamComponent {
   @Input() cardProps: any;
   @Output() command = new EventEmitter<any>();
 
-  constructor() {}
+  constructor() {
+  }
 
   onCommand(commandId: string, cardId: string) {
     const payload = {

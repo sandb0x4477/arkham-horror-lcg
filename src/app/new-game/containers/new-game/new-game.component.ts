@@ -125,6 +125,10 @@ export class NewGameComponent implements OnInit {
         }
         break;
 
+      case 'fetchPublicDeck':
+        this.fetchPublicDeck(payload.value, payload.id);
+        break;
+
       case 'selectInv':
         this.fetchStarterDeck(payload.code, payload.id);
         this.store.dispatch(new SelectInvestigator(payload));

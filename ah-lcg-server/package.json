@@ -1,19 +1,21 @@
 {
-  "name": "ah-lcg-hapi",
+  "name": "ah-lcg-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/hapi": "^18.3.1",
-    "@hapi/joi": "^15.1.0",
-    "dotenv": "^8.0.0",
-    "mongoose": "^5.6.9"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.9",
+    "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

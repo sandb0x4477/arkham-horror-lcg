@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
+
 import { AppState } from '../../store/app.state';
 import { Observable } from 'rxjs';
+import { SwitchPage } from '../../../new-game/store/settings.actions';
 
 @Component({
   selector: 'app-menu-bar',
@@ -13,9 +15,13 @@ export class MenuBarComponent implements OnInit {
   @Select(AppState.campaignName) campaignName$: Observable<string>;
   @Select(AppState.scenarioName) scenarioName$: Observable<string>;
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
+  }
+
+  onClick() {
+    this.store.dispatch(new SwitchPage({ commandId: 'switchPage', id: 'selCampaign' }));
   }
 
 }

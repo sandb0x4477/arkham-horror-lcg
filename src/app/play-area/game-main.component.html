@@ -3,9 +3,7 @@
   <!-- --------------------------------------------------------------------- -->
   <!-- ? DIFFICULTY-CARDS -->
   <!-- --------------------------------------------------------------------- -->
-  <!-- <ng-container *ngIf="(selScenario$ | async) as selScenario"> -->
-    <app-difficulty-cards [scenario]="selScenario$ | async"></app-difficulty-cards>
-  <!-- </ng-container> -->
+    <app-difficulty-cards [difficultyCard]="difficultyCard$ | async"></app-difficulty-cards>
 
   <!-- ----------------------------------------------------------------------- -->
   <!-- PORTRAITS -->
@@ -20,7 +18,7 @@
     <!-- ----------------------------------------------------------------------- -->
     <!-- ? CHAOS BAGS -->
     <!-- ----------------------------------------------------------------------- -->
-    <app-chaos-bags [scenario]="selScenario$ | async"></app-chaos-bags>
+    <app-chaos-bags [chaosBag]="chaosBag$ | async"></app-chaos-bags>
     <!-- ----------------------------------------------------------------------- -->
     <!-- ? AGENDA_ACT -->
     <!-- ----------------------------------------------------------------------- -->

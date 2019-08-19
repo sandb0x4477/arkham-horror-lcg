@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CardSchema = mongoose.Schema({
+const CardSchema = new mongoose.Schema({
 	pack_code: {
 		type: 'String'
 	},
@@ -119,7 +119,7 @@ const CardSchema = mongoose.Schema({
 		type: 'String'
 	}
 }, {
-    timestamps: true
+    timestamps: false
   });
 
 module.exports = mongoose.model('Card', CardSchema);

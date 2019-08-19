@@ -21,6 +21,7 @@ export interface ScenarioData {
   hiddenDeck: string[];
   answers?: any;
   otherCards?: Array<string[]>;
+  extraCards?: string[];
 }
 
 export interface Question {

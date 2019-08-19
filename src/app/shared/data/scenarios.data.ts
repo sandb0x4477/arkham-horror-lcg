@@ -90,6 +90,7 @@ export const Scenarios: ScenarioData[] = [
     ],
     basicWeakness: ['01096', '01096', '01097', '01097', '01098', '01099', '01100', '01101', '01102', '01103'],
     hiddenDeck: [],
+    answers: { difficulty: 1 },
   },
   // ---------------------------------------------------------------------------
   // ? The Midnight Mask
@@ -106,7 +107,57 @@ export const Scenarios: ScenarioData[] = [
     description: [
       // prettier-ignore
       // tslint:disable-next-line:max-line-length
-      'You and your partners have been investigating strange events taking place in your home city of Arkham, Massachusetts. Over the past few weeks, several townspeople have mysteriously gone missing. Recently, their corpses turned up in the woods, savaged and half-eaten. \n\nThe police and newspapers have stated that wild animals are responsible, but you believe there is something else going on. You are gathered together at the lead investigator’s home to discuss these bizarre events.',
+      `The woman came to you in a panic, raving about monsters emerging
+      from the ground in a home near Rivertown. “I managed to trap them,” she
+      explains, “but there are others. Other pits. Other domains.” Only last week,
+      you would have thought she was a lunatic. Recent events, however, have
+      challenged your preconceptions of normality. You decide to hear her out.
+      She introduces herself as Lita Chantler and lays out a tale that strains
+      the limits of your belief. “The creatures I speak of ,” she claims, “are called
+      ghouls—cruel beings who plague the crypts, caverns, and tunnels beneath the
+      city of Arkham…”.
+      “These creatures feed on the corpses of humans, and they are served
+      by a dark cult within Arkham whose members have inexplicably come to
+      worship the ancient master of the ghouls. This cult has been killing innocent
+      people and feeding them to the ghouls, satiating a monstrous hunger. A dark
+      balance was maintained. Until now. Recently,” Lita continues, “one of their
+      lairs, where the corpses were stored, was destroyed. Since then, the ghouls have
+      been more active than usual. I have tracked their movements and tried my
+      best to stop them from running amok throughout the city. But I think there
+      is something worse going on. The cult has been planning something darker,
+      and more ominous, than anything I have yet observed. Indications are that
+      this plan shall come to fruition tonight, shortly after midnight. Beyond that, I
+      cannot fathom what to expect.
+      “Many of the cultists,” Lita continues, “will seem like everyday people, despite
+      their foul intentions. Whenever the cult meets, its members don masks shaped
+      like the skulls of various animals to protect their identities from one another.
+      These masks are our mark. Symbols of death and decay. We must unmask the
+      cultists to expose and derail their plans. We have but a few hours. The more
+      cultists we find before midnight, the better.”`,
+      `In the wake of the disaster at your home, Lita Chantler, the
+      red-haired woman from your parlor, lays out a tale that—even in light of
+      what you have just witnessed—strains the limits of your belief. “The creatures
+      in your home,” she claims, “are called ghouls—cruel beings who plague the
+      crypts, caverns, and tunnels beneath the city of Arkham…”.
+      “These creatures feed on the corpses of humans, and they are served
+      by a dark cult within Arkham whose members have inexplicably come to
+      worship the ancient master of the ghouls. This cult has been killing innocent
+      people and feeding them to the ghouls, satiating a monstrous hunger. A dark
+      balance was maintained. Until now. Recently,” Lita continues, “one of their
+      lairs, where the corpses were stored, was destroyed. Since then, the ghouls have
+      been more active than usual. I have tracked their movements and tried my
+      best to stop them from running amok throughout the city. But I think there
+      is something worse going on. The cult has been planning something darker,
+      and more ominous, than anything I have yet observed. Indications are that
+      this plan shall come to fruition tonight, shortly after midnight. Beyond that, I
+      cannot fathom what to expect.
+      “Many of the cultists,” Lita continues, “will seem like everyday people, despite
+      their foul intentions. Whenever the cult meets, its members don masks shaped
+      like the skulls of various animals to protect their identities from one another.
+      These masks are our mark. Symbols of death and decay. We must unmask the
+      cultists to expose and derail their plans. We have but a few hours. The more
+      cultists we find before midnight, the better.”
+      `,
     ],
     questions: [
       {
@@ -219,10 +270,11 @@ export const Scenarios: ScenarioData[] = [
       '01174',
       '01169',
       '01169',
-      '01169',
     ],
     basicWeakness: ['01096', '01096', '01097', '01097', '01098', '01099', '01100', '01101', '01102', '01103'],
-    hiddenDeck: ['01121b', '01116'],
+    hiddenDeck: ['01121b', '01116', '01169'],
+    extraCards: [],
+    answers: { difficulty: 1 },
   },
   // ---------------------------------------------------------------------------
   // ? The Devourer Below
@@ -239,7 +291,25 @@ export const Scenarios: ScenarioData[] = [
     description: [
       // prettier-ignore
       // tslint:disable-next-line:max-line-length
-      'You and your partners have been investigating strange events taking place in your home city of Arkham, Massachusetts. Over the past few weeks, several townspeople have mysteriously gone missing. Recently, their corpses turned up in the woods, savaged and half-eaten. The police and newspapers have stated that wild animals are responsible, but you believe there is something else going on. You are gathered together at the lead investigator’s home to discuss these bizarre events.',
+      `After a frantic nighttime search throughout Arkham, you have tracked
+      down and questioned several members of the cult. Your findings are
+      disturbing: they claim to worship a being known as Umôrdhoth, a
+      monstrous entity from another realm.\n\n
+      You are able to confirm much of Lita’s story: the cult is agitated over
+      the destruction of a ghoul lair. However, a surprising detail also turns
+      up: the one who invaded the lair and set this night’s events in motion
+      was none other than Lita Chantler herself! You are not sure why this
+      important detail was omitted from Lita’s story—did she tell you only
+      as much as was necessary to draw you into her conflict? But in another
+      light, she seems to be fighting to protect the city of Arkham from a
+      terrible menace.\n\n
+      The final piece of the puzzle was found written in a journal possessed by
+      one of the cultists. It describes a dark ritual to be performed deep within
+      the woods south of Arkham, this very night. According to the journal,
+      the ritual’s completion will open a gate and bring forth the cult’s dark
+      master into this world. “If the cult is not stopped,” Lita warns, “there is
+      a possibility that Umôrdhoth’s vengeance will consume all in its path.”
+      Frightened but determined to stop the ritual, you head into the woods…`,
     ],
     questions: [
       {
@@ -399,6 +469,7 @@ export const Scenarios: ScenarioData[] = [
       ['01179', '01180', '01180', '01180'],
       ['01181', '01181', '01182', '01182'],
     ],
+    answers: { difficulty: 1 },
   },
   // ---------------------------------------------------------------------------
   // ! Extracurricular Activity

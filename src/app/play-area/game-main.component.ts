@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 
 import { Card } from '../shared/models/card.model';
 import { ArkhamState } from './store/arkham.state';
@@ -72,15 +73,30 @@ export class GameMainComponent implements OnInit {
   @Select((state: any) => state.arkham.agendaDeck) agendaDeck$: Observable<Card[]>;
   @Select((state: any) => state.arkham.actDeck) actDeck$: Observable<Card[]>;
 
-  @Select(SettingsState.selScenario) selScenario$: Observable<ScenarioData>;
+  @Select((state: any) => state.arkham.difficultyCard) difficultyCard$: Observable<string>;
+  @Select((state: any) => state.arkham.chaosBag) chaosBag$: Observable<number[]>;
 
-
-  constructor(private store: Store) {}
+  constructor(private store: Store, private lightbox: Lightbox, private lighboxConfig: LightboxConfig) {
+    lighboxConfig.centerVertically = true;
+    lighboxConfig.fadeDuration = 0.3;
+    lighboxConfig.resizeDuration = 0.3;
+    lighboxConfig.enableTransition = true;
+  }
 
   ngOnInit() {}
 
-  changeDifficulty(diff: number) {
-    this.store.dispatch(new ChangeDifficulty(diff));
+  openLightbox(card: Card): void {
+    console.log('card => ', card);
+    const image = card.faceUp ? card.imagesrc : card.backimagesrc;
+
+    // open lightbox
+    const tempCard = [{ thumb: image, src: image }];
+    this.lightbox.open(tempCard);
+  }
+
+  close(): void {
+    // close lightbox programmatically
+    this.lightbox.close();
   }
 
   onCommand(payload: any) {
@@ -181,6 +197,12 @@ export class GameMainComponent implements OnInit {
       case 'removeCard':
         console.log('Executing Remove Card');
         this.store.dispatch(new RemoveCard(payload));
+        break;
+
+      case 'zoomCard':
+        // console.log('onCommand payload => ', payload);
+
+        this.openLightbox(payload.cardId);
         break;
     }
   }

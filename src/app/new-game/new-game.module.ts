@@ -27,9 +27,15 @@ import { ScenarioService } from './services/scenario.service';
     ListInvsComponent,
     DeckListComponent,
     PublicFormComponent,
-    IntroComponent
+    IntroComponent,
   ],
-  imports: [CommonModule, NewGameRoutingModule, HttpClientModule, ReactiveFormsModule, NgxsModule.forFeature(States)],
+  imports: [
+    CommonModule,
+    NewGameRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgxsModule.forFeature(States),
+  ],
   providers: [CardsDbService, ScenarioService],
 })
 export class NewGameModule {}

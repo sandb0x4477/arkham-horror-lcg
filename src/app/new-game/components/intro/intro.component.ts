@@ -15,8 +15,7 @@ export class IntroComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onCommand(commandId: string, id: string) {
     const payload = {

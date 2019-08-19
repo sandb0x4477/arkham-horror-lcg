@@ -1,3 +1,22 @@
+export class AddTokensToAgenda {
+  static readonly type = '[State] AddTokensToAgenda]';
+  constructor(public payload: any) {}
+}
+
+export class ResetArkhamState {
+  static readonly type = '[State] ResetArkhamState]';
+}
+
+export class SetChaosBag {
+  public static readonly type = '[ChaosBag] Set Chaos Bag';
+  constructor(public payload: any) {}
+}
+
+export class SetDifficultyCard {
+  public static readonly type = '[Cards] Set Difficulty Card';
+  constructor(public payload: any) {}
+}
+
 export class DropOnLocNav {
   public static readonly type = '[Location] Drop on Location';
   constructor(public payload: any) {}
@@ -91,4 +110,8 @@ export class NextCard {
 export class PreviousCard {
   public static readonly type = '[Deck] Previous Card';
   constructor(public payload: any) {}
+}
+
+export class SpawnAcolteOnSouthSide {
+  public static readonly type = '[Extra] SpawnAcolte';
 }

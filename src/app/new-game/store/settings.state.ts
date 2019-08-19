@@ -23,6 +23,7 @@ const settingsStateDefaults: SettingsStateModel = {
   currentPage: 'selCampaign',
   selCampaign: 0,
   selScenario: Scenarios[0],
+  // selScenario: null,
   introText: null,
   selInvs: ['01001', '01005'],
   deckLists: [[], []],

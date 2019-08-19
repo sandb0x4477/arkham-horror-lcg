@@ -12,6 +12,10 @@ export const routes: Routes = [
     path: 'play',
     loadChildren: () => import('./play-area/play-area.module').then(mod => mod.PlayAreaModule),
   },
+  {
+    path: 'tools',
+    loadChildren: () => import('./tools/tools.module').then(mod => mod.ToolsModule),
+  },
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: '**', component: HomeComponent },
 ];
