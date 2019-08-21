@@ -3,10 +3,6 @@ import { ArkhamState } from './arkham/arkham.state';
 import { SettingsState } from './settings/settings.state';
 import { ToolsState } from './tools/tools.state';
 
-// export * from './arkham';
-// export * from './settings';
-// export * from './tools';
-
 export const States = [AppState, ArkhamState, SettingsState, ToolsState];
 
 export * from './app/app.actions';

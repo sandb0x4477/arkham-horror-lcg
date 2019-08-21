@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
 import orderBy from 'lodash.orderby';
 
 import {
@@ -12,15 +13,13 @@ import {
   SetLoading,
   PopulateDeckList,
   SetError,
-} from '../../store/settings.actions';
-import { CardsDbService } from '../../services/cards-db.service';
-import { SettingsState } from '../../store/settings.state';
+} from '../../../store';
+import { CardsDbService } from '../../../shared/services/cards-db.service';
+import { SettingsState } from '../../../store';
 import { ScenarioData } from '../../../shared/models/scenario.data.model';
 import { Card } from '../../../shared/models/card.model';
 import { StarterDecks } from '../../../shared/data/starter-decks.data';
-import { tap, switchMap } from 'rxjs/operators';
-import { ScenarioService } from '../../services/scenario.service';
-import { SetPlayStatus } from '../../../core/store/app.actions';
+import { ScenarioService } from '../../../shared/services/scenario.service';
 
 @Component({
   selector: 'app-new-game',

@@ -37,6 +37,7 @@ exports.search = (req, res) => {
 
     Card.find({ $or: [{name: regex}, {type_code: regex}, {faction_code: regex}, {subtype_name: regex}] })
       .sort('code')
+      .limit(30)
       .then(cards => {
         res.send(cards);
       })

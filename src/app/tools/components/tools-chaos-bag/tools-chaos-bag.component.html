@@ -1,0 +1,15 @@
+  <br>
+  <div class="nav-field-title">Current Chaos Bag</div>
+  <div class="chaos-bag-wrapper bag">
+    <ng-container *ngFor="let token of chaosBag; let i = index">
+      <div [ngClass]="getCss(token)" [id]="i" (click)="onRemove(i)"></div>
+    </ng-container>
+  </div>
+  <br>
+  <br>
+  <div class="nav-field-title">Token Bank</div>
+  <div class="chaos-bag-wrapper bank">
+    <ng-container *ngFor="let token of tokens; let i = index">
+      <div [ngClass]="getCss(token)" [id]="i" (click)="onAdd(i)"></div>
+    </ng-container>
+  </div>

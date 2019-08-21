@@ -1,3 +1,13 @@
+export class AddToChaosBag {
+  static readonly type = '[Chaos Bag] AddToChaosBag';
+  constructor(public readonly payload: number) {}
+}
+
+export class RemoveFromChaosBag {
+  static readonly type = '[Chaos Bag] RemoveFromChaosBag';
+  constructor(public readonly payload: number) {}
+}
+
 export class AddTokensToAgenda {
   static readonly type = '[State] AddTokensToAgenda]';
   constructor(public payload: any) {}

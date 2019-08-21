@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { StateReset, StateOverwrite } from 'ngxs-reset-plugin';
 import { Router } from '@angular/router';
 import { v4 as uuid } from 'uuid';
 import difference from 'lodash.difference';
@@ -9,15 +8,12 @@ import shuffle from 'lodash.shuffle';
 import samplesize from 'lodash.samplesize';
 
 import { CardsDbService } from './cards-db.service';
-import { Card } from '../../shared/models/card.model';
-import { SetIntroText, SwitchPage } from '../store/settings.actions';
-import { SetPlayStatus } from '../../core/store/app.actions';
-import { SettingsStateModel } from '../store/settings.state';
-import { ScenarioData } from '../../shared/models/scenario.data.model';
-import { ArkhamState } from '../../play-area/store/arkham.state';
-import { Scenarios } from '../../shared/data/scenarios.data';
-import { LocationExits, Tokens, TokensInv } from '../../shared/data/location.exits';
-import { Observable, of } from 'rxjs';
+import { Card } from '../models/card.model';
+import { SetIntroText, SetMenuBarInfo } from '../../store';
+import { SetPlayStatus } from '../../store';
+import { SettingsStateModel } from '../../store';
+import { ScenarioData } from '../models/scenario.data.model';
+import { LocationExits, Tokens, TokensInv } from '../data/location.exits';
 import {
   LocationSwitch,
   PopulateDeck,
@@ -26,10 +22,9 @@ import {
   SpawnAcolteOnSouthSide,
   ResetArkhamState,
   AddTokensToAgenda,
-} from '../../play-area/store/arkham.actions';
-import { ArkhamStateIntial } from '../../play-area/store/initial-state';
+} from '../../store';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ScenarioService {
   constructor(private store: Store, private cardsDbService: CardsDbService, private router: Router) {}
 
@@ -61,6 +56,12 @@ export class ScenarioService {
       }
     });
     this.store.dispatch([new SetPlayStatus(true)]);
+    this.store.dispatch(
+      new SetMenuBarInfo({
+        campaignName: this.selScenario.campaign,
+        scenarioName: this.selScenario.encounter_name,
+      }),
+    );
     // this.router.navigate(['/play']);
     // this.store.dispatch(new SwitchPage({ commandId: 'switchPage', id: 'start' }));
   }

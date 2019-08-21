@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 
 import { Card } from '../shared/models/card.model';
-import { ArkhamState } from './store/arkham.state';
+import { ArkhamState } from '../store';
 import {
   AddToken,
   MoveToken,
@@ -21,7 +21,7 @@ import {
   NextCard,
   DropOnLocNav,
   RemoveCard,
-} from './store/arkham.actions';
+} from '../store';
 
 @Component({
   selector: 'app-game-main',

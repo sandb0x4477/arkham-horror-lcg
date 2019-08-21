@@ -1,0 +1,39 @@
+<div class="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="query">Search Card Database</label>
+    <input class="form-control" type="text" formControlName="query" id="query" placeholder="min 3 characters" />
+    <button type="submit" [disabled]="!form.valid" class="btn">Submit</button>
+  </form>
+</div>
+
+<!-- ----------------------------------------------------------------------- -->
+<!-- Results -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="card-list-wrapper">
+  <div class="cards-table">
+    <ng-container *ngFor="let card of searchReasult; let i = index">
+      <div class="card-list-item" [class.active]="selectedPreviewCard === card.code" (click)="selectedCard(card.code)">
+        <i class="fas fa-plus fa-fw"></i>
+        <i class="faa fa-{{ card.faction_code }}"></i>
+        <div>
+          {{ card.name }}
+        </div>
+        <div class="card-list-item-quantity">
+          {{ card.position }}
+        </div>
+        <div>
+          {{ card.type_name }}
+        </div>
+        <div>
+          {{ card.pack_name }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="card-display">
+    <ng-container *ngIf="selectedPreviewCard">
+      <img src="assets/cards/{{ selectedPreviewCard }}.jpg" alt="" />
+    </ng-container>
+  </div>
+</div>

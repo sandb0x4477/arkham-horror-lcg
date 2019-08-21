@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-
-import { AppState } from '../../store/app.state';
 import { Observable } from 'rxjs';
-import { SwitchPage } from '../../../new-game/store/settings.actions';
+
+import { AppState } from '../../../store';
+import { SwitchPage } from '../../../store';
 
 @Component({
   selector: 'app-menu-bar',

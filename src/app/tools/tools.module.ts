@@ -4,12 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { NgxsModule } from '@ngxs/store';
-import { States } from './store';
-
 import { ToolsComponent } from './containers/tools.component';
-import { CardsDbService } from './services/cards-db.service';
-import { ToolsChaosBagComponent } from './containers/tools-chaos-bag/tools-chaos-bag.component';
+import { ToolsChaosBagComponent } from './components/tools-chaos-bag/tools-chaos-bag.component';
+import { AddCardComponent } from './components/add-card/add-card.component';
 
 const routes: Routes = [
   {
@@ -19,14 +16,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ToolsComponent, ToolsChaosBagComponent],
+  declarations: [ToolsComponent, ToolsChaosBagComponent, AddCardComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    NgxsModule.forFeature(States),
+    // NgxsModule.forFeature(States),
   ],
-  providers: [CardsDbService],
+  providers: [],
 })
 export class ToolsModule {}

@@ -12,7 +12,7 @@ export class ChaosBagsComponent implements OnInit {
   @Input() chaosBag: number[];
 
   currentChaosToken = [0, 0];
-  chaosTokenClass = [`chaos-bag chaos-token chaos-${ChaosTokens[0]}`, `chaos-bag chaos-token chaos-${ChaosTokens[0]}`];
+  chaosTokenClass = [`chaos-bag chaos-token chaos-${ChaosTokens[13]}`, `chaos-bag chaos-token chaos-${ChaosTokens[13]}`];
 
   constructor() {}
 

@@ -6,8 +6,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DndModule } from 'ngx-drag-drop';
 import { LightboxModule } from 'ngx-lightbox';
 
-import { ArkhamState } from './store/arkham.state';
-
 import { TruncatePipe } from '../shared/pipes/truncate.pipe';
 
 import { GameMainComponent } from './game-main.component';
@@ -65,7 +63,6 @@ const routes: Routes = [
     DndModule,
     LightboxModule,
     RouterModule.forChild(routes),
-    NgxsModule.forFeature([ArkhamState]),
   ]
 })
 export class PlayAreaModule { }

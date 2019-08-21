@@ -1,6 +1,23 @@
-<!-- <ng-container *ngIf="(chaosBag$ | async) as chaosBag"> -->
-  <app-tools-chaos-bag [chaosBag]="chaosBag$ | async"></app-tools-chaos-bag>
-<!-- </ng-container> -->
+<div class="container">
 
-<!-- {{chaosBag$ | async | json}}
-{{activeTab$ | async | json}} -->
+  <div class="container-nav-field">
+    <div class="nav-field" [class.active]="(activeTab$ | async) === 'chaosBag'" (click)="onTabSwitch('chaosBag')">
+      Edit Chaos Bag
+    </div>
+
+    <div class="nav-field" [class.active]="(activeTab$ | async) === 'addCard'" (click)="onTabSwitch('addCard')">
+      Add Card
+    </div>
+  </div>
+
+  <hr />
+
+  <ng-container *ngIf="(activeTab$ | async) === 'chaosBag'">
+    <app-tools-chaos-bag [chaosBag]="chaosBag$ | async"></app-tools-chaos-bag>
+  </ng-container>
+
+  <ng-container *ngIf="(activeTab$ | async) === 'addCard'">
+    <app-add-card (query)="onQuery($event)" [searchReasult]="searchReasult"></app-add-card>
+  </ng-container>
+
+</div>

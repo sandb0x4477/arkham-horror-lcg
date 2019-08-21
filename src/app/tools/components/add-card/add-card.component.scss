@@ -1,0 +1,206 @@
+.form {
+  display: grid;
+  justify-content: center;
+  align-items: end;
+  padding-top: 6px;
+}
+
+#query {
+  width: 300px;
+}
+
+input[type=text]:focus {
+  background-color: #e4ac78;
+}
+
+label {
+  font-size: 1.2em;
+  font-family: 'Teko', sans-serif;
+  padding-right: 16px;
+}
+
+.btn {
+  background-color: #3a3a39;
+  border: none;
+  color: white;
+  padding: 0px 16px;
+  text-decoration: none;
+  margin: 4px 8px;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: 'Teko', sans-serif;
+
+  &:hover {
+    background-color: #754319;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* LIST CARDS */
+/* -------------------------------------------------------------------------- */
+.card-list-wrapper {
+  display: grid;
+  grid-template-columns: 460px 282px;
+  grid-column-gap: 20px;
+  justify-content: center;
+  align-items: start;
+  // grid-auto-flow: column;
+  margin-top: 24px;
+  // min-height: 400px;
+}
+
+.cards-table {
+  display: grid;
+  // grid-template-columns: 190px;
+  grid-template-rows: repeat(30, auto);
+  // grid-column-gap: 14px;
+  justify-content: left;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.card-list-item {
+  display: grid;
+  grid-template-columns: 20px 30px 130px 30px 70px 140px;
+  cursor: pointer;
+  padding-left: 5px;
+  font-size: 1em;
+  font-family: 'Teko', sans-serif;
+
+  &:hover {
+    color: #974501;
+  }
+
+  &.active {
+    background-color: #a5a5a5;
+  }
+
+  i {
+    text-align: center;
+  }
+
+  .card-list-item-quantity {
+    text-align: center;
+  }
+}
+
+.card-display {
+  transition: all .3s ease-in-out;
+  transition-delay: 0.2s;
+  text-align: center;
+
+  &:hover {
+    transform: scale(1.4);
+  }
+
+  img {
+    border-radius: 12px;
+    transform: scale(0.8);
+    // width: 210px;
+    // height: 293px;
+  }
+}
+
+.fa-plus {
+  cursor: cell;
+  color: #974501;
+}
+
+
+.faa {
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  font-family: ArkhamLogo, sans-serif;
+  font-size: 1.2em;
+
+  &.fa-cultist:before {
+    content: "b"
+  }
+
+  &.fa-willpower:before {
+    content: "a"
+  }
+
+  &.fa-elderthing:before {
+    content: "c"
+  }
+
+  &.fa-combat:before {
+    content: "d"
+  }
+
+  &.fa-seeker:before {
+    content: "e"
+  }
+
+  &.fa-intellect:before {
+    content: "f"
+  }
+
+  &.fa-question:before {
+    content: "g"
+  }
+
+  &.fa-investigator:before {
+    content: "h"
+  }
+
+  &.fa-action:before {
+    content: "i"
+  }
+
+  &.fa-weakness:before {
+    content: "j"
+  }
+
+  &.fa-neutral:before {
+    content: "k"
+  }
+
+  &.fa-mythos:before {
+    content: "n"
+  }
+
+  &.fa-guardian:before {
+    content:"q"
+  }
+
+  &.fa-survivor:before {
+    content: "r"
+  }
+
+  &.fa-agility:before {
+    content: "s"
+  }
+
+  &.fa-rogue:before {
+    content: "t"
+  }
+
+  &.fa-free:before {
+    content: "u"
+  }
+
+  &.fa-tablet:before {
+    content: "v"
+  }
+
+  &.fa-mystic:before {
+    content: "w"
+  }
+
+  &.fa-eldersign:before {
+    content: "x"
+  }
+
+  &.fa-reaction:before {
+    content: "y"
+  }
+
+  &.fa-tentacle:before {
+    content: "z"
+  }
+}

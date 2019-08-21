@@ -24,7 +24,9 @@ import {
   SetChaosBag,
   SpawnAcolteOnSouthSide,
   ResetArkhamState,
-  AddTokensToAgenda
+  AddTokensToAgenda,
+  RemoveFromChaosBag,
+  AddToChaosBag
 } from './arkham.actions';
 import { Card } from '../../shared/models/card.model';
 import { ArkhamStateIntial } from './initial-state';
@@ -242,6 +244,28 @@ export class ArkhamState {
       }
     });
     return result;
+  }
+
+
+  @Action(AddToChaosBag)
+  public addToChaosBag({ patchState, getState }: StateContext<ArkhamStateModel>, { payload }: AddToChaosBag) {
+    const chaosBagState = getState().chaosBag;
+    patchState({
+      chaosBag: produce(chaosBagState, (draft: any) => {
+        draft.push(payload);
+        draft.sort((a, b) => a - b);
+      }),
+    });
+  }
+
+  @Action(RemoveFromChaosBag)
+  public removeFromChaosBag({ patchState, getState }: StateContext<ArkhamStateModel>, { payload }: RemoveFromChaosBag) {
+    const chaosBagState = getState().chaosBag;
+    patchState({
+      chaosBag: produce(chaosBagState, (draft: any) => {
+        draft.splice(payload, 1);
+      }),
+    });
   }
 
   @Action(ResetArkhamState)

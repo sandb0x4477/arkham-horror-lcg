@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 
-import { AppState } from '../../core/store/app.state';
+import { AppState } from '../../store';
 
 @Injectable({
   providedIn: 'root',

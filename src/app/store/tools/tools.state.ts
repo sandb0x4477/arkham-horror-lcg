@@ -1,7 +1,6 @@
 import { State, Selector, Action, StateContext, Store } from '@ngxs/store';
 
 import { SetActiveTab } from './tools.actions';
-import { SetLoading } from '../../new-game/store/settings.actions';
 
 export interface ToolsStateModel {
   activeTab: string;

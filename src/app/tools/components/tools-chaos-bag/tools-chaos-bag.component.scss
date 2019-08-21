@@ -1,9 +1,43 @@
 @import '../../../../variables';
 
+.nav-field-title {
+  text-align: center;
+  color: #000000;
+  font-size: 1.9em;
+  font-family: 'Teko', sans-serif;
+}
+
+.chaos-bag-wrapper {
+  border-radius: 14px;
+  display: flex;
+  // max-width: 600px;
+  // justify-content: space-evenly;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  // width: 50%;
+  // margin: 0 auto;
+
+  &.bag {
+    border: 2px solid #3a3a39;
+    background-color: #dbc98ce3;
+  }
+
+  &.bank {
+    border: 2px solid #3a3a39;
+    background-color: #dfdedee3;
+  }
+}
+
+
 .chaos-token {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   background-size: 100%;
+  cursor: pointer;
+  margin: 4px;
 }
 
 .chaos-plus1 {

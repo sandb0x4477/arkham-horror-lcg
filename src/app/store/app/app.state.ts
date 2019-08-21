@@ -1,6 +1,6 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 
-import { SetPlayStatus } from './app.actions';
+import { SetPlayStatus, SetMenuBarInfo } from './app.actions';
 
 export interface AppStateModel {
   loading: boolean;
@@ -58,4 +58,11 @@ export class AppState {
     });
   }
 
+  @Action(SetMenuBarInfo)
+  public setMenuBarInfo({ patchState }: StateContext<AppStateModel>, { payload }: SetMenuBarInfo) {
+    patchState({
+      campaignName: payload.campaignName,
+      scenarioName: payload.scenarioName,
+    });
+  }
 }
