@@ -40,7 +40,7 @@ label {
 /* -------------------------------------------------------------------------- */
 .card-list-wrapper {
   display: grid;
-  grid-template-columns: 460px 282px;
+  grid-template-columns: 400px 300px;
   grid-column-gap: 20px;
   justify-content: center;
   align-items: start;
@@ -55,8 +55,8 @@ label {
   grid-template-rows: repeat(30, auto);
   // grid-column-gap: 14px;
   justify-content: left;
-  align-items: center;
-  margin-right: 20px;
+  // align-items: center;
+  // margin-right: 20px;
 }
 
 .card-list-item {
@@ -66,6 +66,7 @@ label {
   padding-left: 5px;
   font-size: 1em;
   font-family: 'Teko', sans-serif;
+  align-self: center;
 
   &:hover {
     color: #974501;
@@ -79,9 +80,6 @@ label {
     text-align: center;
   }
 
-  .card-list-item-quantity {
-    text-align: center;
-  }
 }
 
 .card-display {
@@ -90,7 +88,7 @@ label {
   text-align: center;
 
   &:hover {
-    transform: scale(1.4);
+    transform: scale(1.2);
   }
 
   img {
@@ -102,7 +100,7 @@ label {
 }
 
 .fa-plus {
-  cursor: cell;
+  cursor: pointer;
   color: #974501;
 }
 

@@ -256,6 +256,276 @@ export const LocationExits = [
     location_marker: 'cross',
     location_marker_faceUp: null,
   },
+  {
+    code: '02048',
+    exits: [
+      'triangle', 'hourglass', 'square', 'diamond', 'circle'
+    ],
+    exits_faceUp: null,
+    location_marker: 'cross',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02049',
+    exits: [
+      'cross', 'triangle'
+    ],
+    exits_faceUp: null,
+    location_marker: 'square',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02050',
+    exits: [
+      'cross', 'square'
+    ],
+    exits_faceUp: null,
+    location_marker: 'triangle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02051',
+    exits: [
+      'cross', 'equal'
+    ],
+    exits_faceUp: null,
+    location_marker: 'diamond',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02052',
+    exits: [
+      'diamond'
+    ],
+    exits_faceUp: null,
+    location_marker: 'equal',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02053',
+    exits: [
+      'cross', 't'
+    ],
+    exits_faceUp: null,
+    location_marker: 'circle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02054',
+    exits: [
+      'circle'
+    ],
+    exits_faceUp: null,
+    location_marker: 't',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02055',
+    exits: [
+      'circle'
+    ],
+    exits_faceUp: null,
+    location_marker: 't',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02056',
+    exits: [
+      'cross', 'path'
+    ],
+    exits_faceUp: null,
+    location_marker: 'hourglass',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02057',
+    exits: [
+      'hourglass'
+    ],
+    exits_faceUp: null,
+    location_marker: 'path',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02070',
+    exits: [
+      'circle'
+    ],
+    exits_faceUp: null,
+    location_marker: 'moon',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02071',
+    exits: [
+      'moon', 'square', 'triangle'
+    ],
+    exits_faceUp: null,
+    location_marker: 'circle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02072',
+    exits: [
+      'triangle', 'circle'
+    ],
+    exits_faceUp: null,
+    location_marker: 'square',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02073',
+    exits: [
+      'circle', 'square', 'diamond'
+    ],
+    exits_faceUp: null,
+    location_marker: 'triangle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02074',
+    exits: [
+      'triangle'
+    ],
+    exits_faceUp: ['triangle', 't', 'hourglass', 'cross', 'path'],
+    location_marker: 'diamond',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02075',
+    exits: [
+      'diamond'
+    ],
+    exits_faceUp: null,
+    location_marker: 't',
+    location_marker_faceUp: 'hourglass',
+  },
+  {
+    code: '02076',
+    exits: [
+      'diamond'
+    ],
+    exits_faceUp: null,
+    location_marker: 't',
+    location_marker_faceUp: 'cross',
+  },
+  {
+    code: '02077',
+    exits: [
+      'diamond'
+    ],
+    exits_faceUp: null,
+    location_marker: 't',
+    location_marker_faceUp: 'path',
+  },
+  {
+    code: '02126',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: null,
+    location_marker: 'circle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02127',
+    exits: [
+      'circle'
+    ],
+    exits_faceUp: ['circle', 'diamond', 'triangle'],
+    location_marker: 'square',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02128',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: null,
+    location_marker: 'diamond',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02129',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: null,
+    location_marker: 'diamond',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02130',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: null,
+    location_marker: 'triangle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02131',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: null,
+    location_marker: 'triangle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '02132',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: null,
+    location_marker: 'blank',
+    location_marker_faceUp: 'cross',
+  },
+  {
+    code: '02133',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: ['square', 'moon'],
+    location_marker: 'blank',
+    location_marker_faceUp: 't',
+  },
+  {
+    code: '02134',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: ['square', 'path'],
+    location_marker: 'blank',
+    location_marker_faceUp: 'hourglass',
+  },
+  {
+    code: '02135',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: ['square', 't'],
+    location_marker: 'blank',
+    location_marker_faceUp: 'moon',
+  },
+  {
+    code: '02136',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: ['square', 'hourglass'],
+    location_marker: 'blank',
+    location_marker_faceUp: 'path',
+  },
+  {
+    code: '02137',
+    exits: [
+      'square'
+    ],
+    exits_faceUp: null,
+    location_marker: 'blank',
+    location_marker_faceUp: 'equal',
+  },
 ];
 
 export const Tokens = [

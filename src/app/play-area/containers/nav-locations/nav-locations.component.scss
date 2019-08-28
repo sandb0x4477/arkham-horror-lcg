@@ -4,7 +4,7 @@
   position: absolute;
   top: $SecondNavRow;
   left: $secondColumnLeft;
-  width: 210px;
+  // width: 210px;
   display: grid;
   grid-template-columns: 210px;
   grid-template-rows: 34px;
@@ -16,14 +16,15 @@
 .nav-location-item {
   background-color: #85806a;
   max-height: 34px;
-  min-width: 210px;
-  line-height: 36px;
+  width: 210px;
+  line-height: 34px;
   font-size: 1.3em;
   font-family: 'Teko', sans-serif;
   cursor: pointer;
-  text-align: justify;
+  // text-align: justify;
   padding-left: 6px;
   overflow: hidden;
+  align-self: end;
 
   &.active {
     background-color: #b1ab8f;

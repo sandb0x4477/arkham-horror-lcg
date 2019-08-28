@@ -53,6 +53,7 @@ mongoose.connect(process.env.DB_CONN, {
 // })
 
 require('./routes/card.routes.js')(app);
+require('./routes/stat.routes.js')(app);
 
 // SPA
 // app.use("*", (req, res) => {

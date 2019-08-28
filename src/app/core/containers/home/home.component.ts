@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+
+import { SwitchPage } from '../../../store';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router, private store: Store) {}
 
   ngOnInit() {}
 
-  onClick(payload: string) {
+  onClick() {
+    this.store.dispatch(new SwitchPage({ commandId: 'switchPage', id: 'selCampaign' }));
+    this.router.navigate(['/newgame']);
   }
 }

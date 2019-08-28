@@ -17,7 +17,7 @@
   </ng-container>
 
   <ng-container *ngIf="(activeTab$ | async) === 'addCard'">
-    <app-add-card (query)="onQuery($event)" [searchReasult]="searchReasult"></app-add-card>
+    <app-add-card (card)="onAddCard($event)" (query)="onQuery($event)" [searchReasult]="searchReasult"></app-add-card>
   </ng-container>
 
 </div>

@@ -11,6 +11,7 @@ export class AddCardComponent implements OnInit {
   form: FormGroup;
   @Input() searchReasult: Card[];
   @Output() query = new EventEmitter<any>();
+  @Output() card = new EventEmitter<any>();
   selectedPreviewCard: string;
 
   constructor(private formBuilder: FormBuilder) {}
@@ -23,6 +24,10 @@ export class AddCardComponent implements OnInit {
     this.form = this.formBuilder.group({
       query: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     });
+  }
+
+  onAddCard(card: Card) {
+    this.card.emit(card);
   }
 
   onSubmit() {

@@ -6,6 +6,7 @@ import { ToolsState, SetActiveTab } from '../../store';
 import { ArkhamState } from '../../store';
 import { CardsDbService } from '../../shared/services/cards-db.service';
 import { Card } from '../../shared/models/card.model';
+import { ScenarioService } from '../../shared/services/scenario.service';
 
 @Component({
   selector: 'app-tools',
@@ -13,7 +14,7 @@ import { Card } from '../../shared/models/card.model';
   styleUrls: ['./tools.component.scss'],
 })
 export class ToolsComponent implements OnInit {
-  constructor(private store: Store, private cardsDbService: CardsDbService) {}
+  constructor(private store: Store, private cardsDbService: CardsDbService, private scenarioService: ScenarioService) {}
   searchReasult: Card[];
 
   @Select(ToolsState.activeTab) activeTab$: Observable<string>;
@@ -23,6 +24,11 @@ export class ToolsComponent implements OnInit {
 
   onTabSwitch(payload: string) {
     this.store.dispatch(new SetActiveTab(payload));
+  }
+
+  onAddCard(card: Card) {
+    console.log('card => ', card);
+    this.scenarioService.addExtraCard(card);
   }
 
   onQuery(payload: any) {

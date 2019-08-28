@@ -478,7 +478,7 @@ export const Scenarios: ScenarioData[] = [
     id: 3,
     campaignCode: 'dwl',
     active: true,
-    encounter_name: 'Dunwitch1',
+    encounter_name: 'Extracurricular Activity',
     encounter_code: 'torch',
     campaign: 'The Dunwitch Legacy',
     scenarioNumber: '1A',
@@ -486,7 +486,7 @@ export const Scenarios: ScenarioData[] = [
     description: [
       // prettier-ignore
       // tslint:disable-next-line:max-line-length
-      'You and your partners have been investigating strange events taking place in your home city of Arkham, Massachusetts. Over the past few weeks, several townspeople have mysteriously gone missing. Recently, their corpses turned up in the woods, savaged and half-eaten. The police and newspapers have stated that wild animals are responsible, but you believe there is something else going on. You are gathered together at the lead investigator’s home to discuss these bizarre events.',
+      `Dr. Armitage is worried his colleague, Professor Warren Rice, might be in trouble, so he has asked for your help in finding his friend. He seems unreasonably nervous about his colleague’s disappearance considering Professor Rice has only been “missing” for a matter of hours…`,
     ],
     questions: [
       {
@@ -524,41 +524,297 @@ export const Scenarios: ScenarioData[] = [
       [1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 10, 10, 11, 13, 14],
       [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 9, 10, 10, 11, 13, 14],
     ],
-    agendaCards: ['01105', '01106', '01107'],
-    actCards: ['01108', '01109', '01110'],
-    difficultyCards: ['01104', '01104', '01104b', '01104b'],
-    locationCards: ['01111'],
-    outOfPlay0: ['01116', '01117'],
-    outOfPlay1: ['01112', '01113', '01114', '01115'],
+    agendaCards: ['02042', '02043', '02044'],
+    actCards: ['02045', '02046', '02047'],
+    difficultyCards: ['02041', '02041', '02041b', '02041b'],
+    locationCards: ['02048', '02049', '02050', '02051', '02053', '02056'],
+    outOfPlay0: ['02054', '02055', '02052', '02057'],
+    outOfPlay1: ['02060', '02061', '02059', '02058'],
     encounterDeck: [
-      '01118',
-      '01119',
-      '01159',
-      '01159',
-      '01159',
-      '01160',
-      '01160',
-      '01160',
-      '01161',
-      '01162',
-      '01162',
-      '01162',
-      '01163',
-      '01163',
-      '01163',
-      '01164',
-      '01164',
-      '01165',
-      '01165',
+      '02083',
+      '02083',
+      '02083',
+      '02084',
+      '02084',
+      '02084',
+      '02100',
+      '02100',
+      '02101',
+      '02101',
+      '02102',
+      '02102',
+      '02085',
+      '02085',
+      '02086',
+      '02086',
+      '02086',
+      '02087',
+      '02090',
+      '02090',
+      '02090',
+      '02091',
+      '02091',
       '01166',
       '01166',
       '01166',
-      '01167',
-      '01167',
-      '01168',
-      '01168',
+      '01174',
+      '01174',
+      '01177',
+      '01177',
+      '01178',
+      '01178',
     ],
-    basicWeakness: ['01096', '01096', '01097', '01097', '01098', '01099', '01100', '01101', '01102', '01103'],
+    basicWeakness: [
+      '01096',
+      '01096',
+      '01097',
+      '01097',
+      '01098',
+      '01099',
+      '01100',
+      '01101',
+      '01102',
+      '01103',
+      '02037',
+      '02038',
+      '02039',
+    ],
+    hiddenDeck: [],
+  },
+  // ---------------------------------------------------------------------------
+  // ! The House Always Wins
+  // ---------------------------------------------------------------------------
+  {
+    id: 4,
+    campaignCode: 'dwl',
+    active: true,
+    encounter_name: 'The House Always Wins',
+    encounter_code: 'torch',
+    campaign: 'The Dunwitch Legacy',
+    scenarioNumber: '1B',
+    title: 'The House Always Wins',
+    description: [
+      // prettier-ignore
+      // tslint:disable-next-line:max-line-length
+      `Dr. Armitage suggested you track down his associate Dr. Francis Morgan.
+      He’s not sure whether Dr. Morgan is in trouble, but he’s not particularly
+      happy with his colleague’s present choice of company. He’s in the Clover Club,
+      a notorious gambling joint somewhere downtown. Finding the club’s exact
+      location isn’t easy—you have to grease a few palms just to learn which of the
+      Downtown restaurants operates as the club’s front. That restaurant is La
+      Bella Luna, a somewhat upscale Italian eatery by the theatre. You change into
+      your Sunday best and make your way there.\n\n
+      In front of La Bella Luna stands a man in a pinstripe suit who sizes you up as
+      you approach. “Enjoy yourselves,” he says with a snake-like grin as he holds
+      open the restaurant’s front door.`,
+    ],
+    questions: [
+      {
+        id: 995,
+        controlName: 'difficulty',
+        label: 'Difficulty',
+        options: [
+          {
+            id: 50,
+            name: 'Easy',
+            value: 0,
+          },
+          {
+            id: 51,
+            name: 'Standard',
+            value: 1,
+          },
+          {
+            id: 52,
+            name: 'Hard',
+            value: 2,
+          },
+          {
+            id: 53,
+            name: 'Expert',
+            value: 3,
+          },
+        ],
+        active: 1,
+      },
+    ],
+    chaosBagTokens: [
+      [0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 10, 10, 11, 13, 14],
+      [0, 1, 1, 2, 2, 2, 3, 3, 4, 5, 10, 10, 11, 13, 14],
+      [1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 10, 10, 11, 13, 14],
+      [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 9, 10, 10, 11, 13, 14],
+    ],
+    agendaCards: ['02063', '02064', '02065'],
+    actCards: ['02066', '02067', '02068', '02069', '02074'],
+    difficultyCards: ['02062', '02062', '02062b', '02062b'],
+    locationCards: ['02070', '02071', '02072', '02073'],
+    outOfPlay0: ['02078', '02079', '02080', '02074', '02075', '02076', '02077'],
+    outOfPlay1: ['01165', '01165', '01164', '01164', '01163', '01163', '01163', '02104', '02103', '02103'],
+    encounterDeck: [
+      '02081',
+      '02081',
+      '02082',
+      '02082',
+      '02092',
+      '02092',
+      '02092',
+      '02093',
+      '02093',
+      '02093',
+      '02097',
+      '02097',
+      '02098',
+      '02098',
+      '02099',
+      '02099',
+      '01159',
+      '01159',
+      '01159',
+    ],
+    basicWeakness: [
+      '01096',
+      '01096',
+      '01097',
+      '01097',
+      '01098',
+      '01099',
+      '01100',
+      '01101',
+      '01102',
+      '01103',
+      '02037',
+      '02038',
+      '02039',
+    ],
+    hiddenDeck: [],
+  },
+  // ---------------------------------------------------------------------------
+  // ! The Miskatonic Museum
+  // ---------------------------------------------------------------------------
+  {
+    id: 5,
+    campaignCode: 'dwl',
+    active: true,
+    encounter_name: 'The Miskatonic Museum',
+    encounter_code: 'torch',
+    campaign: 'The Dunwitch Legacy',
+    scenarioNumber: '2',
+    title: 'The Miskatonic Museum',
+    description: [
+      // prettier-ignore
+      // tslint:disable-next-line:max-line-length
+      `Several months ago, Armitage and his colleagues
+      stopped a rampaging horror from tearing
+      through Dunwich, a backwater town several
+      hours north and west of Arkham. At first you
+      imagine this beast as a rabid bear, or worse, but
+      the professor’s description of the creature paints
+      a different picture.\n\n
+      It all began when a man named Wilbur Whateley entered the Orne
+      Library looking for Olaus Wormius’s Latin translation of a book called
+      the Necronomicon. Wilbur already possessed a beaten-up English
+      translation by Dr. John Dee, but it was insufficient for his purposes.
+      Armitage turned the man away, fearing what use the strange man had
+      for the book. Whateley returned in secret, hoping to steal the book ,
+      but was attacked by a hound guarding the university. Armitage, Rice,
+      and Morgan later discovered Whateley’s body. A description of the foul
+      corpse—semi-anthropomorphic and covered in fur, with a leathery
+      hide and greenish-grey tentacles—causes you to question whether or
+      not Whateley was truly human`,
+    ],
+    questions: [
+      {
+        id: 994,
+        controlName: 'difficulty',
+        label: 'Difficulty',
+        options: [
+          {
+            id: 50,
+            name: 'Easy',
+            value: 0,
+          },
+          {
+            id: 51,
+            name: 'Standard',
+            value: 1,
+          },
+          {
+            id: 52,
+            name: 'Hard',
+            value: 2,
+          },
+          {
+            id: 53,
+            name: 'Expert',
+            value: 3,
+          },
+        ],
+        active: 1,
+      },
+    ],
+    chaosBagTokens: [
+      [0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 10, 10, 11, 13, 14],
+      [0, 1, 1, 2, 2, 2, 3, 3, 4, 5, 10, 10, 11, 13, 14],
+      [1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 10, 10, 11, 13, 14],
+      [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 9, 10, 10, 11, 13, 14],
+    ],
+    agendaCards: ['02119', '02120', '02121'],
+    actCards: ['02122', '02123', '02124', '02125'],
+    difficultyCards: ['02118', '02118', '02118b', '02118b'],
+    locationCards: ['02126', '02127', '02128', '02129', '02130', '02131'],
+    outOfPlay0: ['02138', '02139', '02140', '02142'],
+    outOfPlay1: ['02137', '02132', '02133', '02134', '02135', '02136'],
+    encounterDeck: [
+      '02141',
+      '02143',
+      '02143',
+      '02144',
+      '02144',
+      '02144',
+      '02145',
+      '02145',
+      '02146',
+      '02146',
+      '02092',
+      '02092',
+      '02092',
+      '02093',
+      '02093',
+      '02093',
+      '02083',
+      '02083',
+      '02083',
+      '02084',
+      '02084',
+      '02084',
+      '02100',
+      '02100',
+      '02101',
+      '02101',
+      '02102',
+      '02102',
+      '01167',
+      '01167',
+      '01168',
+      '01168',
+      '01174',
+      '01174',
+    ],
+    basicWeakness: [
+      '01096',
+      '01096',
+      '01097',
+      '01097',
+      '01098',
+      '01099',
+      '01100',
+      '01101',
+      '01102',
+      '01103',
+      '02037',
+      '02038',
+      '02039',
+    ],
     hiddenDeck: [],
   },
 ];

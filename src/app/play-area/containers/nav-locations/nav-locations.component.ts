@@ -45,8 +45,15 @@ export class NavLocationsComponent implements OnInit {
   }
 
   isExit(loc: Card) {
-    const currentLocation = this.getCurrentLocation();
-    const idx = currentLocation.exits.indexOf(loc.location_marker);
+    let idx: number;
+    const exits = this.getExits();
+    // console.log('exits => ', exits);
+    if (loc.faceUp && loc.location_marker_faceUp !== null) {
+      idx = exits.indexOf(loc.location_marker_faceUp);
+    } else {
+      idx = exits.indexOf(loc.location_marker);
+    }
+    // console.log('idx => ', idx);
     if (idx !== -1) {
       return true;
     } else {
@@ -78,7 +85,7 @@ export class NavLocationsComponent implements OnInit {
   getExits() {
     const currentLocationCard = this.locations.find((c: Card) => c.id === this.currentLocation);
     if (currentLocationCard.faceUp && currentLocationCard.exits_faceUp !== null) {
-        return currentLocationCard.exits_faceUp;
+      return currentLocationCard.exits_faceUp;
     } else {
       return currentLocationCard.exits;
     }

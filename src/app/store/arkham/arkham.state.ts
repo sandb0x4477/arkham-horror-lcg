@@ -26,10 +26,12 @@ import {
   ResetArkhamState,
   AddTokensToAgenda,
   RemoveFromChaosBag,
-  AddToChaosBag
+  AddToChaosBag,
+  AddExtraCard,
 } from './arkham.actions';
 import { Card } from '../../shared/models/card.model';
 import { ArkhamStateIntial } from './initial-state';
+import { AlertifyService } from '../../shared/services/alertify.service';
 
 enum Container {
   'hand0-deck' = 'hand0Deck',
@@ -206,7 +208,7 @@ export interface ArkhamStateModel {
   defaults: ArkhamStateIntial,
 })
 export class ArkhamState {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private alertify: AlertifyService) {}
   //#region Selectors
   @Selector()
   public static getState(state: any): object[] {
@@ -246,6 +248,14 @@ export class ArkhamState {
     return result;
   }
 
+  @Action(AddExtraCard)
+  public addExtraCard({ patchState, getState }: StateContext<ArkhamStateModel>, { payload }: AddExtraCard) {
+    patchState({
+      threat0Outofplay: produce(getState().threat0Outofplay, (draft: any) => {
+        draft.push(payload);
+      }),
+    });
+  }
 
   @Action(AddToChaosBag)
   public addToChaosBag({ patchState, getState }: StateContext<ArkhamStateModel>, { payload }: AddToChaosBag) {
@@ -269,16 +279,16 @@ export class ArkhamState {
   }
 
   @Action(ResetArkhamState)
-  public resetArkhamState({getState, setState}: StateContext<ArkhamStateModel>) {
+  public resetArkhamState({ getState, setState }: StateContext<ArkhamStateModel>) {
     const state = getState();
     setState({
       ...state,
-      ...ArkhamStateIntial
+      ...ArkhamStateIntial,
     });
   }
 
   @Action(AddTokensToAgenda)
-  public addTokensToAgenda({getState, setState}: StateContext<ArkhamStateModel>, { payload }: AddTokensToAgenda) {
+  public addTokensToAgenda({ getState, setState }: StateContext<ArkhamStateModel>, { payload }: AddTokensToAgenda) {
     const stateAgenda = getState().agendaDeck;
     const firstAgenda = stateAgenda[0];
     for (let i = 0; i < payload; i++) {
@@ -288,7 +298,7 @@ export class ArkhamState {
   }
 
   @Action(SpawnAcolteOnSouthSide)
-  public SpawnAcolteOnSouthSide({ getState, patchState }: StateContext<ArkhamStateModel>, ) {
+  public SpawnAcolteOnSouthSide({ getState, patchState }: StateContext<ArkhamStateModel>) {
     const locationState = getState().locations;
     const hiddenDeckState = getState().hiddenDeck;
     const southSideCard = locationState.find(c => c.name === 'Southside');
@@ -329,7 +339,7 @@ export class ArkhamState {
     const invsIndex = getState().investigators.findIndex(l => l.current_location === cardId);
     const threatIndex = getState().locationThreat.findIndex(l => l.current_location === cardId);
     if (invsIndex !== -1 || threatIndex !== -1 || getState().locations.length < 2) {
-      alert('Location is not empty or its the only location!');
+      this.alertify.error('Location is not empty or it is the only one...');
     } else {
       patchState({
         locations: produce(getState().locations, (draft: any) => {

@@ -13,12 +13,12 @@
   <div class="cards-table">
     <ng-container *ngFor="let card of searchReasult; let i = index">
       <div class="card-list-item" [class.active]="selectedPreviewCard === card.code" (click)="selectedCard(card.code)">
-        <i class="fas fa-plus fa-fw"></i>
+        <i class="fas fa-plus fa-fw" (click)="onAddCard(card)"></i>
         <i class="faa fa-{{ card.faction_code }}"></i>
         <div>
           {{ card.name }}
         </div>
-        <div class="card-list-item-quantity">
+        <div>
           {{ card.position }}
         </div>
         <div>

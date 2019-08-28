@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 
 /src/assets/*
+z_temp.json

@@ -20,6 +20,7 @@ import { ScenarioData } from '../../../shared/models/scenario.data.model';
 import { Card } from '../../../shared/models/card.model';
 import { StarterDecks } from '../../../shared/data/starter-decks.data';
 import { ScenarioService } from '../../../shared/services/scenario.service';
+import { AlertifyService } from '../../../shared/services/alertify.service';
 
 @Component({
   selector: 'app-new-game',
@@ -27,7 +28,12 @@ import { ScenarioService } from '../../../shared/services/scenario.service';
   styleUrls: ['./new-game.component.scss'],
 })
 export class NewGameComponent implements OnInit {
-  constructor(private store: Store, private cardsDbService: CardsDbService, private scenarioService: ScenarioService) {}
+  constructor(
+    private store: Store,
+    private cardsDbService: CardsDbService,
+    private scenarioService: ScenarioService,
+    private alertify: AlertifyService,
+  ) {}
 
   @Select(SettingsState.loading) loading$: Observable<boolean>;
   @Select(SettingsState.currentPage) currentPage$: Observable<string>;
@@ -96,7 +102,11 @@ export class NewGameComponent implements OnInit {
             id,
             error,
           };
+          this.alertify.error(`Error loading Deck ${code}!`);
           this.store.dispatch([new SetLoading(false), new SetError(payload)]);
+        },
+        () => {
+          this.alertify.success(`Deck Id: ${code} loaded successfully...`);
         },
       );
   }

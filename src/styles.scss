@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Teko&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
+@import "../node_modules/alertifyjs/build/css/alertify.min.css";
+@import "../node_modules/alertifyjs/build/css/themes/default.min.css";
 @import './variables';
 
 @font-face {
   font-family: ArkhamLogo;
-  src: url(assets/fonts/AH_LCG_v3.ttf) format("truetype");
+  src: url(assets/fonts/AH_LCG_v3.ttf) format('truetype');
 }
 
 body {
@@ -42,6 +44,10 @@ body {
 .cdk-drag-preview {
   background-size: 100%;
   opacity: 0.6;
+
+  // &.portrait{
+  //   display: none;
+  // }
 }
 
 .cdk-drop-list-dragging {
@@ -51,11 +57,19 @@ body {
   }
 }
 
+// .nav-location-item {
+//   &.cdk-drop-list-dragging {
+//     img {
+//       transform: scale(.5);
+//     }
+//   }
+// }
+
 .cdk-drag-placeholder {
   opacity: 0.5;
 
   &.portrait {
-    display: flex;
+    display: block;
   }
 }
 
@@ -101,4 +115,3 @@ body {
     background-image: url('#{$assetsPath}tokens/action.png');
   }
 }
-
