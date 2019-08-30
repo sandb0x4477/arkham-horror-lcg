@@ -34,6 +34,7 @@
     "ngx-lightbox": "^2.0.2",
     "ngxs-reset-plugin": "^1.1.1",
     "rxjs": "~6.5.2",
+    "subsink": "^1.0.0",
     "tslib": "^1.10.0",
     "uuid": "^3.3.2",
     "zone.js": "~0.9.1"

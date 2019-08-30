@@ -47,6 +47,9 @@ export class NavLocationsComponent implements OnInit {
   isExit(loc: Card) {
     let idx: number;
     const exits = this.getExits();
+    if (!exits) {
+      return '';
+    }
     // console.log('exits => ', exits);
     if (loc.faceUp && loc.location_marker_faceUp !== null) {
       idx = exits.indexOf(loc.location_marker_faceUp);

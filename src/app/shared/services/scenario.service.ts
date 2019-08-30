@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { v4 as uuid } from 'uuid';
+import { SubSink } from 'SubSink';
 import difference from 'lodash.difference';
 import random from 'lodash.random';
 import shuffle from 'lodash.shuffle';
@@ -9,7 +10,7 @@ import samplesize from 'lodash.samplesize';
 
 import { CardsDbService } from './cards-db.service';
 import { Card } from '../models/card.model';
-import { SetIntroText, SetMenuBarInfo, AddExtraCard } from '../../store';
+import { SetIntroText, SetMenuBarInfo, AddExtraCard, BloodOnAltar } from '../../store';
 import { SetPlayStatus } from '../../store';
 import { SettingsStateModel } from '../../store';
 import { ScenarioData } from '../models/scenario.data.model';
@@ -26,7 +27,13 @@ import {
 import { AlertifyService } from './alertify.service';
 
 @Injectable({ providedIn: 'root' })
-export class ScenarioService {
+export class ScenarioService implements OnDestroy {
+  private subs = new SubSink();
+  settings: SettingsStateModel;
+  selScenario: ScenarioData;
+  scenarioId: number;
+  startingLocation: string;
+
   constructor(
     private store: Store,
     private cardsDbService: CardsDbService,
@@ -34,14 +41,9 @@ export class ScenarioService {
     private alertify: AlertifyService,
   ) {}
 
-  settings: SettingsStateModel;
-  selScenario: ScenarioData;
-  scenarioId: number;
-  startingLocation: string;
-
   setUpGame() {
     this.store.dispatch([new SetPlayStatus(false)]);
-    this.store.dispatch(new ResetArkhamState()).subscribe(res => {
+    this.subs.sink = this.store.dispatch(new ResetArkhamState()).subscribe(res => {
       console.log('res => ', res);
       this.settings = res.settings;
       this.selScenario = this.settings.selScenario;
@@ -64,6 +66,16 @@ export class ScenarioService {
           break;
         case 5:
           this.setUpScenario_5();
+          break;
+        case 6:
+          this.setUpScenario_6();
+          break;
+        case 7:
+          this.setUpScenario_7();
+          break;
+
+        case 8:
+          this.setUpScenario_8();
           break;
 
         default:
@@ -439,7 +451,199 @@ export class ScenarioService {
       ]);
     });
   }
+  // ---------------------------------------------------------------------------
+  // ! The Essex County Express
+  // ---------------------------------------------------------------------------
+  setUpScenario_6() {
+    // setup up random
+    const trainEngine = this.selScenario.locationCards[random(8, 10)];
+    console.log('trainEngine => ', trainEngine);
 
+    const trainCars = samplesize(this.selScenario.locationCards.slice(0, 8), 6);
+    console.log('trainCars => ', trainCars);
+    const locations = [...trainCars, trainEngine];
+    console.log('locations => ', locations);
+
+    // const locations = this.selScenario.locationCards;
+    const encounter0Deck = this.selScenario.encounterDeck;
+    const threat0Outofplay = this.selScenario.outOfPlay0;
+
+    const agendaDeck = this.selScenario.agendaCards;
+    const actDeck = this.selScenario.actCards;
+    const investigators = this.settings.selInvs;
+    const hand0Deck = this.retriveHandDeckCodes(this.settings.deckLists[0]);
+    const hand1Deck = this.retriveHandDeckCodes(this.settings.deckLists[1]);
+    const hand0Hand = hand0Deck.splice(0, 5);
+    const hand1Hand = hand1Deck.splice(0, 5);
+    const difficultyCard = this.selScenario.difficultyCards[this.selScenario.answers.difficulty];
+    const chaosBag = this.selScenario.chaosBagTokens[this.selScenario.answers.difficulty];
+    const query = locations.concat(
+      encounter0Deck,
+      threat0Outofplay,
+      agendaDeck,
+      actDeck,
+      investigators,
+      hand0Deck,
+      hand1Deck,
+      hand0Hand,
+      hand1Hand,
+    );
+    this.cardsDbService.getCardsFromDb(query).subscribe(response => {
+      // console.log('response => ', JSON.stringify(response, null, 2));
+      this.fillDeck(locations, response, 'locations', false, false, 'locations');
+      this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
+      this.fillDeck(agendaDeck, response, 'agendaDeck', true);
+      this.fillDeck(actDeck, response, 'actDeck', true);
+      this.fillDeck(threat0Outofplay, response, 'threat0Outofplay', false);
+      // this.fillDeck(threat1Outofplay, response, 'threat1Outofplay', false);
+      this.fillDeck(investigators, response, 'investigators', true);
+      this.fillDeck(hand0Deck, response, 'hand0Deck', false);
+      this.fillDeck(hand1Deck, response, 'hand1Deck', false);
+      this.fillDeck(hand0Hand, response, 'hand0Hand', true);
+      this.fillDeck(hand1Hand, response, 'hand1Hand', true);
+      this.store.dispatch([
+        new SetIntroText(this.selScenario.description[0]),
+        new SetDifficultyCard(difficultyCard),
+        new SetChaosBag(chaosBag),
+      ]);
+    });
+  }
+  // ---------------------------------------------------------------------------
+  // ! Blood on the Altar
+  // ---------------------------------------------------------------------------
+  setUpScenario_7() {
+    const locationsTemp = [];
+    const vilageCommon = this.selScenario.locationCards[0];
+    const restLocation = this.selScenario.locationCards.slice(1);
+    for (let i = 0; i < 12; i += 2) {
+      const randomNum = random(0, 1) + i;
+      const pick = restLocation[randomNum];
+      locationsTemp.push(pick);
+    }
+    locationsTemp.splice(random(0, 5), 1);
+    // console.log('locations => ', locationsTemp);
+    const locations = [vilageCommon, ...locationsTemp];
+    // Three cards from ecnouner deck
+    const encounter0Deck = shuffle(this.selScenario.encounterDeck);
+    console.log('encounter0Deck => ', encounter0Deck);
+    const threeCards = encounter0Deck.splice(0, 3);
+    console.log('threeCards => ', threeCards);
+    console.log('encounter0Deck => ', encounter0Deck);
+    const hiddenDeck = [...threeCards, '02214', '02215'];
+
+    // const encounter0Deck = difference(this.selScenario.encounterDeck, threeCards);
+    const threat0Outofplay = this.selScenario.outOfPlay0;
+    const threat1Outofplay = this.selScenario.outOfPlay1;
+    const agendaDeck = this.selScenario.agendaCards;
+    const actDeck = this.selScenario.actCards;
+    const investigators = this.settings.selInvs;
+    const hand0Deck = this.retriveHandDeckCodes(this.settings.deckLists[0]);
+    const hand1Deck = this.retriveHandDeckCodes(this.settings.deckLists[1]);
+    const hand0Hand = hand0Deck.splice(0, 5);
+    const hand1Hand = hand1Deck.splice(0, 5);
+    const difficultyCard = this.selScenario.difficultyCards[this.selScenario.answers.difficulty];
+    const chaosBag = this.selScenario.chaosBagTokens[this.selScenario.answers.difficulty];
+    const query = locations.concat(
+      encounter0Deck,
+      threat0Outofplay,
+      threat1Outofplay,
+      agendaDeck,
+      actDeck,
+      investigators,
+      hand0Deck,
+      hand1Deck,
+      hand0Hand,
+      hand1Hand,
+      hiddenDeck,
+    );
+    this.cardsDbService.getCardsFromDb(query).subscribe(response => {
+      // console.log('response => ', JSON.stringify(response, null, 2));
+      this.fillDeck(locations, response, 'locations', false, false, 'locations');
+      this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
+      this.fillDeck(agendaDeck, response, 'agendaDeck', true);
+      this.fillDeck(actDeck, response, 'actDeck', true);
+      this.fillDeck(threat0Outofplay, response, 'threat0Outofplay', true);
+      this.fillDeck(threat1Outofplay, response, 'threat1Outofplay', true, true);
+      this.fillDeck(investigators, response, 'investigators', true);
+      this.fillDeck(hand0Deck, response, 'hand0Deck', false);
+      this.fillDeck(hand1Deck, response, 'hand1Deck', false);
+      this.fillDeck(hand0Hand, response, 'hand0Hand', true);
+      this.fillDeck(hand1Hand, response, 'hand1Hand', true);
+      this.fillDeck(hiddenDeck, response, 'hiddenDeck', false, true);
+      this.store.dispatch([
+        new SetIntroText(this.selScenario.description[0]),
+        new SetDifficultyCard(difficultyCard),
+        new SetChaosBag(chaosBag),
+        new BloodOnAltar(),
+      ]);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // ! Undimensioned and Unseen
+  // ---------------------------------------------------------------------------
+  setUpScenario_8() {
+    const locations = [];
+    const allLocation = this.selScenario.locationCards;
+    for (let i = 0; i < 12; i += 2) {
+      const randomNum = random(0, 1) + i;
+      const pick = allLocation[randomNum];
+      locations.push(pick);
+    }
+    console.log('locations => ', locations);
+
+    const encounter0Deck = shuffle(this.selScenario.encounterDeck);
+    const threat0Outofplay = difference(allLocation, locations);
+    console.log('threat0Outofplay => ', threat0Outofplay);
+
+    const threat1Outofplay = this.selScenario.outOfPlay1;
+    const agendaDeck = this.selScenario.agendaCards;
+    const actDeck = this.selScenario.actCards;
+    const investigators = this.settings.selInvs;
+    const hand0Deck = this.retriveHandDeckCodes(this.settings.deckLists[0]);
+    const hand1Deck = this.retriveHandDeckCodes(this.settings.deckLists[1]);
+    const hand0Hand = hand0Deck.splice(0, 5);
+    const hand1Hand = hand1Deck.splice(0, 5);
+    const difficultyCard = this.selScenario.difficultyCards[this.selScenario.answers.difficulty];
+    const chaosBag = this.selScenario.chaosBagTokens[this.selScenario.answers.difficulty];
+    const play0Spare = this.selScenario.basicWeakness;
+    const play1Spare = this.selScenario.basicWeakness;
+    const query = locations.concat(
+      encounter0Deck,
+      threat0Outofplay,
+      threat1Outofplay,
+      agendaDeck,
+      actDeck,
+      investigators,
+      hand0Deck,
+      hand1Deck,
+      hand0Hand,
+      hand1Hand,
+      play0Spare,
+      play1Spare
+    );
+    this.cardsDbService.getCardsFromDb(query).subscribe(response => {
+      // console.log('response => ', JSON.stringify(response, null, 2));
+      this.fillDeck(locations, response, 'locations', false, false, 'locations');
+      this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
+      this.fillDeck(agendaDeck, response, 'agendaDeck', true);
+      this.fillDeck(actDeck, response, 'actDeck', true);
+      this.fillDeck(threat0Outofplay, response, 'threat0Outofplay', false);
+      this.fillDeck(threat1Outofplay, response, 'threat1Outofplay', true);
+      this.fillDeck(investigators, response, 'investigators', true);
+      this.fillDeck(hand0Deck, response, 'hand0Deck', false);
+      this.fillDeck(hand1Deck, response, 'hand1Deck', false);
+      this.fillDeck(hand0Hand, response, 'hand0Hand', true);
+      this.fillDeck(hand1Hand, response, 'hand1Hand', true);
+      this.fillDeck(play0Spare, response, 'play0Spare', true, true);
+      this.fillDeck(play1Spare, response, 'play1Spare', true, true);
+      this.store.dispatch([
+        new SetIntroText(this.selScenario.description[0]),
+        new SetDifficultyCard(difficultyCard),
+        new SetChaosBag(chaosBag),
+      ]);
+    });
+  }
   fillDeck(
     codes: string[],
     cards: Card[],
@@ -519,7 +723,7 @@ export class ScenarioService {
       };
     }
     this.store.dispatch(new AddExtraCard(cardToAdd)).subscribe(res => {
-      this.alertify.success('Card added to Out of Play...')
+      this.alertify.success('Card added to Out of Play...');
     });
   }
 
@@ -537,5 +741,12 @@ export class ScenarioService {
       }
     });
     return shuffle(codes);
+  }
+
+  // Unsubscribe when the component dies
+  ngOnDestroy() {
+    console.log('Scenario service sink unsubscribe..');
+
+    this.subs.unsubscribe();
   }
 }

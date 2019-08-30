@@ -2,7 +2,7 @@ import { ScenarioData } from '../models/scenario.data.model';
 
 export const Scenarios: ScenarioData[] = [
   // ---------------------------------------------------------------------------
-  // ? The Gathering
+  // ! The Gathering
   // ---------------------------------------------------------------------------
   {
     id: 0,
@@ -93,7 +93,7 @@ export const Scenarios: ScenarioData[] = [
     answers: { difficulty: 1 },
   },
   // ---------------------------------------------------------------------------
-  // ? The Midnight Mask
+  // ! The Midnight Mask
   // ---------------------------------------------------------------------------
   {
     id: 1,
@@ -277,7 +277,7 @@ export const Scenarios: ScenarioData[] = [
     answers: { difficulty: 1 },
   },
   // ---------------------------------------------------------------------------
-  // ? The Devourer Below
+  // ! The Devourer Below
   // ---------------------------------------------------------------------------
   {
     id: 2,
@@ -587,7 +587,7 @@ export const Scenarios: ScenarioData[] = [
   {
     id: 4,
     campaignCode: 'dwl',
-    active: true,
+    active: false,
     encounter_name: 'The House Always Wins',
     encounter_code: 'torch',
     campaign: 'The Dunwitch Legacy',
@@ -694,7 +694,7 @@ export const Scenarios: ScenarioData[] = [
   {
     id: 5,
     campaignCode: 'dwl',
-    active: true,
+    active: false,
     encounter_name: 'The Miskatonic Museum',
     encounter_code: 'torch',
     campaign: 'The Dunwitch Legacy',
@@ -799,6 +799,394 @@ export const Scenarios: ScenarioData[] = [
       '01168',
       '01174',
       '01174',
+    ],
+    basicWeakness: [
+      '01096',
+      '01096',
+      '01097',
+      '01097',
+      '01098',
+      '01099',
+      '01100',
+      '01101',
+      '01102',
+      '01103',
+      '02037',
+      '02038',
+      '02039',
+    ],
+    hiddenDeck: [],
+  },
+  // ---------------------------------------------------------------------------
+  // ! The Essex County Express
+  // ---------------------------------------------------------------------------
+  {
+    id: 6,
+    campaignCode: 'dwl',
+    active: false,
+    encounter_name: 'The Essex County Express',
+    encounter_code: 'torch',
+    campaign: 'The Dunwitch Legacy',
+    scenarioNumber: '3',
+    title: 'The Essex County Express',
+    description: [
+      // prettier-ignore
+      // tslint:disable-next-line:max-line-length
+      `Recent events in the Museum have forced you to
+      re-evaluate Armitage’s tale about Dunwich. It
+      cannot be a coincidence—Wilbur Whateley, the
+      Necronomicon, the creature from Dunwich, and
+      the people and creatures who attacked here in
+      Arkham —everything must be connected. You’re
+      certain now where you must head: the lonely
+      and dismal town of Dunwich Village.\n
+      You consider telling the Massachusetts State Police what you know, but
+      the negative consequences outweigh the potential gain. Given the nature
+      of your story, they would likely write your stories off as an absurd hoax.
+      Worse, they could lock you up. After all, you were present in an illegal
+      speakeasy, and you also trespassed in the museum. Instead, you decide
+      to head to Dunwich yourself, in order to investigate further.\n
+      You pack everything you think you might need and manage to get
+      some rest for the night. In the morning, you head to the train station in
+      Northside and purchase a last-minute express ticket. Dunwich is several
+      hours by train northwest along the Miskatonic River Valley. There is no
+      train station in Dunwich, but you manage to phone one of Armitage’s
+      acquaintances in the small village: a man by the name of Zebulon
+      Whateley who was present during the events several months ago.
+      Armitage’s notes indicate that the Whateley family is spread across
+      many branches, some decadent and unscrupulous, others “undecayed”
+      or otherwise untouched by nefarious and diabolic rites. According to
+      Armitage, Zebulon’s branch of the family lay somewhere between the
+      decayed and undecayed Whateleys, who knew of the traditions of his
+      ancestors, but was not corrupted by them. He agrees to pick you up at
+      the closest station and drive you into town.\n
+      As the train departs from Arkham, you feel the events of the previous
+      night catching up to you, and exhaustion sets in. But before you can
+      safely reach your destination, the train car suddenly rumbles and
+      shakes, startling you out of your reverie. The train loudly skids to a
+      violent halt, and you hear a rattling noise behind you…`,
+    ],
+    questions: [
+      {
+        id: 993,
+        controlName: 'difficulty',
+        label: 'Difficulty',
+        options: [
+          {
+            id: 50,
+            name: 'Easy',
+            value: 0,
+          },
+          {
+            id: 51,
+            name: 'Standard',
+            value: 1,
+          },
+          {
+            id: 52,
+            name: 'Hard',
+            value: 2,
+          },
+          {
+            id: 53,
+            name: 'Expert',
+            value: 3,
+          },
+        ],
+        active: 1,
+      },
+    ],
+    chaosBagTokens: [
+      [0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 10, 10, 11, 13, 14],
+      [0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 10, 10, 11, 13, 14],
+      [1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 10, 10, 11, 13, 14],
+      [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 9, 10, 10, 11, 13, 14],
+    ],
+    agendaCards: ['02160', '02161', '02162', '02163', '02164'],
+    actCards: ['02165', '02166'],
+    difficultyCards: ['02159', '02159', '02159b', '02159b'],
+    locationCards: ['02167', '02168', '02169', '02170', '02171', '02172', '02173', '02174', '02175', '02176', '02177'],
+    outOfPlay0: ['02178', '02178', '02178', '02178'],
+    outOfPlay1: [],
+    encounterDeck: [
+      '02179',
+      '02179',
+      '02179',
+      '02180',
+      '02180',
+      '02180',
+      '02181',
+      '02181',
+      '02181',
+      '02182',
+      '02182',
+      '02183',
+      '02183',
+      '02100',
+      '02100',
+      '02101',
+      '02101',
+      '02102',
+      '02102',
+      '01163',
+      '01163',
+      '01163',
+      '01164',
+      '01164',
+      '01165',
+      '01165',
+      '01166',
+      '01166',
+      '01166',
+      '01169',
+      '01169',
+      '01169',
+      '01170',
+      '01171',
+      '01171',
+    ],
+    basicWeakness: [
+      '01096',
+      '01096',
+      '01097',
+      '01097',
+      '01098',
+      '01099',
+      '01100',
+      '01101',
+      '01102',
+      '01103',
+      '02037',
+      '02038',
+      '02039',
+    ],
+    hiddenDeck: [],
+  },
+  // ---------------------------------------------------------------------------
+  // ! Blood on the Altar
+  // ---------------------------------------------------------------------------
+  {
+    id: 7,
+    campaignCode: 'dwl',
+    active: false,
+    encounter_name: 'Blood on the Altar',
+    encounter_code: 'torch',
+    campaign: 'The Dunwitch Legacy',
+    scenarioNumber: '4',
+    title: 'Blood on the Altar',
+    description: [
+      // prettier-ignore
+      // tslint:disable-next-line:max-line-length
+      `When you finally reach Dunwich, you are greeted by Zebulon Whateley and Earl Sawyer, another man from the village who had met with Dr. Armitage during the incident several months ago. “Things ain’t lookin’ too good here,” Earl tells you. “Some folk up and went missin’ a few nights ago. ‘Dem whippoorwills won’ shut up. Dunno what yer doin’ here, but last time you Arkham folk came ‘round it was bad news. Very bad news.” His eyes blink rapidly, and he coughs and looks away.\n “Look, why don’t you rest fer the night an’ look fer whatever it is yer looking fer t’morra,” Zebulon chimes in, putting a wrinkled hand on your shoulder. You begin to protest, but your aching muscles and weary mind won’t allow you to refuse. The elderly man offers to take you in for the night, and drives you to his home at the outskirts of Dunwich village. The town is disheveled and eerie, and you find yourself wishing you hadn’t come here at all. You fall asleep on the ride over and scarcely remember anything else from that night.\n When you awaken, you find that Zebulon’s house is abandoned, andthere is no sign of the elderly man, or of Mr. Sawyer. Fearing the worst, you head into the village of Dunwich to investigate, hoping to find answers.`,
+    ],
+    questions: [
+      {
+        id: 992,
+        controlName: 'difficulty',
+        label: 'Difficulty',
+        options: [
+          {
+            id: 50,
+            name: 'Easy',
+            value: 0,
+          },
+          {
+            id: 51,
+            name: 'Standard',
+            value: 1,
+          },
+          {
+            id: 52,
+            name: 'Hard',
+            value: 2,
+          },
+          {
+            id: 53,
+            name: 'Expert',
+            value: 3,
+          },
+        ],
+        active: 1,
+      },
+    ],
+    chaosBagTokens: [
+      [0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 10, 10, 11, 13, 14],
+      [0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 10, 10, 11, 13, 14],
+      [1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 10, 10, 11, 13, 14],
+      [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 9, 10, 10, 11, 13, 14],
+    ],
+    agendaCards: ['02196', '02197', '02198'],
+    actCards: ['02199', '02200'],
+    difficultyCards: ['02195', '02195', '02195b', '02195b'],
+    locationCards: [
+      '02201',
+      '02202',
+      '02203',
+      '02204',
+      '02205',
+      '02206',
+      '02207',
+      '02208',
+      '02209',
+      '02210',
+      '02211',
+      '02212',
+      '02213',
+    ],
+    outOfPlay0: ['02219', '02216', '02080', '02061', '02040', '02218', '02217'],
+    outOfPlay1: ['02099', '02099', '02098', '02098', '02097', '02097'],
+    encounterDeck: [
+      '02220',
+      '02220',
+      '02220',
+      '02221',
+      '02221',
+      '02222',
+      '02222',
+      '02223',
+      '02223',
+      '02223',
+      '02224',
+      '02224',
+      '02224',
+      '02088',
+      '02088',
+      '02089',
+      '02089',
+      '02090',
+      '02090',
+      '02090',
+      '02091',
+      '02091',
+      '01172',
+      '01172',
+      '01173',
+      '01173',
+      '01166',
+      '01166',
+      '01166',
+    ],
+    basicWeakness: [
+      '01096',
+      '01096',
+      '01097',
+      '01097',
+      '01098',
+      '01099',
+      '01100',
+      '01101',
+      '01102',
+      '01103',
+      '02037',
+      '02038',
+      '02039',
+    ],
+    hiddenDeck: [],
+  },
+  // ---------------------------------------------------------------------------
+  // ! Undimensioned and Unseen
+  // ---------------------------------------------------------------------------
+  {
+    id: 8,
+    campaignCode: 'dwl',
+    active: false,
+    encounter_name: 'Undimensioned and Unseen',
+    encounter_code: 'torch',
+    campaign: 'The Dunwitch Legacy',
+    scenarioNumber: '5',
+    title: 'Undimensioned and Unseen',
+    description: [
+      'info',
+    ],
+    questions: [
+      {
+        id: 990,
+        controlName: 'difficulty',
+        label: 'Difficulty',
+        options: [
+          {
+            id: 50,
+            name: 'Easy',
+            value: 0,
+          },
+          {
+            id: 51,
+            name: 'Standard',
+            value: 1,
+          },
+          {
+            id: 52,
+            name: 'Hard',
+            value: 2,
+          },
+          {
+            id: 53,
+            name: 'Expert',
+            value: 3,
+          },
+        ],
+        active: 1,
+      },
+    ],
+    chaosBagTokens: [
+      [0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 10, 10, 11, 13, 14],
+      [0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 10, 10, 11, 13, 14],
+      [1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 10, 10, 11, 13, 14],
+      [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 9, 10, 10, 11, 13, 14],
+    ],
+    agendaCards: ['02237', '02238', '02239'],
+    actCards: ['02240', '02241'],
+    difficultyCards: ['02236', '02236', '02236b', '02236b'],
+    locationCards: [
+      '02242',
+      '02243',
+      '02244',
+      '02245',
+      '02246',
+      '02247',
+      '02248',
+      '02249',
+      '02250',
+      '02251',
+      '02252',
+      '02253',
+    ],
+    outOfPlay0: [],
+    outOfPlay1: ['02255', '02255', '02255', '02255', '02255', '02254', '02254', '02254', '02254'],
+    encounterDeck: [
+      '02256',
+      '02256',
+      '02256',
+      '02256',
+      '02257',
+      '02257',
+      '02257',
+      '02258',
+      '02258',
+      '02259',
+      '02259',
+      '02090',
+      '02090',
+      '02090',
+      '02096',
+      '02096',
+      '02091',
+      '02091',
+      '02094',
+      '02094',
+      '02095',
+      '02095',
+      '02088',
+      '02088',
+      '02089',
+      '02089',
+      '01164',
+      '01164',
+      '01163',
+      '01163',
+      '01163',
+      '01165',
+      '01165',
     ],
     basicWeakness: [
       '01096',

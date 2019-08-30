@@ -13,6 +13,7 @@ import { AppComponent } from './core/containers/app.component';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { States } from './store';
+import { TestModule } from './test/test.module';
 
 @NgModule({
   declarations: [ ],
@@ -31,6 +32,7 @@ import { States } from './store';
       disabled: environment.production
     }),
     CoreModule.forRoot(),
+    TestModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

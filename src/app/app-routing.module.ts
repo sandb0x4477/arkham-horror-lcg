@@ -25,6 +25,11 @@ export const routes: Routes = [
     loadChildren: () => import('./reference/reference.module').then(mod => mod.ReferenceModule),
     // canActivate: [InProgressGuard],
   },
+  {
+    path: 'test',
+    loadChildren: () => import('./test/test.module').then(mod => mod.TestModule),
+    // canActivate: [InProgressGuard],
+  },
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: '**', component: HomeComponent },
 ];

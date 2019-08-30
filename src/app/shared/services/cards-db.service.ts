@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Card } from '../models/card.model';
+import { tap, catchError } from 'rxjs/operators';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CardsDbService {
   arkhamDbURL = 'https://arkhamdb.com/api/';
   localDB = environment.mongoDB;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPublicDeck(code: any): Observable<any> {
     return this.http.get<any>(this.arkhamDbURL + 'public/decklist/' + code);
@@ -28,5 +29,19 @@ export class CardsDbService {
     let params = new HttpParams();
     params = params.append(`search`, query);
     return this.http.get<Card[]>(this.localDB + '/cards/search', { params });
+  }
+
+  private handleError(err: any) {
+    let errorMessage: string;
+    if (err.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+    }
+    console.error(err);
+    return throwError(errorMessage);
   }
 }

@@ -1,3 +1,7 @@
+export class BloodOnAltar {
+  static readonly type = '[Scenario] BloodOnAltar';
+}
+
 export class AddExtraCard {
   static readonly type = '[Cards] AddExtraCard]';
   constructor(public readonly payload?: any) {}

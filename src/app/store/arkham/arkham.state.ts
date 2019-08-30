@@ -28,6 +28,7 @@ import {
   RemoveFromChaosBag,
   AddToChaosBag,
   AddExtraCard,
+  BloodOnAltar
 } from './arkham.actions';
 import { Card } from '../../shared/models/card.model';
 import { ArkhamStateIntial } from './initial-state';
@@ -246,6 +247,25 @@ export class ArkhamState {
       }
     });
     return result;
+  }
+
+  @Action(BloodOnAltar)
+  public bloodOnAltar({ getState, patchState }: StateContext<ArkhamStateModel>) {
+    const locationState = getState().locations.slice(1);
+    const hiddenDeckState = getState().hiddenDeck;
+
+    for (let i = 0; i < locationState.length; i++) {
+      const payload = {
+        cardId: hiddenDeckState[i].id,
+        currentIndex: i,
+        deckSourceId: 'hidden-deck',
+        deckTargetId: 'location-threat',
+        extraData: locationState[i].id,
+        previousIndex: i,
+      };
+      this.store.dispatch(new TransferArrayItem(payload));
+    }
+
   }
 
   @Action(AddExtraCard)
