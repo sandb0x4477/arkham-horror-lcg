@@ -31,6 +31,45 @@
   }
 }
 
+//  ! Form
+
+.form {
+  display: grid;
+  justify-content: center;
+  align-items: end;
+  padding-top: 6px;
+}
+
+input[type=number] {
+  max-width: 50px;
+}
+
+input[type=number]:focus {
+  background-color: #e4ac78;
+}
+
+label {
+  font-size: 1.2em;
+  font-family: 'Teko', sans-serif;
+  padding-right: 16px;
+}
+
+.btn {
+  background-color: #3a3a39;
+  border: none;
+  color: white;
+  padding: 0px 16px;
+  text-decoration: none;
+  margin: 4px 8px;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: 'Teko', sans-serif;
+
+  &:hover {
+    background-color: #754319;
+  }
+}
+
 
 .chaos-token {
   width: 60px;

@@ -57,6 +57,15 @@ export class CardArkhamComponent {
     this.command.emit(payload);
   }
 
+  onTokenIncrease(tokenId: string, cardId: string) {
+    const payload = {
+      commandId: 'increaseToken',
+      tokenId,
+      cardId,
+    };
+    this.command.emit(payload);
+  }
+
   getCardClassName(className: string) {
     return `.${className}`;
   }

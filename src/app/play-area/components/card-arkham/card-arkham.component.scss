@@ -19,6 +19,10 @@
       display: grid;
     }
 
+    .button-token {
+      display: grid;
+    }
+
     // img {
     //   transform: scale(1.1);
     // }
@@ -46,11 +50,14 @@
   // transition-delay: 0.7s;
 
   &:hover {
-
     // transform: scale(1.4);
     // z-index: 10;
 
     .card-buttons {
+      display: grid;
+    }
+
+    .button-token {
       display: grid;
     }
   }
@@ -84,6 +91,18 @@
 .drag-over {
   filter: grayscale(65%);
 }
+
+.button-token {
+  position: absolute;
+  display: none;
+  cursor: pointer;
+    opacity: 0.35;
+    // padding: 2px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
 
 .card-buttons {
   position: absolute;

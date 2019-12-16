@@ -31,6 +31,15 @@ export class CardsDbService {
     return this.http.get<Card[]>(this.localDB + '/cards/search', { params });
   }
 
+  postNewGame(payload: any): Observable<any> {
+    // campaignid: req.body.campaignid,
+    // scenarioid: req.body.scenarioid,
+    // campaignname: req.body.campaignname,
+    // scenarioname: req.body.scenarioname,
+    // difficulty: req.body.difficulty,
+    return this.http.post(this.localDB + '/stats', payload);
+  }
+
   private handleError(err: any) {
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {

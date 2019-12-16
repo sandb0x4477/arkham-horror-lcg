@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 
 import { Card } from '../shared/models/card.model';
-import { ArkhamState } from '../store';
+import { ArkhamState, AppState, IncreaseToken } from '../store';
 import {
   AddToken,
   MoveToken,
@@ -30,6 +30,8 @@ import {
 })
 export class GameMainComponent implements OnInit {
   @Select(ArkhamState.getCountedDecks) countedDecks$: Observable<any>;
+  @Select(AppState.loadingMain) loadingMain$: Observable<boolean>;
+
 
   @Select((state: any) => state.arkham.navBarsStatus) navBarsStatus$: Observable<any>;
 
@@ -105,6 +107,11 @@ export class GameMainComponent implements OnInit {
       case 'moveToken':
         console.log('Executing MoveToken');
         this.store.dispatch(new MoveToken(payload));
+        break;
+
+      case 'increaseToken':
+        console.log('Executing RemoveToken');
+        this.store.dispatch(new IncreaseToken(payload));
         break;
 
       case 'removeToken':

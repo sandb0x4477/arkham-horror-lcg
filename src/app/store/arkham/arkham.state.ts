@@ -8,6 +8,7 @@ import {
   TransferArrayItem,
   AddToken,
   RemoveToken,
+  IncreaseToken,
   ExhaustCard,
   FlipCard,
   FlipDeck,
@@ -542,6 +543,21 @@ export class ArkhamState {
     patchState({
       [Container[deckId]]: produce(deckState, (draft: any) => {
         draft[cardIndex].exhausted = !draft[cardIndex].exhausted;
+      }),
+    });
+  }
+
+  @Action(IncreaseToken)
+  public increaseToken({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: IncreaseToken) {
+    const { cardId, tokenId } = payload;
+    const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
+
+    const deckState = getState()[Container[deckId]];
+    const tokenIndex = deckState[cardIndex].tokens.findIndex(t => t.tokenId === tokenId);
+
+    patchState({
+      [Container[deckId]]: produce(deckState, (draft: any) => {
+        draft[cardIndex].tokens[tokenIndex].qty += 1;
       }),
     });
   }

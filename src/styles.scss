@@ -13,13 +13,13 @@ body {
   margin: 0;
 }
 
-/* html {
-  background: url('#{$assetsPath}others/Arkham-Cover3.jpg') no-repeat center center fixed;
+html {
+  background: url('#{$assetsPath}others/Arkham-Cover.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-} */
+}
 
 .empty-deck {
   // position: inherit;

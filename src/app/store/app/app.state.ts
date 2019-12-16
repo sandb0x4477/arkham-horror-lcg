@@ -1,16 +1,16 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 
-import { SetPlayStatus, SetMenuBarInfo } from './app.actions';
+import { SetPlayStatus, SetMenuBarInfo, SetLoadingMain } from './app.actions';
 
 export interface AppStateModel {
-  loading: boolean;
+  loadingMain: boolean;
   isGameInProgress: boolean;
   campaignName: string;
   scenarioName: string;
 }
 
 const appStateDefaults: AppStateModel = {
-  loading: false,
+  loadingMain: false,
   isGameInProgress: false,
   campaignName: 'Arkham Horror',
   scenarioName: 'The Card Game',
@@ -29,8 +29,8 @@ export class AppState {
   }
 
   @Selector()
-  static loading(state: AppStateModel) {
-    return state.loading;
+  static loadingMain(state: AppStateModel) {
+    return state.loadingMain;
   }
 
   @Selector()
@@ -51,6 +51,13 @@ export class AppState {
   // ---------------------------------------------------------------------------
   // ! ACTIONS
   // ---------------------------------------------------------------------------
+  @Action(SetLoadingMain)
+  public SetLoadingMain({ patchState }: StateContext<AppStateModel>, { payload }: SetLoadingMain) {
+    patchState({
+      loadingMain: payload,
+    });
+  }
+
   @Action(SetPlayStatus)
   public setPlayStatus({ patchState }: StateContext<AppStateModel>, { payload }: SetPlayStatus) {
     patchState({

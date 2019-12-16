@@ -1,9 +1,8 @@
-<div class="game-main-container">
-
+<div class="game-main-container" *ngIf="!(loadingMain$ | async); else loading">
   <!-- --------------------------------------------------------------------- -->
   <!-- ? DIFFICULTY-CARDS -->
   <!-- --------------------------------------------------------------------- -->
-    <app-difficulty-cards [difficultyCard]="difficultyCard$ | async"></app-difficulty-cards>
+  <app-difficulty-cards [difficultyCard]="difficultyCard$ | async"></app-difficulty-cards>
 
   <!-- ----------------------------------------------------------------------- -->
   <!-- PORTRAITS -->
@@ -30,10 +29,7 @@
     <!-- ----------------------------------------------------------------------- -->
     <!-- ? INVESTIGATORS -->
     <!-- ----------------------------------------------------------------------- -->
-    <app-investigators
-      [investigators]="investigators$ | async"
-      (command)="onCommand($event)"
-    ></app-investigators>
+    <app-investigators [investigators]="investigators$ | async" (command)="onCommand($event)"></app-investigators>
     <!-- ----------------------------------------------------------------------- -->
     <!-- ? LOCATIONS -->
     <!-- ----------------------------------------------------------------------- -->
@@ -135,4 +131,8 @@
     ></app-play1>
   </div>
 </div>
-
+<ng-template #loading>
+  <div class="loading-container">
+    <div class="lds-hourglass"></div>
+  </div>
+</ng-template>

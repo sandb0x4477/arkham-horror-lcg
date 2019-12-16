@@ -21,6 +21,7 @@ import { Card } from '../../../shared/models/card.model';
 import { StarterDecks } from '../../../shared/data/starter-decks.data';
 import { ScenarioService } from '../../../shared/services/scenario.service';
 import { AlertifyService } from '../../../shared/services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-game',
@@ -33,6 +34,7 @@ export class NewGameComponent implements OnInit {
     private cardsDbService: CardsDbService,
     private scenarioService: ScenarioService,
     private alertify: AlertifyService,
+    private router: Router,
   ) {}
 
   @Select(SettingsState.loading) loading$: Observable<boolean>;
@@ -123,12 +125,9 @@ export class NewGameComponent implements OnInit {
         break;
 
       case 'switchPage':
-        if (payload.id === 'start') {
-          this.store.dispatch([new SwitchPage(payload)]);
+        if (payload.id === 'enter') {
           this.scenarioService.setUpGame();
-        } else if (payload.id === 'play') {
-          // this.router
-          // this.store.dispatch(new SwitchPage(payload));
+          this.router.navigate(['/play']);
         } else {
           this.store.dispatch(new SwitchPage(payload));
         }

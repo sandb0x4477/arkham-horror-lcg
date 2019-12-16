@@ -96,6 +96,11 @@ export class AddToken {
   constructor(public payload: any) {}
 }
 
+export class IncreaseToken {
+  public static readonly type = '[Token] IncreaseToken';
+  constructor(public payload: any) {}
+}
+
 export class RemoveToken {
   public static readonly type = '[Token] Remove Token';
   constructor(public payload: any) {}

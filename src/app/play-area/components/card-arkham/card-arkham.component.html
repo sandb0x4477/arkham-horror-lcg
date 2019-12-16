@@ -6,7 +6,7 @@
     [class.exhausted]="card.exhausted"
     [id]="card.id"
     [src]="card.faceUp ? card.imagesrc : card.backimagesrc"
-    [alt]="cardProps.className"
+    alt="Arkham Card"
     [dndDropzone]="['token']"
     dndDragoverClass="drag-over"
     dndEffectAllowed="move"
@@ -19,6 +19,16 @@
   <ng-container *ngIf="card.faceUp">
     <div class="card-tokens">
       <ng-container *ngFor="let token of card.tokens; let i = index">
+       <button
+          *ngIf="token.qty > 0"
+          [style.left.px]="token.x +18"
+          [style.top.px]="token.y - 16"
+          class="button-token"
+          title="Increase"
+          (click)="onTokenIncrease(token.tokenId, card.id)"
+        >
+        <i class="fas fa-plus fa-xs"></i>
+        </button>
         <div
           [ngClass]="getTokenClass(token)"
           [style.left.px]="token.x"

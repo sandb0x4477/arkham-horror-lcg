@@ -63,8 +63,8 @@
       <!-- ? INTRO -->
       <!-- ----------------------------------------------------------------- -->
         <ng-container *ngSwitchCase="'start'">
-        <ng-container *ngIf="(introText$ | async) as introText; else loading">
-          <app-intro [introText]="introText" [selScenario]="selScenario$ | async" (command)="onCommand($event)"></app-intro>
+        <ng-container>
+          <app-intro [selScenario]="selScenario$ | async" (command)="onCommand($event)"></app-intro>
         </ng-container>
       </ng-container>
 

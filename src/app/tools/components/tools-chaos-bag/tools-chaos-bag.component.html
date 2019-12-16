@@ -1,15 +1,32 @@
-  <br>
-  <div class="nav-field-title">Current Chaos Bag</div>
-  <div class="chaos-bag-wrapper bag">
-    <ng-container *ngFor="let token of chaosBag; let i = index">
-      <div [ngClass]="getCss(token)" [id]="i" (click)="onRemove(i)"></div>
-    </ng-container>
-  </div>
-  <br>
-  <br>
-  <div class="nav-field-title">Token Bank</div>
-  <div class="chaos-bag-wrapper bank">
-    <ng-container *ngFor="let token of tokens; let i = index">
-      <div [ngClass]="getCss(token)" [id]="i" (click)="onAdd(i)"></div>
-    </ng-container>
-  </div>
+<br />
+<div class="nav-field-title">Current Chaos Bag</div>
+<div class="chaos-bag-wrapper bag">
+  <ng-container *ngFor="let token of chaosBag; let i = index">
+    <div [ngClass]="getCss(token)" [id]="i" (click)="onRemove(i)"></div>
+  </ng-container>
+</div>
+<br />
+<br />
+<div class="nav-field-title">Token Bank</div>
+<div class="chaos-bag-wrapper bank">
+  <ng-container *ngFor="let token of tokens; let i = index">
+    <div [ngClass]="getCss(token)" [id]="i" (click)="onAdd(i)"></div>
+  </ng-container>
+</div>
+<br />
+<hr />
+
+<div style="text-align: center">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="query">Draw</label>
+    <input type="number" formControlName="query" id="query" />
+    <label for="query">&nbsp;&nbsp;&nbsp;&nbsp;Tokens</label>
+    <button type="submit" [disabled]="!form.valid" class="btn">Submit</button>
+  </form>
+</div>
+
+<div class="chaos-bag-wrapper bank">
+  <ng-container *ngFor="let token of drawnTokens; let i = index">
+    <div [ngClass]="getCss(token)" [id]="i" (click)="onAdd(i)"></div>
+  </ng-container>
+</div>

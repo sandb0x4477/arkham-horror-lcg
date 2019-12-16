@@ -1,6 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Router } from '@angular/router';
 import { v4 as uuid } from 'uuid';
 import { SubSink } from 'SubSink';
 import difference from 'lodash.difference';
@@ -10,7 +9,7 @@ import samplesize from 'lodash.samplesize';
 
 import { CardsDbService } from './cards-db.service';
 import { Card } from '../models/card.model';
-import { SetIntroText, SetMenuBarInfo, AddExtraCard, BloodOnAltar } from '../../store';
+import { SetIntroText, SetMenuBarInfo, AddExtraCard, BloodOnAltar, SwitchPage, SetLoadingMain } from '../../store';
 import { SetPlayStatus } from '../../store';
 import { SettingsStateModel } from '../../store';
 import { ScenarioData } from '../models/scenario.data.model';
@@ -37,14 +36,15 @@ export class ScenarioService implements OnDestroy {
   constructor(
     private store: Store,
     private cardsDbService: CardsDbService,
-    private router: Router,
     private alertify: AlertifyService,
   ) {}
 
   setUpGame() {
+    const payload = { commandId: 'switchPage', id: 'selCampaign' };
+    this.store.dispatch([new SwitchPage(payload), new SetLoadingMain(true)]);
     this.store.dispatch([new SetPlayStatus(false)]);
     this.subs.sink = this.store.dispatch(new ResetArkhamState()).subscribe(res => {
-      console.log('res => ', res);
+      // console.log('res => ', res);
       this.settings = res.settings;
       this.selScenario = this.settings.selScenario;
       this.scenarioId = this.settings.selScenario.id;
@@ -78,19 +78,34 @@ export class ScenarioService implements OnDestroy {
           this.setUpScenario_8();
           break;
 
+        case 9:
+          this.setUpScenario_9();
+          break;
+
+        case 10:
+          this.setUpScenario_10();
+          break;
+
         default:
           break;
       }
     });
-    this.store.dispatch([new SetPlayStatus(true)]);
+    this.store.dispatch([new SetPlayStatus(true), new SetLoadingMain(false)]);
     this.store.dispatch(
       new SetMenuBarInfo({
         campaignName: this.selScenario.campaign,
         scenarioName: this.selScenario.encounter_name,
       }),
     );
-    // this.router.navigate(['/play']);
-    // this.store.dispatch(new SwitchPage({ commandId: 'switchPage', id: 'start' }));
+
+    const statsPayload = {
+      campaignid: this.settings.selCampaign,
+      scenarioid: this.selScenario.id,
+      campaignname: this.selScenario.campaign,
+      scenarioname: this.selScenario.encounter_name,
+      difficulty: this.selScenario.answers.difficulty,
+    };
+    this.cardsDbService.postNewGame(statsPayload).subscribe();
   }
 
   setUpScenario_0() {
@@ -120,7 +135,7 @@ export class ScenarioService implements OnDestroy {
       hand1Hand,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // console.log('response => ', response);
+      // // console.log('response => ', response);
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -191,7 +206,7 @@ export class ScenarioService implements OnDestroy {
       extraCards,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // console.log('response => ', response);
+      // // console.log('response => ', response);
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -241,8 +256,8 @@ export class ScenarioService implements OnDestroy {
 
     // ? Cutltists that got away
     const howManyTokens = Math.ceil(this.selScenario.answers.escapedcultists / 2);
-    console.log('howManyTokens => ', howManyTokens);
-    // console.log('this.firstAgenda => ', this.firstAgenda);
+    // console.log('howManyTokens => ', howManyTokens);
+    // // console.log('this.firstAgenda => ', this.firstAgenda);
 
     // ? It is past midnight
     if (this.selScenario.answers.pastmidnight) {
@@ -266,7 +281,7 @@ export class ScenarioService implements OnDestroy {
     );
 
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // console.log('response => ', response);
+      // // console.log('response => ', response);
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -319,7 +334,7 @@ export class ScenarioService implements OnDestroy {
       hand1Hand,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      console.log('response => ', JSON.stringify(response, null, 2));
+      // // console.log('response => ', JSON.stringify(response, null, 2));
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -368,7 +383,7 @@ export class ScenarioService implements OnDestroy {
       hand1Hand,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      console.log('response => ', JSON.stringify(response, null, 2));
+      // // console.log('response => ', JSON.stringify(response, null, 2));
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -402,13 +417,13 @@ export class ScenarioService implements OnDestroy {
     const threat0Outofplay = this.selScenario.outOfPlay0;
 
     const exibitHalls = this.selScenario.outOfPlay1.slice(1);
-    console.log('exibitHalls => ', exibitHalls);
+    // console.log('exibitHalls => ', exibitHalls);
     // const randomRestrictedHall = random(2, 4);
-    // console.log('randomRestrictedHall => ', randomRestrictedHall);
+    // // console.log('randomRestrictedHall => ', randomRestrictedHall);
     // outOfPlay1: ['02137', '02132', '02133', '02134', '02135', '02136'],
     exibitHalls.splice(random(2, 4), 0, '02137');
     const threat1Outofplay = exibitHalls;
-    console.log('threat1Outofplay => ', threat1Outofplay);
+    // console.log('threat1Outofplay => ', threat1Outofplay);
 
     const agendaDeck = this.selScenario.agendaCards;
     const actDeck = this.selScenario.actCards;
@@ -432,7 +447,7 @@ export class ScenarioService implements OnDestroy {
       hand1Hand,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // console.log('response => ', JSON.stringify(response, null, 2));
+      // // console.log('response => ', JSON.stringify(response, null, 2));
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -457,12 +472,12 @@ export class ScenarioService implements OnDestroy {
   setUpScenario_6() {
     // setup up random
     const trainEngine = this.selScenario.locationCards[random(8, 10)];
-    console.log('trainEngine => ', trainEngine);
+    // console.log('trainEngine => ', trainEngine);
 
     const trainCars = samplesize(this.selScenario.locationCards.slice(0, 8), 6);
-    console.log('trainCars => ', trainCars);
+    // console.log('trainCars => ', trainCars);
     const locations = [...trainCars, trainEngine];
-    console.log('locations => ', locations);
+    // console.log('locations => ', locations);
 
     // const locations = this.selScenario.locationCards;
     const encounter0Deck = this.selScenario.encounterDeck;
@@ -489,7 +504,7 @@ export class ScenarioService implements OnDestroy {
       hand1Hand,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // console.log('response => ', JSON.stringify(response, null, 2));
+      // // console.log('response => ', JSON.stringify(response, null, 2));
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -521,14 +536,14 @@ export class ScenarioService implements OnDestroy {
       locationsTemp.push(pick);
     }
     locationsTemp.splice(random(0, 5), 1);
-    // console.log('locations => ', locationsTemp);
+    // // console.log('locations => ', locationsTemp);
     const locations = [vilageCommon, ...locationsTemp];
     // Three cards from ecnouner deck
     const encounter0Deck = shuffle(this.selScenario.encounterDeck);
-    console.log('encounter0Deck => ', encounter0Deck);
+    // console.log('encounter0Deck => ', encounter0Deck);
     const threeCards = encounter0Deck.splice(0, 3);
-    console.log('threeCards => ', threeCards);
-    console.log('encounter0Deck => ', encounter0Deck);
+    // console.log('threeCards => ', threeCards);
+    // console.log('encounter0Deck => ', encounter0Deck);
     const hiddenDeck = [...threeCards, '02214', '02215'];
 
     // const encounter0Deck = difference(this.selScenario.encounterDeck, threeCards);
@@ -557,7 +572,7 @@ export class ScenarioService implements OnDestroy {
       hiddenDeck,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // console.log('response => ', JSON.stringify(response, null, 2));
+      // // console.log('response => ', JSON.stringify(response, null, 2));
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -590,11 +605,11 @@ export class ScenarioService implements OnDestroy {
       const pick = allLocation[randomNum];
       locations.push(pick);
     }
-    console.log('locations => ', locations);
+    // console.log('locations => ', locations);
 
     const encounter0Deck = shuffle(this.selScenario.encounterDeck);
     const threat0Outofplay = difference(allLocation, locations);
-    console.log('threat0Outofplay => ', threat0Outofplay);
+    // console.log('threat0Outofplay => ', threat0Outofplay);
 
     const threat1Outofplay = this.selScenario.outOfPlay1;
     const agendaDeck = this.selScenario.agendaCards;
@@ -620,10 +635,10 @@ export class ScenarioService implements OnDestroy {
       hand0Hand,
       hand1Hand,
       play0Spare,
-      play1Spare
+      play1Spare,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // console.log('response => ', JSON.stringify(response, null, 2));
+      // // console.log('response => ', JSON.stringify(response, null, 2));
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -644,6 +659,112 @@ export class ScenarioService implements OnDestroy {
       ]);
     });
   }
+  // ---------------------------------------------------------------------------
+  // ! Where Doom Awaits
+  // ---------------------------------------------------------------------------
+  setUpScenario_9() {
+    const locations = this.selScenario.locationCards;
+    const encounter0Deck = shuffle(this.selScenario.encounterDeck);
+
+    const threat0Outofplay = [...this.selScenario.outOfPlay0];
+    // console.log('threat0Outofplay => ', threat0Outofplay);
+    threat0Outofplay.splice(random(0, 3), 1);
+    threat0Outofplay.splice(random(3, 6), 1);
+    // console.log('threat0Outofplay => ', threat0Outofplay);
+
+    const threat1Outofplay = this.selScenario.outOfPlay1;
+    const agendaDeck = this.selScenario.agendaCards;
+    const actDeck = this.selScenario.actCards;
+    const investigators = this.settings.selInvs;
+    const hand0Deck = this.retriveHandDeckCodes(this.settings.deckLists[0]);
+    const hand1Deck = this.retriveHandDeckCodes(this.settings.deckLists[1]);
+    const hand0Hand = hand0Deck.splice(0, 5);
+    const hand1Hand = hand1Deck.splice(0, 5);
+    const difficultyCard = this.selScenario.difficultyCards[this.selScenario.answers.difficulty];
+    const chaosBag = this.selScenario.chaosBagTokens[this.selScenario.answers.difficulty];
+    const query = locations.concat(
+      encounter0Deck,
+      threat0Outofplay,
+      threat1Outofplay,
+      agendaDeck,
+      actDeck,
+      investigators,
+      hand0Deck,
+      hand1Deck,
+      hand0Hand,
+      hand1Hand,
+    );
+    this.cardsDbService.getCardsFromDb(query).subscribe(response => {
+      // // console.log('response => ', JSON.stringify(response, null, 2));
+      this.fillDeck(locations, response, 'locations', false, false, 'locations');
+      this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
+      this.fillDeck(agendaDeck, response, 'agendaDeck', true);
+      this.fillDeck(actDeck, response, 'actDeck', true);
+      this.fillDeck(threat0Outofplay, response, 'threat0Outofplay', false);
+      this.fillDeck(threat1Outofplay, response, 'threat1Outofplay', true, true);
+      this.fillDeck(investigators, response, 'investigators', true);
+      this.fillDeck(hand0Deck, response, 'hand0Deck', false);
+      this.fillDeck(hand1Deck, response, 'hand1Deck', false);
+      this.fillDeck(hand0Hand, response, 'hand0Hand', true);
+      this.fillDeck(hand1Hand, response, 'hand1Hand', true);
+      this.store.dispatch([
+        new SetIntroText(this.selScenario.description[0]),
+        new SetDifficultyCard(difficultyCard),
+        new SetChaosBag(chaosBag),
+      ]);
+    });
+  }
+  // ---------------------------------------------------------------------------
+  // ! Lost in Time and Space
+  // ---------------------------------------------------------------------------
+  setUpScenario_10() {
+    const locations = this.selScenario.locationCards;
+    const encounter0Deck = shuffle(this.selScenario.encounterDeck);
+
+    const threat0Outofplay = this.selScenario.outOfPlay0;
+    const threat1Outofplay = this.selScenario.outOfPlay1;
+    const agendaDeck = this.selScenario.agendaCards;
+    const actDeck = this.selScenario.actCards;
+    const investigators = this.settings.selInvs;
+    const hand0Deck = this.retriveHandDeckCodes(this.settings.deckLists[0]);
+    const hand1Deck = this.retriveHandDeckCodes(this.settings.deckLists[1]);
+    const hand0Hand = hand0Deck.splice(0, 5);
+    const hand1Hand = hand1Deck.splice(0, 5);
+    const difficultyCard = this.selScenario.difficultyCards[this.selScenario.answers.difficulty];
+    const chaosBag = this.selScenario.chaosBagTokens[this.selScenario.answers.difficulty];
+    const query = locations.concat(
+      encounter0Deck,
+      threat0Outofplay,
+      threat1Outofplay,
+      agendaDeck,
+      actDeck,
+      investigators,
+      hand0Deck,
+      hand1Deck,
+      hand0Hand,
+      hand1Hand,
+    );
+    this.cardsDbService.getCardsFromDb(query).subscribe(response => {
+      // // console.log('response => ', JSON.stringify(response, null, 2));
+      this.fillDeck(locations, response, 'locations', false, false, 'locations');
+      this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
+      this.fillDeck(agendaDeck, response, 'agendaDeck', true);
+      this.fillDeck(actDeck, response, 'actDeck', true);
+      this.fillDeck(threat0Outofplay, response, 'threat0Outofplay', false);
+      this.fillDeck(threat1Outofplay, response, 'threat1Outofplay', true, true);
+      this.fillDeck(investigators, response, 'investigators', true);
+      this.fillDeck(hand0Deck, response, 'hand0Deck', false);
+      this.fillDeck(hand1Deck, response, 'hand1Deck', false);
+      this.fillDeck(hand0Hand, response, 'hand0Hand', true);
+      this.fillDeck(hand1Hand, response, 'hand1Hand', true);
+      this.store.dispatch([
+        new SetIntroText(this.selScenario.description[0]),
+        new SetDifficultyCard(difficultyCard),
+        new SetChaosBag(chaosBag),
+      ]);
+    });
+  }
+
   fillDeck(
     codes: string[],
     cards: Card[],
@@ -669,7 +790,7 @@ export class ScenarioService implements OnDestroy {
 
       if (flag === 'locations' || card.type_code === 'location') {
         const exits = LocationExits.find(loc => loc.code === code);
-        console.log('exits => ', exits);
+        // console.log('exits => ', exits);
         payload = {
           ...payload,
           faceUp: false,
@@ -712,7 +833,7 @@ export class ScenarioService implements OnDestroy {
         this.alertify.error('Unable to add this card...');
         return;
       }
-      console.log('exits => ', exits);
+      // console.log('exits => ', exits);
       cardToAdd = {
         ...cardToAdd,
         faceUp: false,
@@ -745,7 +866,7 @@ export class ScenarioService implements OnDestroy {
 
   // Unsubscribe when the component dies
   ngOnDestroy() {
-    console.log('Scenario service sink unsubscribe..');
+    // console.log('Scenario service sink unsubscribe..');
 
     this.subs.unsubscribe();
   }
