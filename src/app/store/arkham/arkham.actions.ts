@@ -86,11 +86,6 @@ export class MoveToken {
   constructor(public payload: any) {}
 }
 
-export class AddTokenOnAgenda {
-  public static readonly type = '[Token] Add Token on Agenda';
-  constructor(public payload: any) {}
-}
-
 export class AddToken {
   public static readonly type = '[Token] Add Token';
   constructor(public payload: any) {}
@@ -138,4 +133,28 @@ export class PreviousCard {
 
 export class SpawnAcolteOnSouthSide {
   public static readonly type = '[Extra] SpawnAcolte';
+}
+
+// -----------------------------------------------------------------------------
+// ! PROGRESS
+// -----------------------------------------------------------------------------
+export class ResetActionTokens {
+  public static readonly type = '[PROGRESS] ResetActionTokens';
+}
+
+export class IncreaseResourceToken {
+  public static readonly type = '[PROGRESS] IncreaseResourceToken';
+  constructor(public payload: number) {}
+}
+
+export class AddOneCardToHand {
+  public static readonly type = '[PROGRESS] AddOneCardToHand';
+}
+
+export class RevealEncounterCard {
+  public static readonly type = '[PROGRESS] RevealEncounterCard';
+}
+
+export class ReadyCards {
+  public static readonly type = '[PROGRESS] ReadyCards';
 }

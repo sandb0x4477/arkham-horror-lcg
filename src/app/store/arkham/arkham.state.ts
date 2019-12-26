@@ -18,7 +18,6 @@ import {
   NavBarSwitch,
   MoveToken,
   LocationSwitch,
-  AddTokenOnAgenda,
   DropOnLocNav,
   RemoveCard,
   SetDifficultyCard,
@@ -29,7 +28,12 @@ import {
   RemoveFromChaosBag,
   AddToChaosBag,
   AddExtraCard,
-  BloodOnAltar
+  BloodOnAltar,
+  ResetActionTokens,
+  IncreaseResourceToken,
+  AddOneCardToHand,
+  RevealEncounterCard,
+  ReadyCards,
 } from './arkham.actions';
 import { Card } from '../../shared/models/card.model';
 import { ArkhamStateIntial } from './initial-state';
@@ -122,52 +126,52 @@ const searchArray = [
 ];
 
 //#region SINGLEDECKS
-const singleDecks = [
-  'hand0-deck',
-  'hand0-deck-nav',
-  // 'hand0-hand',
-  // 'hand0-hand-nav',
-  'hand0-discard',
-  'hand0-discard-nav',
-  // 'hand0-spare',
-  // 'hand0-spare-nav',
-  'hand1-deck',
-  'hand1-deck-nav',
-  // 'hand1-hand',
-  // 'hand1-hand-nav',
-  'hand1-discard',
-  'hand1-discard-nav',
-  // 'hand1-spare',
-  // 'hand1-spare-nav',
-  // 'play0-inplay',
-  // 'play0-inplay-nav',
-  'play0-discard',
-  'play0-discard-nav',
-  // 'play0-victory',
-  // 'play0-victory-nav',
-  // 'play0-spare',
-  // 'play0-spare-nav',
-  // 'play1-inplay',
-  // 'play1-inplay-nav',
-  // 'play1-discard',
-  // 'play1-discard-nav',
-  // 'play1-victory',
-  // 'play1-victory-nav',
-  // 'play1-spare',
-  // 'play1-spare-nav',
-  // 'threat0-threats',
-  // 'threat0-threats-nav',
-  'threat0-outofplay',
-  'threat0-outofplay-nav',
-  // 'threat1-threats',
-  // 'threat1-threats-nav',
-  'threat1-outofplay',
-  'threat1-outofplay-nav',
-  'encounter0-encounter',
-  'encounter0-encounter-nav',
-  'encounter0-discard',
-  'encounter0-discard-nav',
-];
+// const singleDecks = [
+//   'hand0-deck',
+//   'hand0-deck-nav',
+//   // 'hand0-hand',
+//   // 'hand0-hand-nav',
+//   'hand0-discard',
+//   'hand0-discard-nav',
+//   // 'hand0-spare',
+//   // 'hand0-spare-nav',
+//   'hand1-deck',
+//   'hand1-deck-nav',
+//   // 'hand1-hand',
+//   // 'hand1-hand-nav',
+//   'hand1-discard',
+//   'hand1-discard-nav',
+//   // 'hand1-spare',
+//   // 'hand1-spare-nav',
+//   // 'play0-inplay',
+//   // 'play0-inplay-nav',
+//   'play0-discard',
+//   'play0-discard-nav',
+//   // 'play0-victory',
+//   // 'play0-victory-nav',
+//   // 'play0-spare',
+//   // 'play0-spare-nav',
+//   // 'play1-inplay',
+//   // 'play1-inplay-nav',
+//   // 'play1-discard',
+//   // 'play1-discard-nav',
+//   // 'play1-victory',
+//   // 'play1-victory-nav',
+//   // 'play1-spare',
+//   // 'play1-spare-nav',
+//   // 'threat0-threats',
+//   // 'threat0-threats-nav',
+//   'threat0-outofplay',
+//   'threat0-outofplay-nav',
+//   // 'threat1-threats',
+//   // 'threat1-threats-nav',
+//   'threat1-outofplay',
+//   'threat1-outofplay-nav',
+//   'encounter0-encounter',
+//   'encounter0-encounter-nav',
+//   'encounter0-discard',
+//   'encounter0-discard-nav',
+// ];
 //#endregion
 
 export interface ArkhamStateModel {
@@ -250,6 +254,102 @@ export class ArkhamState {
     return result;
   }
 
+  // ? Ready Exhausted Cards
+  @Action(ReadyCards)
+  public readyCards({ patchState, getState }: StateContext<ArkhamStateModel>) {
+    // const resultArr = [];
+    const state = getState();
+    searchArray.forEach(element => {
+      state[Container[element]].forEach((card: Card) => {
+        if (card.exhausted === true) {
+          console.log('card => ', card);
+          this.store.dispatch(new ExhaustCard({ cardId: card.id }));
+        }
+      });
+    });
+  }
+
+  @Action(ResetActionTokens)
+  public resetActionTokens({ patchState, getState }: StateContext<ArkhamStateModel>) {
+    const investigatorState = getState().investigators;
+    const tokenIndex0 = investigatorState[0].tokens.findIndex(t => t.tokenId === 'action');
+    const tokenIndex1 = investigatorState[1].tokens.findIndex(t => t.tokenId === 'action');
+    patchState({
+      investigators: produce(investigatorState, (draft: any) => {
+        draft[0].tokens[tokenIndex0].qty = 3;
+        draft[1].tokens[tokenIndex1].qty = 3;
+      }),
+    });
+  }
+
+  @Action(IncreaseResourceToken)
+  public increaseResourceToken(
+    { patchState, getState }: StateContext<ArkhamStateModel>,
+    { payload }: IncreaseResourceToken,
+  ) {
+    const investigatorState = getState().investigators;
+    const tokenIndex0 = investigatorState[0].tokens.findIndex(t => t.tokenId === 'resource');
+    const tokenIndex1 = investigatorState[1].tokens.findIndex(t => t.tokenId === 'resource');
+    patchState({
+      investigators: produce(investigatorState, (draft: any) => {
+        draft[0].tokens[tokenIndex0].qty += payload;
+        draft[1].tokens[tokenIndex1].qty += payload;
+      }),
+    });
+  }
+
+  // ? +ONE CARD TO HANDS
+  @Action(AddOneCardToHand)
+  public addOneCardToHand({ patchState, getState }: StateContext<ArkhamStateModel>) {
+    const deck0State = getState().hand0Deck;
+    const deck1State = getState().hand1Deck;
+    let card0Id = null;
+    let card1Id = null;
+    if (deck0State.length > 0) {
+      card0Id = deck0State[0].id;
+      this.store.dispatch(
+        new TransferArrayItem({
+          cardId: card0Id,
+          deckTargetId: 'hand0-hand',
+          deckSourceId: 'hand0-deck',
+          currentIndex: 0,
+          previousIndex: 0,
+          extraData: null,
+        }),
+      );
+    } else {
+      this.alertify.error('Deck is empty!');
+    }
+
+    if (deck1State.length > 0) {
+      card1Id = deck1State[0].id;
+      this.store.dispatch(
+        new TransferArrayItem({
+          cardId: card1Id,
+          deckTargetId: 'hand1-hand',
+          deckSourceId: 'hand1-deck',
+          currentIndex: 0,
+          previousIndex: 0,
+          extraData: null,
+        }),
+      );
+    } else {
+      this.alertify.error('Deck is empty!');
+    }
+  }
+
+  // ? Each Inv Draw One Encounter Card
+  @Action(RevealEncounterCard)
+  public revealEncounterCard({ getState, patchState }: StateContext<ArkhamStateModel>) {
+    const encounterState = getState().encounter0Deck;
+    if (encounterState.length < 1) {
+      this.alertify.error('Encounter Deck is empty!');
+      return;
+    }
+    const cardId = encounterState[0].id;
+    this.store.dispatch(new FlipCard({ cardId }));
+  }
+
   @Action(BloodOnAltar)
   public bloodOnAltar({ getState, patchState }: StateContext<ArkhamStateModel>) {
     const locationState = getState().locations.slice(1);
@@ -266,7 +366,6 @@ export class ArkhamState {
       };
       this.store.dispatch(new TransferArrayItem(payload));
     }
-
   }
 
   @Action(AddExtraCard)
@@ -535,6 +634,7 @@ export class ArkhamState {
 
   @Action(ExhaustCard)
   public exhaustCard({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: ExhaustCard) {
+    console.log('payload => ', payload)
     const { cardId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
 
@@ -610,28 +710,6 @@ export class ArkhamState {
         } else {
           draft[cardIndex].tokens[tokenIndex].y += distanceY;
         }
-      }),
-    });
-  }
-
-  @Action(AddTokenOnAgenda)
-  public addTokenOnAgenda(
-    { getState, patchState, setState }: StateContext<ArkhamStateModel>,
-    { payload }: AddTokenOnAgenda,
-  ) {
-    const { cardId, tokenId, posXRelative, posYRelative } = payload;
-    const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
-
-    const deckState = getState()[Container[deckId]];
-    const tokenIndex = deckState[cardIndex].tokens.findIndex(t => t.tokenId === tokenId);
-
-    patchState({
-      [Container[deckId]]: produce(deckState, (draft: any) => {
-        if (draft[cardIndex].tokens[tokenIndex].qty === 0) {
-          draft[cardIndex].tokens[tokenIndex].x = posXRelative - 30;
-          draft[cardIndex].tokens[tokenIndex].y = posYRelative - 30;
-        }
-        draft[cardIndex].tokens[tokenIndex].qty += 1;
       }),
     });
   }
