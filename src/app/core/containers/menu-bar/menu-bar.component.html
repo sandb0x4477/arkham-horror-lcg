@@ -1,3 +1,11 @@
+<ng-container *ngIf="isPlayPage$ | async">
+  <ng-container *ngIf="progressState$ | async as progress">
+    <ng-container *ngIf="progress.showProgressCard">
+      <app-progress-card [progress]="progress" (command)="onCommand($event)"></app-progress-card>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
 <div class="menu-bar-wrapper">
   <div class="arkham-logo" [routerLink]="['/']">
     <img src="assets/others/ArkhamHorrorlogo.png" alt="" />
@@ -10,26 +18,24 @@
     </div>
   </div>
 
+  <ng-container *ngIf="isPlayPage$ | async; else divTemplate">
+    <ng-container *ngIf="progressState$ | async as progress">
+      <div class="progress-title" (click)="onShowProgressCard()">
+        <ng-container *ngIf="progress.showProgressCard">
+          <span>{{ progress.phase }}&nbsp;&nbsp;&nbsp;<i class="fas fa-caret-up"></i></span>
+        </ng-container>
+        <span *ngIf="!progress.showProgressCard"
+          >{{ progress.phase }}&nbsp;&nbsp;&nbsp;<i class="fas fa-caret-down"></i
+        ></span>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-template #divTemplate>
+    <div></div>
+  </ng-template>
+
   <div class="menu-nav">
     <ng-container *ngIf="isGameInProgress$ | async">
-      <div class="menu-nav-item" (click)="onReadyCards()">
-       Ready Cards
-      </div>
-      <div class="menu-nav-item" (click)="onRevealEncounterCard()">
-       Rev Enc
-      </div>
-      <div class="menu-nav-item" (click)="onAddOneCardToHand()">
-       Add One Card
-      </div>
-      <div class="menu-nav-item" (click)="onIncreaseResourceToken()">
-       Inc Resource
-      </div>
-      <div class="menu-nav-item" (click)="onAddDoomTokenOnAgenda()">
-       Add Doom
-      </div>
-      <div class="menu-nav-item" (click)="onResetActionTokens()">
-        Reset Action
-      </div>
       <div class="menu-nav-item" [routerLink]="['/newgame']" routerLinkActive="active" (click)="onClick()">
         New Game
       </div>

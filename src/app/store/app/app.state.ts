@@ -1,12 +1,13 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 
-import { SetPlayStatus, SetMenuBarInfo, SetLoadingMain } from './app.actions';
+import { SetPlayStatus, SetMenuBarInfo, SetLoadingMain, SetIsPlayPage } from './app.actions';
 
 export interface AppStateModel {
   loadingMain: boolean;
   isGameInProgress: boolean;
   campaignName: string;
   scenarioName: string;
+  isPlayPage: boolean;
 }
 
 const appStateDefaults: AppStateModel = {
@@ -14,6 +15,7 @@ const appStateDefaults: AppStateModel = {
   isGameInProgress: false,
   campaignName: 'Arkham Horror',
   scenarioName: 'The Card Game',
+  isPlayPage: false,
 };
 
 @State<AppStateModel>({
@@ -48,9 +50,22 @@ export class AppState {
     return state.scenarioName;
   }
 
+  @Selector()
+  static isPlayPage(state: AppStateModel) {
+    return state.isPlayPage;
+  }
+
   // ---------------------------------------------------------------------------
   // ! ACTIONS
   // ---------------------------------------------------------------------------
+  @Action(SetIsPlayPage)
+  public setIsPlayPage({ patchState }: StateContext<AppStateModel>, { payload }: SetIsPlayPage) {
+    console.log('payload => ', payload);
+    patchState({
+      isPlayPage: payload,
+    });
+  }
+
   @Action(SetLoadingMain)
   public SetLoadingMain({ patchState }: StateContext<AppStateModel>, { payload }: SetLoadingMain) {
     patchState({

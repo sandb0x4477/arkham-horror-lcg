@@ -1,0 +1,56 @@
+<div class="progress-card">
+  <div class="turn-number">{{ progress.turnNumber }}</div>
+  <div class="phase">{{ progress.phase }}</div>
+  <div class="action-list">
+    <ng-container [ngSwitch]="progress.phase">
+      <ng-container *ngSwitchCase="'Mythos'">
+        <div>1.1 Round begins. Mythos phase begins.</div>
+        <div class="action-link" (click)="onCommand('placeDoom')">1.2 Place 1 doom on the current agenda.</div>
+        <div>1.2 Check doom threshold.</div>
+        <div class="action-link" (click)="onCommand('revealEncounterCard')">
+          1.3 Each investigator draws 1 encounter card.
+        </div>
+        <div>PLAYER WINDOW</div>
+        <div class="action-link" (click)="onCommand('nextPhase')">1.4 Mythos phase ends.</div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'Investigation'">
+        <div>2.1 Investigation phase begins.</div>
+        <div>PLAYER WINDOW</div>
+        <div>2.2.1 Next investigator's turn begins.</div>
+        <div>PLAYER WINDOW</div>
+        <div>
+          Active investigator may take an action. If, return to previous player window. If not, proceed to 2.2.2.
+        </div>
+        <div>
+          2.2.2 Investigator's turn ends. If an investigator has not yet taken a turn this phase, return to 2.2, else go
+          to 2.3
+        </div>
+        <div class="action-link" (click)="onCommand('nextPhase')">2.3 Investigation phase ends.</div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'Enemy'">
+        <div>3.1 Enemy phase begins.</div>
+        <div>3.2 Hunter enemies move.</div>
+        <div>PLAYER WINDOW</div>
+        <div>
+          3.3 Next investigator resolves engaged enemy attacks. If an investigator has not yet resolved enemy attacks
+          this phase, return to previous player window. After final investigator resolves engaged enemy attacks, proceed
+          to next player window.
+        </div>
+        <div>PLAYER WINDOW</div>
+        <div class="action-link" (click)="onCommand('nextPhase')">3.4 Enemy phase ends.</div>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <div>4.1 Upkeep phase begins</div>
+        <div>PLAYER WINDOW</div>
+        <div class="action-link" (click)="onCommand('resetActionTokens')">4.2 Reset investigators actions.</div>
+        <div class="action-link" (click)="onCommand('readyCards')">4.3 Ready each exhausted card.</div>
+        <div class="action-link" (click)="onCommand('increaseResourceToken')">4.4 Each investigator draws 1 card and gains 1 resource</div>
+        <div>4.5 Each investigator checks hand size.</div>
+        <div class="action-link" (click)="onCommand('nextPhase')">4.6 Upkeep phase ends. Round ends.</div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

@@ -8,6 +8,11 @@ export class SetPlayStatus {
 }
 
 export class SetMenuBarInfo {
-  static readonly type = '[App]  SetMenuBarInfo';
+  static readonly type = '[App] SetMenuBarInfo';
   constructor(public payload: any) {}
+}
+
+export class SetIsPlayPage {
+  static readonly type = '[App] SetIsPlayPage';
+  constructor(public payload: boolean) {}
 }

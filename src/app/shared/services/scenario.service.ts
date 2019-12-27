@@ -9,7 +9,7 @@ import samplesize from 'lodash.samplesize';
 
 import { CardsDbService } from './cards-db.service';
 import { Card } from '../models/card.model';
-import { SetIntroText, SetMenuBarInfo, AddExtraCard, BloodOnAltar, SwitchPage, SetLoadingMain } from '../../store';
+import { SetIntroText, SetMenuBarInfo, AddExtraCard, BloodOnAltar, SwitchPage, SetLoadingMain, ResetProgressState } from '../../store';
 import { SetPlayStatus } from '../../store';
 import { SettingsStateModel } from '../../store';
 import { ScenarioData } from '../models/scenario.data.model';
@@ -43,6 +43,7 @@ export class ScenarioService implements OnDestroy {
     const payload = { commandId: 'switchPage', id: 'selCampaign' };
     this.store.dispatch([new SwitchPage(payload), new SetLoadingMain(true)]);
     this.store.dispatch([new SetPlayStatus(false)]);
+    this.store.dispatch(new ResetProgressState());
     this.subs.sink = this.store.dispatch(new ResetArkhamState()).subscribe(res => {
       // console.log('res => ', res);
       this.settings = res.settings;

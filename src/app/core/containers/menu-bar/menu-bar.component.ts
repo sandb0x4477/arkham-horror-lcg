@@ -11,6 +11,10 @@ import {
   AddOneCardToHand,
   RevealEncounterCard,
   ReadyCards,
+  ProgressState,
+  ProgressStateModel,
+  ShowProgressCard,
+  NextPhase,
 } from '../../../store';
 
 @Component({
@@ -22,36 +26,44 @@ export class MenuBarComponent implements OnInit {
   @Select(AppState.isGameInProgress) isGameInProgress$: Observable<boolean>;
   @Select(AppState.campaignName) campaignName$: Observable<string>;
   @Select(AppState.scenarioName) scenarioName$: Observable<string>;
+  @Select(AppState.isPlayPage) isPlayPage$: Observable<boolean>;
+  @Select(ProgressState.getState) progressState$: Observable<ProgressStateModel>;
 
   constructor(private store: Store) {}
 
   ngOnInit() {}
 
+  onCommand(event: string) {
+    console.log('event => ', event);
+    switch (event) {
+      case 'placeDoom':
+        console.log('Executing placeDoom');
+        this.store.dispatch(new AddTokensToAgenda(1));
+        break;
+      case 'revealEncounterCard':
+        console.log('Executing revealEncounterCard');
+        this.store.dispatch(new RevealEncounterCard());
+        break;
+      case 'nextPhase':
+        this.store.dispatch(new NextPhase());
+        break;
+      case 'resetActionTokens':
+        this.store.dispatch(new ResetActionTokens());
+        break;
+      case 'increaseResourceToken':
+        this.store.dispatch([new IncreaseResourceToken(1), new AddOneCardToHand()]);
+        break;
+      case 'readyCards':
+        this.store.dispatch(new ReadyCards());
+        break;
+    }
+  }
+
   onClick() {
     this.store.dispatch(new SwitchPage({ commandId: 'switchPage', id: 'selCampaign' }));
   }
 
-  onAddDoomTokenOnAgenda() {
-    this.store.dispatch(new AddTokensToAgenda(1));
-  }
-
-  onResetActionTokens() {
-    this.store.dispatch(new ResetActionTokens());
-  }
-
-  onIncreaseResourceToken() {
-    this.store.dispatch(new IncreaseResourceToken(1));
-  }
-
-  onAddOneCardToHand() {
-    this.store.dispatch(new AddOneCardToHand());
-  }
-
-  onRevealEncounterCard() {
-    this.store.dispatch(new RevealEncounterCard());
-  }
-
-  onReadyCards() {
-    this.store.dispatch(new ReadyCards());
+  onShowProgressCard() {
+    this.store.dispatch(new ShowProgressCard());
   }
 }

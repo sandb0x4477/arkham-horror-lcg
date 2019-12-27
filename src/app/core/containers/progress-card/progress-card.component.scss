@@ -1,0 +1,72 @@
+@import '../../../../variables';
+
+:host {
+  position: absolute;
+  left: 1284px;
+  top: 40px;
+  width: 294px;
+  height: 210px;
+  background-color: #85806a;
+  z-index: 10;
+  background-image: url('#{$assetsPath}others/progress-back.jpg');
+  border-radius: 12px;
+}
+
+.progress-card {
+  display: grid;
+  grid-template-columns: 48px 246px;
+  grid-template-rows: 58px 152px;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-items: center;
+  grid-template-areas:
+    'a b'
+    'c b';
+}
+
+.turn-number {
+  grid-area: a;
+  align-self: end;
+  padding-left: 8px;
+  padding-bottom: 2px;
+  font-size: 1.2em;
+  font-family: 'Teko', sans-serif;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.phase {
+  grid-area: c;
+  padding-left: 5px;
+  font-size: 1.2em;
+  font-family: 'Teko', sans-serif;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+
+  padding-top: 12px;
+}
+
+.action-list {
+  grid-area: b;
+  display: grid;
+  align-content: space-around;
+  padding-left: 14px;
+  padding-right: 20px;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  font-size: 0.66em;
+  font-family: 'Courgette', sans-serif;
+}
+
+.action-link {
+  color: #027aaa;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+  }
+}

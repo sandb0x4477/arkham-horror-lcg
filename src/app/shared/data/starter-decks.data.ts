@@ -1407,4 +1407,4 @@ export const StarterDecks: StarterDeck[] = [
     previous_deck: null,
     next_deck: null,
   },
-]
+];

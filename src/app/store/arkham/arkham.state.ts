@@ -634,7 +634,6 @@ export class ArkhamState {
 
   @Action(ExhaustCard)
   public exhaustCard({ getState, patchState, setState }: StateContext<ArkhamStateModel>, { payload }: ExhaustCard) {
-    console.log('payload => ', payload)
     const { cardId } = payload;
     const { deckId, cardIndex } = this.findCardInDeck(getState(), cardId);
 
