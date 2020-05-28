@@ -9,7 +9,16 @@ import samplesize from 'lodash.samplesize';
 
 import { CardsDbService } from './cards-db.service';
 import { Card } from '../models/card.model';
-import { SetIntroText, SetMenuBarInfo, AddExtraCard, BloodOnAltar, SwitchPage, SetLoadingMain, ResetProgressState } from '../../store';
+import {
+  SetIntroText,
+  SetMenuBarInfo,
+  AddExtraCard,
+  BloodOnAltar,
+  SwitchPage,
+  SetLoadingMain,
+  ResetProgressState,
+  TheLastKing,
+} from '../../store';
 import { SetPlayStatus } from '../../store';
 import { SettingsStateModel } from '../../store';
 import { ScenarioData } from '../models/scenario.data.model';
@@ -33,11 +42,7 @@ export class ScenarioService implements OnDestroy {
   scenarioId: number;
   startingLocation: string;
 
-  constructor(
-    private store: Store,
-    private cardsDbService: CardsDbService,
-    private alertify: AlertifyService,
-  ) {}
+  constructor(private store: Store, private cardsDbService: CardsDbService, private alertify: AlertifyService) {}
 
   setUpGame() {
     const payload = { commandId: 'switchPage', id: 'selCampaign' };
@@ -85,6 +90,14 @@ export class ScenarioService implements OnDestroy {
 
         case 10:
           this.setUpScenario_10();
+          break;
+
+        case 11:
+          this.setUpScenario_11();
+          break;
+
+        case 12:
+          this.setUpScenario_12();
           break;
 
         default:
@@ -696,7 +709,7 @@ export class ScenarioService implements OnDestroy {
       hand1Hand,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // // console.log('response => ', JSON.stringify(response, null, 2));
+      // console.log('response => ', JSON.stringify(response, null, 2));
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -746,7 +759,7 @@ export class ScenarioService implements OnDestroy {
       hand1Hand,
     );
     this.cardsDbService.getCardsFromDb(query).subscribe(response => {
-      // // console.log('response => ', JSON.stringify(response, null, 2));
+      // console.log('response => ', JSON.stringify(response, null, 2));
       this.fillDeck(locations, response, 'locations', false, false, 'locations');
       this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
       this.fillDeck(agendaDeck, response, 'agendaDeck', true);
@@ -762,6 +775,115 @@ export class ScenarioService implements OnDestroy {
         new SetIntroText(this.selScenario.description[0]),
         new SetDifficultyCard(difficultyCard),
         new SetChaosBag(chaosBag),
+      ]);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // ! PTC: Scenario I: Curtain Call
+  // ---------------------------------------------------------------------------
+  setUpScenario_11() {
+    const locations = this.selScenario.locationCards;
+    const encounter0Deck = shuffle(this.selScenario.encounterDeck);
+    const actDeckTemp = this.selScenario.actCards;
+    // * Remove 2 Act Cards
+    const actDeck = [actDeckTemp[0], actDeckTemp[random(1, 3)], actDeckTemp[4]];
+    console.log('actDeck => ', actDeck);
+
+    const threat0Outofplay = this.selScenario.outOfPlay0;
+    const threat1Outofplay = this.selScenario.outOfPlay1;
+    const agendaDeck = this.selScenario.agendaCards;
+    const investigators = this.settings.selInvs;
+    const hand0Deck = this.retriveHandDeckCodes(this.settings.deckLists[0]);
+    const hand1Deck = this.retriveHandDeckCodes(this.settings.deckLists[1]);
+    const hand0Hand = hand0Deck.splice(0, 5);
+    const hand1Hand = hand1Deck.splice(0, 5);
+    const difficultyCard = this.selScenario.difficultyCards[this.selScenario.answers.difficulty];
+    const chaosBag = this.selScenario.chaosBagTokens[this.selScenario.answers.difficulty];
+    const query = locations.concat(
+      encounter0Deck,
+      threat0Outofplay,
+      threat1Outofplay,
+      agendaDeck,
+      actDeck,
+      investigators,
+      hand0Deck,
+      hand1Deck,
+      hand0Hand,
+      hand1Hand,
+    );
+    this.cardsDbService.getCardsFromDb(query).subscribe(response => {
+      // console.log('response => ', JSON.stringify(response, null, 2));
+      this.fillDeck(locations, response, 'locations', false, false, 'locations');
+      this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
+      this.fillDeck(agendaDeck, response, 'agendaDeck', true);
+      this.fillDeck(actDeck, response, 'actDeck', true);
+      this.fillDeck(threat0Outofplay, response, 'threat0Outofplay', false);
+      this.fillDeck(threat1Outofplay, response, 'threat1Outofplay', true, true);
+      this.fillDeck(investigators, response, 'investigators', true);
+      this.fillDeck(hand0Deck, response, 'hand0Deck', false);
+      this.fillDeck(hand1Deck, response, 'hand1Deck', false);
+      this.fillDeck(hand0Hand, response, 'hand0Hand', true);
+      this.fillDeck(hand1Hand, response, 'hand1Hand', true);
+      this.store.dispatch([
+        new SetIntroText(this.selScenario.description[0]),
+        new SetDifficultyCard(difficultyCard),
+        new SetChaosBag(chaosBag),
+      ]);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // ! PTC: Scenario 2: The Last King
+  // ---------------------------------------------------------------------------
+  setUpScenario_12() {
+    const locations = this.selScenario.locationCards;
+    const encounter0Deck = shuffle(this.selScenario.encounterDeck);
+    const actDeck = this.selScenario.actCards;
+    const hiddenDeck = this.selScenario.hiddenDeck;
+
+    const threat0Outofplay = this.selScenario.outOfPlay0;
+    const threat1Outofplay = this.selScenario.outOfPlay1;
+    const agendaDeck = this.selScenario.agendaCards;
+    const investigators = this.settings.selInvs;
+    const hand0Deck = this.retriveHandDeckCodes(this.settings.deckLists[0]);
+    const hand1Deck = this.retriveHandDeckCodes(this.settings.deckLists[1]);
+    const hand0Hand = hand0Deck.splice(0, 5);
+    const hand1Hand = hand1Deck.splice(0, 5);
+    const difficultyCard = this.selScenario.difficultyCards[this.selScenario.answers.difficulty];
+    const chaosBag = this.selScenario.chaosBagTokens[this.selScenario.answers.difficulty];
+    const query = locations.concat(
+      encounter0Deck,
+      threat0Outofplay,
+      threat1Outofplay,
+      agendaDeck,
+      actDeck,
+      investigators,
+      hand0Deck,
+      hand1Deck,
+      hand0Hand,
+      hand1Hand,
+      hiddenDeck
+    );
+    this.cardsDbService.getCardsFromDb(query).subscribe(response => {
+      // console.log('response => ', JSON.stringify(response, null, 2));
+      this.fillDeck(locations, response, 'locations', false, false, 'locations');
+      this.fillDeck(encounter0Deck, response, 'encounter0Deck', false, true);
+      this.fillDeck(agendaDeck, response, 'agendaDeck', true);
+      this.fillDeck(actDeck, response, 'actDeck', true);
+      this.fillDeck(threat0Outofplay, response, 'threat0Outofplay', false);
+      this.fillDeck(threat1Outofplay, response, 'threat1Outofplay', true, true);
+      this.fillDeck(investigators, response, 'investigators', true);
+      this.fillDeck(hand0Deck, response, 'hand0Deck', false);
+      this.fillDeck(hand1Deck, response, 'hand1Deck', false);
+      this.fillDeck(hand0Hand, response, 'hand0Hand', true);
+      this.fillDeck(hand1Hand, response, 'hand1Hand', true);
+      this.fillDeck(hiddenDeck, response, 'hiddenDeck', true, true);
+      this.store.dispatch([
+        new SetIntroText(this.selScenario.description[0]),
+        new SetDifficultyCard(difficultyCard),
+        new SetChaosBag(chaosBag),
+        new TheLastKing()
       ]);
     });
   }

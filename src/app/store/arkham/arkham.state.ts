@@ -34,6 +34,7 @@ import {
   AddOneCardToHand,
   RevealEncounterCard,
   ReadyCards,
+  TheLastKing,
 } from './arkham.actions';
 import { Card } from '../../shared/models/card.model';
 import { ArkhamStateIntial } from './initial-state';
@@ -348,6 +349,27 @@ export class ArkhamState {
     }
     const cardId = encounterState[0].id;
     this.store.dispatch(new FlipCard({ cardId }));
+  }
+
+  @Action(TheLastKing)
+  public theLastKing({ getState, patchState }: StateContext<ArkhamStateModel>) {
+    const locationState = getState().locations.slice(1);
+    const hiddenDeckState = getState().hiddenDeck;
+
+    for (let i = 0; i < locationState.length; i++) {
+      const payload = {
+        cardId: hiddenDeckState[i].id,
+        currentIndex: i,
+        deckSourceId: 'hidden-deck',
+        deckTargetId: 'location-threat',
+        extraData: locationState[i].id,
+        previousIndex: i,
+      };
+      this.store.dispatch(new TransferArrayItem(payload));
+      const payloadToken = { cardId: hiddenDeckState[i].id, tokenId: 'clue', posXRelative: 40, posYRelative: 140 };
+      this.store.dispatch(new AddToken(payloadToken));
+      this.store.dispatch(new AddToken(payloadToken));
+    }
   }
 
   @Action(BloodOnAltar)

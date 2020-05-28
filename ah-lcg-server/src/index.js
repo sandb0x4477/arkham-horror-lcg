@@ -25,7 +25,7 @@ mongoose.Promise = global.Promise;
 require("dotenv").config();
 
 // Connecting to the database
-mongoose.connect(process.env.DB_CONN, {
+mongoose.connect('mongodb://localhost:27020/ah-lcg', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {

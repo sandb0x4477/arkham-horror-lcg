@@ -33,4 +33,20 @@ export const CampaignsData: CampaignData[] = [
     // tslint:disable-next-line:max-line-length
     description: '“I’m going to burn his accursed diary, and if you men are wise\n\nyou’ll dynamite that altar-stone up there, and pull down all\n\nthe rings of standing stones on the other hills. Things like that\n\nbrought down the beings those Whateleys were so fond of...”\n\n\n –H. P. Lovecraft, “The Dunwich Horror”',
   },
+  {
+    name: 'The Path to Carcosa',
+    code: 'ptc',
+    position: 1,
+    cycle_position: 3,
+    available: '2017-01-12',
+    known: 120,
+    total: 110,
+    url: 'https://arkhamdb.com/set/ptc',
+    id: 2,
+    active: false,
+    title: 'Have You Seen the Yellow Sign?',
+    // prettier-ignore
+    // tslint:disable-next-line:max-line-length
+    description: '“He mentioned the establishment of the Dynasty in Carcosa, the\n\nlakes which connected Hastur, Aldebaran, and the mystery of\n\nthe Hyades. He spoke of Cassilda and Camilla, and sounded the\n\ncloudy depths of Demhe and the Lake of Hali”\n\n\n– Robert W. Chambers, “The Repairer of Reputations”',
+  },
 ];

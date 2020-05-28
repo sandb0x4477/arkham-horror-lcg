@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  mongoDB: '/api'
+  mongoDB: 'http://localhost:3033/api'
 };
 
 /*

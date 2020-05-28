@@ -921,6 +921,124 @@ export const LocationExits = [
     location_marker: null,
     location_marker_faceUp: 'path',
   },
+  // ---------------------------------------------------------------------------
+  // ! PTC: Scenario I: Curtain Call
+  // ---------------------------------------------------------------------------
+  {
+    code: '03049',
+    exits: ['diamond', 'triangle'],
+    exits_faceUp: null,
+    location_marker: 'circle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03050',
+    exits: ['circle', 'square', 'cross'],
+    exits_faceUp: null,
+    location_marker: 'triangle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03051',
+    exits: ['circle', 'triangle'],
+    exits_faceUp: null,
+    location_marker: 'square',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03052',
+    exits: ['circle', 'moon'],
+    exits_faceUp: null,
+    location_marker: 'diamond',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03053',
+    exits: ['triangle'],
+    exits_faceUp: null,
+    location_marker: 'cross',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03054',
+    exits: ['triangle'],
+    exits_faceUp: null,
+    location_marker: 'cross',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03055',
+    exits: ['triangle'],
+    exits_faceUp: null,
+    location_marker: 'cross',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03056',
+    exits: ['diamond'],
+    exits_faceUp: null,
+    location_marker: 'moon',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03057',
+    exits: ['diamond'],
+    exits_faceUp: null,
+    location_marker: 'moon',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03058',
+    exits: ['diamond'],
+    exits_faceUp: null,
+    location_marker: 'moon',
+    location_marker_faceUp: null,
+  },
+  // ---------------------------------------------------------------------------
+  // ! PTC: Scenario 2: The Last King
+  // ---------------------------------------------------------------------------
+  {
+    code: '03070',
+    exits: ['circle', 'square', 'equal'],
+    exits_faceUp: null,
+    location_marker: 't',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03071',
+    exits: ['t', 'circle', 'path'],
+    exits_faceUp: null,
+    location_marker: 'square',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03072',
+    exits: ['t', 'circle', 'cross'],
+    exits_faceUp: null,
+    location_marker: 'equal',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03073',
+    exits: ['equal', 'circle'],
+    exits_faceUp: null,
+    location_marker: 'cross',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03074',
+    exits: ['path', 'square', 't', 'equal', 'cross'],
+    exits_faceUp: null,
+    location_marker: 'circle',
+    location_marker_faceUp: null,
+  },
+  {
+    code: '03075',
+    exits: ['square', 'circle'],
+    exits_faceUp: null,
+    location_marker: 'path',
+    location_marker_faceUp: null,
+  },
 ];
 
 export const Tokens = [

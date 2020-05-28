@@ -1,3 +1,6 @@
+export class TheLastKing {
+  static readonly type = '[Scenario] TheLastKing';
+}
 export class BloodOnAltar {
   static readonly type = '[Scenario] BloodOnAltar';
 }
